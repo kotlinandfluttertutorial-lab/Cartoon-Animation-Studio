@@ -1,0 +1,33 @@
+{
+  "blender_version": "4.4.3",
+  "blender_executable": "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+  "render_engines": [
+    {
+      "id": "CYCLES",
+      "label": "Cycles"
+    }
+  ],
+  "cycles_gpu": {
+    "default_compute_device_type": "NONE",
+    "devices": []
+  },
+  "opengl_renderer": "unknown",
+  "build_info": {
+    "build_platform": "b'Windows'",
+    "build_type": "b'Release'",
+    "build_date": "b'2025-04-29'",
+    "build_time": "b'15:39:58'",
+    "build_commit_date": "b'2025-04-29'",
+    "build_commit_time": "b'14:09'",
+    "build_hash": "b'802179c51ccc'",
+    "build_branch": "b'blender-v4.4-release'"
+  },
+  "system": {
+    "os": "Windows",
+    "os_release": "10",
+    "os_version": "10.0.26300",
+    "machine": "AMD64",
+    "processor": "Intel64 Family 6 Model 142 Stepping 10, GenuineIntel",
+    "python_ver": "3.11.11 (main, Feb 11 2025, 07:53:58) [MSC v.1929 64 bit (AMD64)]"
+  }
+}

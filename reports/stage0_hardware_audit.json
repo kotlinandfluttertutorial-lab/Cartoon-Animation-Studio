@@ -1,0 +1,144 @@
+{
+  "audit_date": "2026-11-10",
+  "stage": "Stage 0 — Hardware Feasibility Audit",
+  "project": "Local 3D Cartoon Animation Studio",
+
+  "hardware": {
+    "cpu": {
+      "name": "Intel Core i7-8650U @ 1.90GHz",
+      "cores": 4,
+      "logical_processors": 8,
+      "base_clock_mhz": 1900,
+      "max_clock_mhz": 2112
+    },
+    "ram_gb": 32,
+    "gpu": {
+      "name": "Intel UHD Graphics 620",
+      "driver_version": "31.0.101.2134",
+      "vram_reported_mb": 1024,
+      "type": "integrated",
+      "cuda": false,
+      "opencl": "unknown_headless",
+      "vulkan": "unknown_headless"
+    },
+    "os": "Windows 10/11",
+    "os_version": "10.0.26300"
+  },
+
+  "software": {
+    "blender": {
+      "version": "4.4.3",
+      "build_date": "2025-04-29",
+      "build_hash": "802179c51ccc",
+      "executable": "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+      "install_type": "portable_zip",
+      "source": "https://mirror.blender.org/release/Blender4.4/blender-4.4.3-windows-x64.zip",
+      "embedded_python": "3.11.11"
+    },
+    "python_system": {
+      "version": "3.11.9",
+      "executable": "C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
+    },
+    "ffmpeg": {
+      "version": "9.0.2",
+      "build": "full_build-www.gyan.dev",
+      "executable": "C:\\Users\\admin\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-9.0.2-full_build\\bin\\ffmpeg.exe"
+    },
+    "ollama": "installed (Qwen3 4B)",
+    "piper_tts": "installed"
+  },
+
+  "blender_capabilities": {
+    "background_mode": true,
+    "python_scripting": true,
+    "render_engines_available": ["BLENDER_WORKBENCH", "BLENDER_EEVEE_NEXT", "CYCLES"],
+    "cycles_compute_devices": ["CPU"],
+    "cycles_gpu_available": false,
+    "eevee_headless": false,
+    "eevee_headless_note": "EEVEE Next (4.x) requires an OpenGL/GPU context; fails in --background on integrated graphics without virtual display"
+  },
+
+  "render_benchmarks": {
+    "test_scene": {
+      "objects": ["ground plane 10x10", "animated cube (rotation)", "animated sphere (vertical bounce)", "camera", "sun light"],
+      "resolution": "640x360",
+      "fps": 12,
+      "total_frames": 60,
+      "duration_seconds": 5
+    },
+    "workbench": {
+      "engine_id": "BLENDER_WORKBENCH",
+      "headless_compatible": true,
+      "total_render_time_s": 10.37,
+      "avg_frame_time_s": 0.172,
+      "min_frame_time_s": 0.086,
+      "max_frame_time_s": 4.08,
+      "first_frame_overhead_s": 4.08,
+      "steady_state_avg_s": 0.13,
+      "frames_rendered": 60,
+      "output_size_mb": 13.17,
+      "peak_memory_mb": "~22",
+      "note": "First-frame overhead is GPU context init; subsequent frames are fast"
+    },
+    "eevee": {
+      "engine_id": "BLENDER_EEVEE_NEXT",
+      "headless_compatible": false,
+      "result": "FAILED — requires display/GPU context in background mode",
+      "total_render_time_s": null,
+      "avg_frame_time_s": null,
+      "note": "Blender 4.x EEVEE Next requires an active GPU/OpenGL context. Not usable headless without Mesa/offscreen workaround."
+    },
+    "cycles_cpu": {
+      "engine_id": "CYCLES",
+      "headless_compatible": true,
+      "samples": 32,
+      "device": "CPU",
+      "total_render_time_s": 1236,
+      "total_render_time_min": 20.6,
+      "avg_frame_time_s": 20.6,
+      "min_frame_time_s": 9.47,
+      "max_frame_time_s": 39.76,
+      "frames_rendered": 60,
+      "peak_memory_mb": "~22-29",
+      "note": "All 60 frames completed successfully. High variance due to thermal throttling on i7-8650U. At 32 samples per frame, quality is acceptable for cartoon rendering."
+    }
+  },
+
+  "ffmpeg_test": {
+    "input": "60x PNG frames (640x360) from Workbench",
+    "output_format": "MP4 H.264",
+    "preset": "fast",
+    "crf": 23,
+    "output_size_kb": 53,
+    "success": true,
+    "note": "FFmpeg 9.0.2 successfully assembled frames into 5-second MP4"
+  },
+
+  "dependency_audit": {
+    "blender": "PRESENT (portable 4.4.3)",
+    "python_3_11": "PRESENT",
+    "ffmpeg": "PRESENT (9.0.2)",
+    "ollama_qwen3": "PRESENT",
+    "piper_tts": "PRESENT",
+    "cuda_gpu": "ABSENT (not applicable — no NVIDIA GPU)",
+    "opencl_intel": "NOT TESTED (headless mode)",
+    "mesa_llvmpipe": "NOT INSTALLED (would enable headless EEVEE via software GL)",
+    "numpy": "PRESENT (Blender embedded)",
+    "pillow": "NOT TESTED (not required for Blender rendering)"
+  },
+
+  "recommendation": {
+    "primary_engine": "BLENDER_WORKBENCH",
+    "reason": "Workbench is fully headless-compatible, renders a 640x360 frame in ~0.13s steady-state (10.4s for 60 frames), and produces visually acceptable cartoon-style output with flat shading and solid colors. It is the only engine that works reliably in background/automation mode on this hardware.",
+    "secondary_engine": "CYCLES_CPU",
+    "secondary_reason": "Cycles CPU works headless and produces photorealistic output, but at ~20s/frame it is 150x slower than Workbench. Acceptable only for final 'hero shot' single frames, not interactive or batch animation.",
+    "avoid_eevee": "EEVEE Next (Blender 4.x) fails headless without Mesa or a virtual display. Do not use for automated rendering unless a virtual framebuffer (e.g., Xvfb on WSL2) is configured.",
+    "cartoon_suitability": "GOOD — Workbench with Flat shading, solid colors, and optional outline/cavity settings is well-suited to cartoon animation. The i7-8650U can render a 1-minute cartoon (720 frames) in approximately 2 minutes at 640x360.",
+    "scaling_estimate": {
+      "640x360_12fps_1min": "~2 min render time",
+      "1280x720_12fps_1min": "~8 min render time (estimated 4x slower)",
+      "1920x1080_24fps_1min": "not recommended — would exceed 60 min"
+    },
+    "verdict": "FEASIBLE for simple 3D cartoon animation at 640x360 or 720p using Blender Workbench engine."
+  }
+}
