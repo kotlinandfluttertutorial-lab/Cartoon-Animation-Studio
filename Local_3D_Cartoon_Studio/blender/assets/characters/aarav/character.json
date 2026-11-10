@@ -1,0 +1,65 @@
+{
+  "character_id": "aarav",
+  "character_name": "Aarav",
+  "version": "1.0.0",
+  "created_date": "2026-11-10T13:45:28.576082Z",
+  "blend_file": "aarav.blend",
+  "statistics": {
+    "total_polygons": 684,
+    "total_objects": 26,
+    "total_materials": 8,
+    "armature_bones": 20,
+    "generation_time_s": 0.247,
+    "peak_memory_mb": 0.0
+  },
+  "expressions": [
+    "neutral",
+    "happy",
+    "surprised",
+    "sad"
+  ],
+  "poses": [
+    "rest",
+    "wave",
+    "dance"
+  ],
+  "previews": {
+    "front": "previews/front.png",
+    "side": "previews/side.png",
+    "three_quarter": "previews/three_quarter.png",
+    "wave_pose": "previews/wave_pose.png",
+    "happy_expression": "previews/happy_expression.png"
+  },
+  "materials": {
+    "Aarav_Skin": "#C68642",
+    "Aarav_Shirt": "#2196F3",
+    "Aarav_Trousers": "#1A237E",
+    "Aarav_Shoes": "#EEEEEE",
+    "Aarav_Hair": "#3E2723",
+    "Aarav_EyeWhite": "#FFFFFF",
+    "Aarav_Iris": "#4E342E",
+    "Aarav_Mouth": "#E57373"
+  },
+  "bones": [
+    "root",
+    "hips",
+    "spine",
+    "chest",
+    "neck",
+    "head",
+    "shoulder_L",
+    "upper_arm_L",
+    "forearm_L",
+    "hand_L",
+    "shoulder_R",
+    "upper_arm_R",
+    "forearm_R",
+    "hand_R",
+    "thigh_L",
+    "shin_L",
+    "foot_L",
+    "thigh_R",
+    "shin_R",
+    "foot_R"
+  ]
+}
