@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.env
+logs/*.log
+logs/jobs/*.json
+output/smoke_test/
+output/*.mp4

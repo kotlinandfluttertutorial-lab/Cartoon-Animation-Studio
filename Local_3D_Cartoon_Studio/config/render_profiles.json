@@ -1,0 +1,32 @@
+{
+  "PREVIEW": {
+    "width": 640,
+    "height": 360,
+    "fps": 12,
+    "engine": "BLENDER_WORKBENCH",
+    "image_format": "PNG",
+    "shading": "SOLID",
+    "enabled": true,
+    "ffmpeg_output": false
+  },
+  "INITIAL_PRODUCTION": {
+    "width": 640,
+    "height": 360,
+    "fps": 12,
+    "engine": "BLENDER_WORKBENCH",
+    "image_format": "PNG",
+    "shading": "SOLID",
+    "enabled": true,
+    "ffmpeg_output": true
+  },
+  "EXPERIMENTAL_720P": {
+    "width": 1280,
+    "height": 720,
+    "fps": 12,
+    "engine": "BLENDER_WORKBENCH",
+    "image_format": "PNG",
+    "shading": "SOLID",
+    "enabled": false,
+    "ffmpeg_output": false
+  }
+}
