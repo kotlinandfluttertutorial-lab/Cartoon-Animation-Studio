@@ -188,10 +188,11 @@ class TestRenderTiming:
         with tempfile.TemporaryDirectory() as tmp_dir:
             out_path = os.path.join(tmp_dir, "aarav_front_timing.png")
 
-            # Minimal inline Blender script: open the blend file and render
-            # a single 640x360 Workbench frame to *out_path*.
+            # Minimal inline Blender script: open the blend file, add a
+            # camera (the .blend has none), and render a single 640x360
+            # Workbench frame to *out_path*.
             inline_script = (
-                "import bpy\n"
+                "import bpy, mathutils\n"
                 f"bpy.ops.wm.open_mainfile(filepath={AARAV_BLEND!r})\n"
                 "scene = bpy.context.scene\n"
                 "scene.render.engine = 'BLENDER_WORKBENCH'\n"
@@ -199,6 +200,16 @@ class TestRenderTiming:
                 "scene.render.resolution_y = 360\n"
                 "scene.render.image_settings.file_format = 'PNG'\n"
                 f"scene.render.filepath = {out_path!r}\n"
+                "# Add camera — aarav.blend stores no scene camera\n"
+                "cam_data = bpy.data.cameras.new('TimingCam')\n"
+                "cam_data.lens = 50\n"
+                "cam_obj = bpy.data.objects.new('TimingCam', cam_data)\n"
+                "scene.collection.objects.link(cam_obj)\n"
+                "scene.camera = cam_obj\n"
+                "cam_obj.location = (0, -3.5, 0.9)\n"
+                "target = mathutils.Vector((0, 0, 0.9))\n"
+                "direction = target - cam_obj.location\n"
+                "cam_obj.rotation_euler = direction.to_track_quat('-Z', 'Y').to_euler()\n"
                 "bpy.ops.render.render(write_still=True)\n"
                 "print('RENDER_DONE')\n"
             )
