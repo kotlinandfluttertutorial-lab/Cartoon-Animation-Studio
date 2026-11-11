@@ -1,13 +1,13 @@
 {
   "environment_id": "garden",
   "version": "1.0.0",
-  "created_date": "2026-11-11T13:03:33.040326Z",
+  "created_date": "2026-11-11T14:38:10.071033Z",
   "blend_file": "garden.blend",
   "statistics": {
     "total_polygons": 2416,
     "total_objects": 75,
     "total_materials": 34,
-    "generation_time_s": 0.63,
+    "generation_time_s": 0.587,
     "blend_file_size_bytes": 1702138
   },
   "collections": [
