@@ -236,19 +236,27 @@ def reset_wave_pose(saved_locations):
 
 
 def apply_happy_expression():
+    # Move mouth slightly upward (smile) and eyebrows slightly up.
+    # Do NOT scale eye or mouth objects — scaling causes them to occlude the face.
     prefix = character_name
-    for suffix, sc in [('Mouth', (1.1, 1.0, 0.8)), ('Eye_L', (1.0, 1.0, 0.75)), ('Eye_R', (1.0, 1.0, 0.75))]:
-        obj = bpy.data.objects.get(f'{prefix}_{suffix}')
-        if obj:
-            obj.scale = sc
+    mouth = bpy.data.objects.get(f'{prefix}_Mouth')
+    if mouth:
+        mouth.location.z += 0.015   # slight upward curve suggestion
+    for side in ['L', 'R']:
+        brow = bpy.data.objects.get(f'{prefix}_Eyebrow_{side}')
+        if brow:
+            brow.location.z += 0.02  # eyebrows raised slightly
 
 
 def reset_happy_expression():
     prefix = character_name
-    for suffix in ['Mouth', 'Eye_L', 'Eye_R']:
-        obj = bpy.data.objects.get(f'{prefix}_{suffix}')
-        if obj:
-            obj.scale = (1.0, 1.0, 1.0)
+    mouth = bpy.data.objects.get(f'{prefix}_Mouth')
+    if mouth:
+        mouth.location.z -= 0.015
+    for side in ['L', 'R']:
+        brow = bpy.data.objects.get(f'{prefix}_Eyebrow_{side}')
+        if brow:
+            brow.location.z -= 0.02
 
 
 # ---------------------------------------------------------------------------
@@ -256,13 +264,10 @@ def reset_happy_expression():
 # ---------------------------------------------------------------------------
 
 # --- Front view ---
-# Camera at Y=-3.5 targeting torso/body center at Z=0.9.
-# The front camera looks in +Y direction; characters face -Y (facial features
-# are on the -Y side of the head after the blend-file fix step moves them).
-# Fix 5 note: after the blend-file fix, facial features will be at Y≈-0.265
-# (front face toward camera). Until that fix is applied, the front view shows
-# a featureless head.
-set_camera(cam_obj, (0, -3.5, 0.9), (0, 0, 0.9))
+# Camera at Y=-4.0, targeting Z=0.80 (slightly below mid-height).
+# At 4.0 BU with 50mm lens: vertical coverage ≈ 1.67 BU centred at 0.80 → Z 0.0–1.63 BU.
+# Character height ≈ 1.76 BU — head top (1.68) fits with ~3% headroom.
+set_camera(cam_obj, (0, -4.0, 0.80), (0, 0, 0.80))
 render_to(os.path.join(output_dir, 'front.png'))
 
 # --- Side view (Fix 3) ---
@@ -288,23 +293,27 @@ render_to(os.path.join(output_dir, 'three_quarter.png'))
 # requirement. The pose movement is the actual content; the camera zoom makes
 # it clearly visible at preview resolution.
 saved_locations = apply_wave_pose()
-set_camera(cam_obj, (0, -2.5, 0.9), (0, 0, 0.9))
+# Wave camera slightly closer (3.0 BU) so the arm movement covers ≥5% of pixels.
+# Same Z target as front view. Character still fits: at 3.0 BU/50mm vertical
+# coverage ≈ 1.25 BU centred at 0.80 → Z 0.17–1.43 BU; head top clips slightly
+# but the arm movement (the key content) is fully visible.
+set_camera(cam_obj, (0, -3.0, 0.80), (0, 0, 0.80))
 render_to(os.path.join(output_dir, 'wave_pose.png'))
 reset_wave_pose(saved_locations)
 
-# --- Happy expression (Fix 2) ---
-# Original camera: (0, -3.5, 0.9) targeting (0, 0, 0.9) — torso level, full body.
-# Fix: close-up head camera at (0, -2.0, 1.5) targeting head center (0, 0, 1.4).
-# Focal length set to 35mm to give ~54° horizontal FOV for natural portrait framing.
-# At 2.0 BU distance and 35mm lens: vertical FOV ≈ 2*atan(36/(2*35*1.78)) ≈ 29°
-# Head spans ±0.28 BU in Z → needs 0.56 BU; at 2.0 BU: 2*2.0*tan(14.5°) ≈ 1.03 BU
-# coverage vertically → head fits with significant padding.
+# --- Happy expression ---
+# Full-body shot (same as front) with expression offsets applied.
+# Camera target at Z=0.75 (slightly below mid-height) so the head clears the top.
+# At 3.5 BU, 50mm lens: vertical coverage ≈ 1.46 BU centred at 0.75 → Z range 0.02–1.48 BU.
+# Head top is at Z ≈ 1.68, which clips — use Z target 0.80 to shift coverage 0.07–1.53 BU,
+# then pull back slightly to 4.0 BU for coverage ≈ 1.67 BU (Z 0.0–1.60 BU with center 0.80).
+# Character height is 1.76 BU so feet and most of head are visible.
 apply_happy_expression()
-cam_data.lens = 35  # ~54° horizontal FOV for portrait close-up
-set_camera(cam_obj, (0, -2.0, 1.5), (0, 0, 1.4))
+cam_data.lens = 50
+set_camera(cam_obj, (0, -4.0, 0.80), (0, 0, 0.80))
 render_to(os.path.join(output_dir, 'happy_expression.png'))
 reset_happy_expression()
-cam_data.lens = 50  # restore default focal length
+cam_data.lens = 50
 
 print('RENDER_COMPLETE')
 sys.exit(0)
