@@ -1,0 +1,26 @@
+{
+  "garden_wide.png": {
+    "size_bytes": 312794,
+    "dimensions": "640x360",
+    "valid_png": true,
+    "sha256": "88341913f621e573516b056b1c9073d87cd6814bc77ed9b832e8235ab8cfce36"
+  },
+  "garden_main.png": {
+    "size_bytes": 292466,
+    "dimensions": "640x360",
+    "valid_png": true,
+    "sha256": "e28ce41df88c64d47ee943c4b7f3b477e12b429cb40888ea1397c9d3c1f8cc0a"
+  },
+  "garden_close.png": {
+    "size_bytes": 241230,
+    "dimensions": "640x360",
+    "valid_png": true,
+    "sha256": "6571af7f1875b19d4554c0f28f8fcc2cf72d42c004f9b6748886e5f60316975f"
+  },
+  "garden_with_characters.png": {
+    "size_bytes": 303656,
+    "dimensions": "640x360",
+    "valid_png": true,
+    "sha256": "07a27ed5db5c6bc4ae15f4437c085338f2c945956b273d118c2963a0e27212b1"
+  }
+}

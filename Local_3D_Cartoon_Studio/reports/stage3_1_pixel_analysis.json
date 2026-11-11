@@ -1,0 +1,78 @@
+{
+  "garden_wide.png": {
+    "size_bytes": 313252,
+    "dimensions": "640x360",
+    "sha256": "6b3535733bab5bd9",
+    "valid_png": true,
+    "content_pct": 88.2,
+    "sky_band_rgb": [
+      175.1,
+      189.6,
+      194.2
+    ],
+    "ground_band_rgb": [
+      78.4,
+      109.3,
+      78.7
+    ],
+    "char_strip_rgb": null
+  },
+  "garden_main.png": {
+    "size_bytes": 292542,
+    "dimensions": "640x360",
+    "sha256": "36757cfe894f3b40",
+    "valid_png": true,
+    "content_pct": 90.6,
+    "sky_band_rgb": [
+      160.6,
+      177.9,
+      177.4
+    ],
+    "ground_band_rgb": [
+      74.0,
+      101.9,
+      74.9
+    ],
+    "char_strip_rgb": null
+  },
+  "garden_close.png": {
+    "size_bytes": 249908,
+    "dimensions": "640x360",
+    "sha256": "dc3d2cf6c035cc20",
+    "valid_png": true,
+    "content_pct": 100.0,
+    "sky_band_rgb": [
+      75.4,
+      99.4,
+      76.7
+    ],
+    "ground_band_rgb": [
+      80.2,
+      104.5,
+      81.4
+    ],
+    "char_strip_rgb": null
+  },
+  "garden_with_characters.png": {
+    "size_bytes": 303076,
+    "dimensions": "640x360",
+    "sha256": "3b8650e99a349332",
+    "valid_png": true,
+    "content_pct": 90.6,
+    "sky_band_rgb": [
+      160.6,
+      177.9,
+      177.4
+    ],
+    "ground_band_rgb": [
+      69.8,
+      94.4,
+      71.9
+    ],
+    "char_strip_rgb": [
+      76.7,
+      93.7,
+      79.6
+    ]
+  }
+}
