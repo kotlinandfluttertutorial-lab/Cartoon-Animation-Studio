@@ -175,19 +175,31 @@ X and Z positions are unchanged. Applied via `blender/scripts/fix_facial_positio
 
 ### 3.2 Preview Image Inventory
 
+**`blender/assets/characters/aarav/previews/`**
+
 | File | Resolution | Size (bytes) | Valid |
 |---|---|---|---|
-| aarav/previews/front.png | 640 × 360 | 177,782 | ✅ |
-| aarav/previews/side.png | 640 × 360 | 148,364 | ✅ |
-| aarav/previews/three_quarter.png | 640 × 360 | 175,979 | ✅ |
-| aarav/previews/wave_pose.png | 640 × 360 | 189,950 | ✅ |
-| aarav/previews/happy_expression.png | 640 × 360 | 224,277 | ✅ |
-| aanya/previews/front.png | 640 × 360 | 183,366 | ✅ |
-| aanya/previews/side.png | 640 × 360 | 147,458 | ✅ |
-| aanya/previews/three_quarter.png | 640 × 360 | 178,330 | ✅ |
-| aanya/previews/wave_pose.png | 640 × 360 | 200,843 | ✅ |
-| aanya/previews/happy_expression.png | 640 × 360 | 217,579 | ✅ |
-| combined/both_characters.png | 640 × 360 | 188,200 | ✅ |
+| front.png | 640 × 360 | 177,782 | ✅ |
+| side.png | 640 × 360 | 148,364 | ✅ |
+| three_quarter.png | 640 × 360 | 175,979 | ✅ |
+| wave_pose.png | 640 × 360 | 189,950 | ✅ |
+| happy_expression.png | 640 × 360 | 224,277 | ✅ |
+
+**`blender/assets/characters/aanya/previews/`**
+
+| File | Resolution | Size (bytes) | Valid |
+|---|---|---|---|
+| front.png | 640 × 360 | 183,366 | ✅ |
+| side.png | 640 × 360 | 147,458 | ✅ |
+| three_quarter.png | 640 × 360 | 178,330 | ✅ |
+| wave_pose.png | 640 × 360 | 200,843 | ✅ |
+| happy_expression.png | 640 × 360 | 217,579 | ✅ |
+
+**`blender/assets/characters/combined/`**
+
+| File | Resolution | Size (bytes) | Valid |
+|---|---|---|---|
+| both_characters.png | 640 × 360 | 188,200 | ✅ |
 
 ### 3.3 Structural Integrity (post-fix)
 
@@ -220,19 +232,53 @@ Full output: `reports/stage2_regression_results.txt`
 
 ## 4. Files Modified
 
-| File | Type | Change |
-|---|---|---|
-| `blender/scripts/render_character_preview.py` | Modified | Fixes D1 / D3 / D4 — wave pose, happy camera, side camera |
-| `blender/scripts/_render_combined.py` | Modified | Fix D5 — combined camera centred on character midpoint |
-| `blender/scripts/fix_facial_positions.py` | New | Fix D2 applicator script |
-| `blender/assets/characters/aarav/aarav.blend` | Modified | Fix D2 — facial features moved to −Y |
-| `blender/assets/characters/aanya/aanya.blend` | Modified | Fix D2 — facial features moved to −Y |
-| `blender/assets/characters/aarav/previews/*.png` | Regenerated | All 5 views updated |
-| `blender/assets/characters/aanya/previews/*.png` | Regenerated | All 5 views updated |
-| `blender/assets/characters/combined/both_characters.png` | Regenerated | Updated |
+### `blender/scripts/`
 
-No Stage 1 files touched. No character geometry, materials, armature structure, or bone
-definitions were changed. The wave pose angles are identical to the original specification.
+| File | Type | Fixes | Detail |
+|---|---|---|---|
+| `render_character_preview.py` | Modified | D1, D3, D4 | Wave pose Option B (depsgraph bone midpoints); happy camera `(0,−2.0,1.5)` 35 mm; side camera 5.0 BU at 0.875 BU height |
+| `_render_combined.py` | Modified | D5 | Camera centred on character midpoint `(0.125,−4.5,0.875)`, looks in +Y toward front faces |
+| `fix_facial_positions.py` | **New** | D2 | One-shot script that opened each blend file, moved 8 facial objects per character to −Y, and saved |
+
+### `blender/assets/characters/aarav/`
+
+| File | Type | Fixes | Detail |
+|---|---|---|---|
+| `aarav.blend` | Modified | D2 | 8 facial feature objects moved from Y = +0.24..+0.265 to Y = −0.265..−0.278 |
+| `previews/front.png` | Regenerated | D2 | Facial features now on camera-facing side |
+| `previews/side.png` | Regenerated | D4 | Full body now fits in frame |
+| `previews/three_quarter.png` | Regenerated | — | Unchanged camera; re-rendered for consistency |
+| `previews/wave_pose.png` | Regenerated | D1 | Arm raised; 29.65% diff from front |
+| `previews/happy_expression.png` | Regenerated | D3 | Portrait close-up at head height |
+
+### `blender/assets/characters/aanya/`
+
+| File | Type | Fixes | Detail |
+|---|---|---|---|
+| `aanya.blend` | Modified | D2 | 8 facial feature objects moved from Y = +0.24..+0.265 to Y = −0.265..−0.278 |
+| `previews/front.png` | Regenerated | D2 | Facial features now on camera-facing side |
+| `previews/side.png` | Regenerated | D4 | Full body now fits in frame |
+| `previews/three_quarter.png` | Regenerated | — | Unchanged camera; re-rendered for consistency |
+| `previews/wave_pose.png` | Regenerated | D1 | Arm raised; 31.02% diff from front |
+| `previews/happy_expression.png` | Regenerated | D3 | Portrait close-up at head height |
+
+### `blender/assets/characters/combined/`
+
+| File | Type | Fixes | Detail |
+|---|---|---|---|
+| `both_characters.png` | Regenerated | D5 | Both characters front-facing in re-centred camera view |
+
+### `reports/`
+
+| File | Type | Detail |
+|---|---|---|
+| `stage2_regression_results.txt` | **New** | Full pytest output — 22/22 passed |
+| `stage2_visual_review_report.md` | Updated | Pre-fix findings replaced with post-fix measurements |
+| `stage2_1_remediation_report.md` | **New** | This document |
+
+---
+
+**Not touched:** All Stage 1 files, `character_utils.py`, `create_aarav.py`, `create_aanya.py`, `validate_character.py`, `character.json` files, `tests/` directory, `studio/` directory. Character geometry, materials, armature structure, bone definitions, and wave pose angles are identical to the original Stage 2 specification.
 
 ---
 
