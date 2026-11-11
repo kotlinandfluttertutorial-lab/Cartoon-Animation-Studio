@@ -40,15 +40,22 @@ if aarav_col:
         obj.location.x = -0.4
 
 # 6. Add camera
+# Fix 4: Both characters must face the camera from the front.
+# Characters face -Y (facial features on -Y side after blend-file fix).
+# Camera is placed at -Y so it looks in +Y direction and sees the front faces.
+# Aarav is at X=-0.4 and Aanya is at X=0.65; midpoint X=0.125.
+# Two characters together span ~1.05 BU in X, plus arm width ~0.65 BU total ≈ 1.7 BU wide.
+# Camera at Y=-4.5 provides enough distance for full-body framing at 50mm lens.
+# Camera height set to half character height (~0.875 BU) targeting body center.
 cam_data = bpy.data.cameras.new("CombinedCam")
 cam_data.lens = 50
 cam_obj = bpy.data.objects.new("CombinedCam", cam_data)
 bpy.context.scene.collection.objects.link(cam_obj)
 bpy.context.scene.camera = cam_obj
 
-# Place camera at (0, -4.5, 0.9) looking at (0.1, 0, 0.9)
-cam_pos = mathutils.Vector((0, -4.5, 0.9))
-target  = mathutils.Vector((0.1, 0, 0.9))
+# Camera at (X=midpoint, Y=-4.5, Z=0.875) targeting character center midpoint
+cam_pos = mathutils.Vector((0.125, -4.5, 0.875))
+target  = mathutils.Vector((0.125, 0.0, 0.875))
 cam_obj.location = cam_pos
 direction = target - cam_pos
 rot_quat = direction.to_track_quat('-Z', 'Y')
