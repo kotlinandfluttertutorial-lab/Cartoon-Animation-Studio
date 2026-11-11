@@ -1,0 +1,120 @@
+{
+  "review_date": "2026-11-11",
+  "stage": "Stage 3.1 — Garden Environment Visual Review",
+  "blender_version": "4.4.3",
+  "python_version": "3.11.9",
+  "pillow_version": "12.3.0",
+  "review_type": "automated_analysis + ai_visual_inspection",
+  "human_approval_status": "PENDING",
+
+  "file_verification": {
+    "garden_wide.png":            { "exists": true, "size_bytes": 313252, "dimensions": "640x360", "valid_png": true },
+    "garden_main.png":            { "exists": true, "size_bytes": 292542, "dimensions": "640x360", "valid_png": true },
+    "garden_close.png":           { "exists": true, "size_bytes": 249908, "dimensions": "640x360", "valid_png": true },
+    "garden_with_characters.png": { "exists": true, "size_bytes": 303076, "dimensions": "640x360", "valid_png": true }
+  },
+
+  "pixel_analysis": {
+    "garden_wide.png":            { "content_pct": 88.2, "sky_band_rgb": [175,190,194], "is_blank": false },
+    "garden_main.png":            { "content_pct": 90.6, "sky_band_rgb": [161,178,177], "is_blank": false },
+    "garden_close.png":           { "content_pct": 100.0,"sky_band_rgb": [75,99,77],   "is_blank": false, "note": "no sky visible — camera at ground level" },
+    "garden_with_characters.png": { "content_pct": 90.6, "sky_band_rgb": [161,178,177], "char_strip_rgb": [77,94,80], "is_blank": false }
+  },
+
+  "checklist": {
+    "garden_composition": {
+      "coherent_cartoon_appearance":    "PASS",
+      "ground_grass_appearance":        "PASS",
+      "ground_patch_edges_visible":     "WARNING",
+      "ground_boundary_visible":        "WARNING",
+      "path_visibility":                "PASS",
+      "character_area_clear":           "PASS",
+      "bench_signboard_visible":        "PASS"
+    },
+    "trees_bushes": {
+      "tree_proportions":               "PASS",
+      "tree_foliage_shape":             "PASS",
+      "tree_foliage_colour_variation":  "WARNING",
+      "tree_trunk_clipping":            "WARNING",
+      "bush_appearance":                "PASS"
+    },
+    "flowers_decorations": {
+      "flowers_visible_wide_main":      "WARNING",
+      "flowers_visible_close":          "PASS",
+      "flower_colour_variety":          "PASS",
+      "stones_visible":                 "PASS",
+      "bench_visible":                  "PASS"
+    },
+    "cameras": {
+      "garden_wide_composition":        "PASS",
+      "garden_main_composition":        "PASS",
+      "garden_close_composition":       "WARNING",
+      "garden_with_characters":         "PASS"
+    },
+    "character_integration": {
+      "both_characters_present":        "PASS",
+      "both_facing_camera":             "PASS",
+      "aarav_face_visible":             "PASS",
+      "aanya_face_visible":             "PASS",
+      "characters_scaled_correctly":    "PASS",
+      "feet_on_ground":                 "PASS",
+      "no_geometry_clipping":           "PASS"
+    },
+    "sky_background": {
+      "sky_colour_correct":             "WARNING",
+      "clouds_visible":                 "FAIL"
+    }
+  },
+
+  "known_issues_reassessment": {
+    "ground_patch_edges":           { "confirmed_visible": true, "severity": "WARNING" },
+    "foreground_tree_clipping":     { "confirmed_visible": true, "severity": "WARNING" },
+    "flowers_too_small":            { "confirmed_visible": true, "severity": "WARNING" },
+    "character_facial_reset":       { "is_issue": false, "note": "Garden +Y cameras correctly see +Y-facing features" },
+    "peak_memory_unavailable":      { "confirmed": true, "severity": "INFO" },
+    "clouds_not_visible":           { "confirmed_visible": true, "severity": "FAIL", "note": "Clouds at Y=-5 to -8 are behind all +Y cameras" }
+  },
+
+  "recommended_corrections": [
+    {
+      "priority": "MEDIUM",
+      "issue": "Clouds not visible in any preview",
+      "action": "Move clouds from Y=-5..-8 to Y=+6..+8 so they appear in background from +Y cameras",
+      "blocking": false
+    },
+    {
+      "priority": "MEDIUM",
+      "issue": "Ground patch rectangular edges visible",
+      "action": "Remove ground patches or randomise/blend edges; base grass colour is acceptable alone",
+      "blocking": false
+    },
+    {
+      "priority": "LOW",
+      "issue": "garden_close camera at ground level, no sky",
+      "action": "Raise Garden_Close_Camera to Z=1.5-2.0, target Z=0.5",
+      "blocking": false
+    },
+    {
+      "priority": "LOW",
+      "issue": "Flowers too small in wide/main views",
+      "action": "Increase flower scale by 50% or accept as decorative detail",
+      "blocking": false
+    },
+    {
+      "priority": "LOW",
+      "issue": "Ground plane boundary visible at extreme wide edges",
+      "action": "Increase ground plane to 30x30 BU or accept as stylistic frame",
+      "blocking": false
+    }
+  ],
+
+  "overall_result": {
+    "status": "MINOR_CORRECTIONS_REQUIRED",
+    "blocking_defects": 0,
+    "warnings": 10,
+    "fails": 1,
+    "character_integration": "PASS",
+    "stage4_ready": true,
+    "human_approval": "PENDING"
+  }
+}
