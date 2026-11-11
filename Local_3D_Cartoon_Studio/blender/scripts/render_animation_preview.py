@@ -276,8 +276,9 @@ def render_character_animation(blend_file, char_name, renders):
     scene = setup_scene()
     cam_obj = make_camera(scene)
 
-    # Front view camera — same as render_character_preview.py
-    set_camera(cam_obj, (0, -4.0, 0.80), (0, 0, 0.80))
+    # Front view camera — characters face +Y, so camera must be at +Y looking toward -Y
+    # This is the same direction as the garden scene cameras
+    set_camera(cam_obj, (0, 4.0, 0.80), (0, 0, 0.80))
 
     arm_name = f'{char_name}_Armature'
     arm_obj = bpy.data.objects.get(arm_name)
@@ -334,7 +335,7 @@ def render_both_characters(frame=1):
     cam_obj = bpy.data.objects.new('RenderCamBoth', cam_data)
     scene.collection.objects.link(cam_obj)
     scene.camera = cam_obj
-    set_camera(cam_obj, (0, -5.5, 0.80), (0, 0, 0.80))
+    set_camera(cam_obj, (0, 5.5, 0.80), (0, 0, 0.80))
 
     # Apply walk animation frame 1 to Aarav
     aarav_arm = bpy.data.objects.get('Aarav_Armature')
