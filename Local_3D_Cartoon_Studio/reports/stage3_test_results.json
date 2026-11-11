@@ -1,40 +1,63 @@
 {
   "stage": "3",
-  "overall": "PASS",
-  "total_passed": 33,
-  "total_failed": 0,
-  "total_skipped": 0,
-  "total_errors": 0,
-  "new_tests": {
-    "passed": 11,
-    "failed": 0,
-    "files": [
-      {
-        "file": "tests/test_garden_generation.py",
-        "passed": 6
-      },
-      {
-        "file": "tests/test_garden_render.py",
-        "passed": 5
-      }
-    ]
+  "environment_id": "garden",
+  "test_run": {
+    "new_garden_tests": {
+      "files": [
+        {
+          "file": "tests/test_garden_generation.py",
+          "passed": 6,
+          "failed": 0
+        },
+        {
+          "file": "tests/test_garden_render.py",
+          "passed": 5,
+          "failed": 0
+        }
+      ],
+      "total_passed": 11,
+      "total_failed": 0
+    },
+    "regression_tests": {
+      "files": [
+        {
+          "file": "tests/test_character_generation.py",
+          "passed": 9,
+          "failed": 0
+        },
+        {
+          "file": "tests/test_character_rig.py",
+          "passed": 7,
+          "failed": 0
+        },
+        {
+          "file": "tests/test_character_render.py",
+          "passed": 6,
+          "failed": 0
+        }
+      ],
+      "total_passed": 22,
+      "total_failed": 0
+    },
+    "total_passed": 33,
+    "total_failed": 0,
+    "total_skipped": 0,
+    "total_errors": 0
   },
-  "regression_tests": {
-    "passed": 22,
-    "failed": 0,
-    "files": [
-      {
-        "file": "tests/test_character_generation.py",
-        "passed": 9
-      },
-      {
-        "file": "tests/test_character_rig.py",
-        "passed": 7
-      },
-      {
-        "file": "tests/test_character_render.py",
-        "passed": 6
-      }
-    ]
-  }
+  "validate_garden": {
+    "verdict": "PASS",
+    "checks": {
+      "all_9_collections_exist": true,
+      "ground_plane_at_z0": true,
+      "at_least_3_trees": true,
+      "at_least_4_bushes": true,
+      "at_least_8_flowers": true,
+      "at_least_3_cameras": true,
+      "all_objects_valid_dimensions": true,
+      "character_area_clear": true,
+      "validation_json_written": true
+    }
+  },
+  "source": ".agents/tasks/stage3-garden/results.json",
+  "assembled_at": "2026-11-11T12:07:57.130076Z"
 }
