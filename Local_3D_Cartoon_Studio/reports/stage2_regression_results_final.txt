@@ -1,0 +1,51 @@
+﻿python.exe : C:\Users\admin\AppData\Local\Programs\Python\Python311\Lib\site-pa
+ckages\pytest_asyncio\plugin.py:299: PytestDeprecationWarning: The 
+configuration option "asyncio_default_fixture_loop_scope" is unset.
+At line:1 char:1
++ & $python -m pytest tests/test_character_generation.py tests/test_cha ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\admin\...cope" is unset. 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+The event loop scope for asynchronous fixtures will default to the "fixture" 
+caching scope. Future versions of pytest-asyncio will default the loop scope 
+for asynchronous fixtures to "function" scope. Set the default fixture loop 
+scope explicitly in order to avoid unexpected behavior in the future. Valid 
+fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.3.5, pluggy-1.6.0 -- C:\Users\admin\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase(WindowsPath('P:/AI/Cartoon-Animation-Studio/Local_3D_Cartoon_Studio/.hypothesis/examples'))
+metadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.26300-SP0', 'Packages': {'pytest': '8.3.5', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.6.2', 'hypothesis': '6.115.3', 'asyncio': '1.4.0', 'cov': '5.0.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}, 'JAVA_HOME': 'C:\\Program Files\\Java\\jdk-17'}
+rootdir: P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio
+plugins: anyio-4.6.2, hypothesis-6.115.3, asyncio-1.4.0, cov-5.0.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 22 items
+
+tests/test_character_generation.py::TestCharacterJsonSchema::test_character_json_schema[P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aarav\\character.json-aarav] PASSED [  4%]
+tests/test_character_generation.py::TestCharacterJsonSchema::test_character_json_schema[P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aanya\\character.json-aanya] PASSED [  9%]
+tests/test_character_generation.py::TestCharacterJsonPreviewPaths::test_character_json_preview_paths[P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aarav\\character.json-aarav] PASSED [ 13%]
+tests/test_character_generation.py::TestCharacterJsonPreviewPaths::test_character_json_preview_paths[P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aanya\\character.json-aanya] PASSED [ 18%]
+tests/test_character_generation.py::TestScriptFilesExist::test_script_files_exist PASSED [ 22%]
+tests/test_character_generation.py::TestBlendFilesExist::test_aarav_blend_exists PASSED [ 27%]
+tests/test_character_generation.py::TestBlendFilesExist::test_aanya_blend_exists PASSED [ 31%]
+tests/test_character_generation.py::TestGenerationIdempotency::test_generation_idempotency PASSED [ 36%]
+tests/test_character_generation.py::TestGenerationIdempotency::test_no_duplicate_objects PASSED [ 40%]
+tests/test_character_rig.py::TestValidationPass::test_aarav_validation_pass PASSED [ 45%]
+tests/test_character_rig.py::TestValidationPass::test_aanya_validation_pass PASSED [ 50%]
+tests/test_character_rig.py::TestAllBones::test_aarav_all_bones PASSED   [ 54%]
+tests/test_character_rig.py::TestAllBones::test_aanya_all_bones PASSED   [ 59%]
+tests/test_character_rig.py::TestBoneCount::test_aarav_bone_count PASSED [ 63%]
+tests/test_character_rig.py::TestBoneCount::test_aanya_bone_count PASSED [ 68%]
+tests/test_character_rig.py::TestPoseApplication::test_pose_application PASSED [ 72%]
+tests/test_character_render.py::TestPreviewsExist::test_aarav_previews_exist PASSED [ 77%]
+tests/test_character_render.py::TestPreviewsExist::test_aanya_previews_exist PASSED [ 81%]
+tests/test_character_render.py::TestPreviewsExist::test_combined_preview_exists PASSED [ 86%]
+tests/test_character_render.py::TestRenderProducesValidPng::test_render_produces_valid_png PASSED [ 90%]
+tests/test_character_render.py::TestRenderResolution::test_render_resolution PASSED [ 95%]
+tests/test_character_render.py::TestRenderTiming::test_render_timing PASSED [100%]
+
+============================= 22 passed in 8.46s ==============================

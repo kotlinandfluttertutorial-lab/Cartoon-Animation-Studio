@@ -1,0 +1,89 @@
+{
+  "stage": "3",
+  "environment_id": "garden",
+  "generation_time_s": 0.541,
+  "blend_file_size_bytes": 1707018,
+  "total_polygons": 2416,
+  "total_objects": 75,
+  "total_materials": 34,
+  "validation": {
+    "verdict": "PASS",
+    "checks": {
+      "all_9_collections_exist": true,
+      "ground_plane_at_z0": true,
+      "at_least_3_trees": true,
+      "at_least_4_bushes": true,
+      "at_least_8_flowers": true,
+      "at_least_3_cameras": true,
+      "all_objects_valid_dimensions": true,
+      "character_area_clear": true,
+      "validation_json_written": true
+    }
+  },
+  "previews": {
+    "garden_wide": {
+      "path": "previews/garden_wide.png",
+      "size_bytes": 292534,
+      "render_time_s": 2.082
+    },
+    "garden_main": {
+      "path": "previews/garden_main.png",
+      "size_bytes": 265855,
+      "render_time_s": 0.2
+    },
+    "garden_close": {
+      "path": "previews/garden_close.png",
+      "size_bytes": 238354,
+      "render_time_s": 0.216
+    },
+    "garden_with_characters": {
+      "path": "previews/garden_with_characters.png",
+      "size_bytes": 288509,
+      "render_time_s": 0.243
+    }
+  },
+  "tests": {
+    "new": {
+      "passed": 11,
+      "failed": 0,
+      "details": [
+        {
+          "file": "tests/test_garden_generation.py",
+          "passed": 6,
+          "failed": 0
+        },
+        {
+          "file": "tests/test_garden_render.py",
+          "passed": 5,
+          "failed": 0
+        }
+      ]
+    },
+    "regression": {
+      "passed": 22,
+      "failed": 0,
+      "details": [
+        {
+          "file": "tests/test_character_generation.py",
+          "passed": 9,
+          "failed": 0
+        },
+        {
+          "file": "tests/test_character_rig.py",
+          "passed": 7,
+          "failed": 0
+        },
+        {
+          "file": "tests/test_character_render.py",
+          "passed": 6,
+          "failed": 0
+        }
+      ]
+    },
+    "total_passed": 33,
+    "total_failed": 0,
+    "total_skipped": 0,
+    "total_errors": 0
+  },
+  "assembled_at": "2026-11-11T12:07:57.130076Z"
+}

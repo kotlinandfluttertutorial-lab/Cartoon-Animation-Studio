@@ -1,0 +1,15 @@
+{
+  "job_id": "e570acfc-3657-4459-8539-a4586b853c23",
+  "job_type": "smoke_test",
+  "status": "completed",
+  "progress": 1.0,
+  "start_time": "2026-11-10T08:11:00.117143",
+  "end_time": "2026-11-10T08:11:03.266320",
+  "error_message": null,
+  "blender_log": null,
+  "metadata": {
+    "script": "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\scripts\\smoke_test.py",
+    "output_dir": "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output",
+    "engine": "BLENDER_WORKBENCH"
+  }
+}

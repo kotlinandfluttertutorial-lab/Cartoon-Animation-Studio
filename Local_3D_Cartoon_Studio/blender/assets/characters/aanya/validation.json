@@ -1,0 +1,20 @@
+{
+  "character": "Aanya",
+  "blend_file": "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aanya\\aanya.blend",
+  "overall": "PASS",
+  "checks": {
+    "collection_exists": true,
+    "armature_exists": true,
+    "all_bones_present": true,
+    "missing_bones": [],
+    "required_objects_present": true,
+    "missing_objects": [],
+    "materials_valid": true,
+    "height_valid": true,
+    "ground_level_valid": true
+  },
+  "statistics": {
+    "poly_count": 818,
+    "object_count": 28
+  }
+}

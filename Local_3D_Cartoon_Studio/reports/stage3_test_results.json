@@ -1,0 +1,107 @@
+{
+  "stage": "Stage 3 — Garden Environment",
+  "date": "2026-11-11",
+  "blender_version": "4.4.3",
+  "python_version": "3.11.9",
+  "test_runner": "pytest",
+  "execution_time_s": 14.59,
+  "summary": {
+    "total": 33,
+    "passed": 33,
+    "failed": 0,
+    "skipped": 0,
+    "errors": 0
+  },
+  "suites": [
+    {
+      "name": "test_garden_generation.py",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "type": "new"
+    },
+    {
+      "name": "test_garden_render.py",
+      "tests": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "type": "new"
+    },
+    {
+      "name": "test_character_generation.py",
+      "tests": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "type": "regression"
+    },
+    {
+      "name": "test_character_rig.py",
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "type": "regression"
+    },
+    {
+      "name": "test_character_render.py",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "type": "regression"
+    }
+  ],
+  "garden_generation": {
+    "status": "success",
+    "blend_file_size_bytes": 1702138,
+    "total_polygons": 2416,
+    "total_objects": 75,
+    "total_materials": 34,
+    "generation_time_s": 0.63,
+    "collections": 9,
+    "cameras": 3,
+    "validate_garden_result": "PASS",
+    "validate_garden_checks_passed": 9,
+    "validate_garden_checks_total": 9
+  },
+  "preview_validation": {
+    "garden_wide.png": {
+      "exists": true,
+      "resolution": "640x360",
+      "size_bytes": 313252,
+      "valid_png": true,
+      "render_time_s": 2.749
+    },
+    "garden_main.png": {
+      "exists": true,
+      "resolution": "640x360",
+      "size_bytes": 292542,
+      "valid_png": true,
+      "render_time_s": 0.167
+    },
+    "garden_close.png": {
+      "exists": true,
+      "resolution": "640x360",
+      "size_bytes": 249908,
+      "valid_png": true,
+      "render_time_s": 0.171
+    },
+    "garden_with_characters.png": {
+      "exists": true,
+      "resolution": "640x360",
+      "size_bytes": 303076,
+      "valid_png": true,
+      "render_time_s": 0.265
+    }
+  },
+  "regression_tests": {
+    "stage2_tests_passed": 22,
+    "stage2_tests_failed": 0,
+    "stage0_files_modified": false,
+    "stage1_files_modified": false,
+    "stage2_character_files_modified": false
+  }
+}

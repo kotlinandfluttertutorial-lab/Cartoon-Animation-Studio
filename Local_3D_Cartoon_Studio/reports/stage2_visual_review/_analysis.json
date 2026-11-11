@@ -1,0 +1,134 @@
+{
+  "images": {
+    "aarav/previews/front.png": {
+      "path": "aarav/previews/front.png",
+      "exists": true,
+      "size_bytes": 173884,
+      "sha256": "78686d3ccac2fd2997fdee16be001e92fbc6e4d4580cb787bccd98e161c442a1",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aarav/previews/side.png": {
+      "path": "aarav/previews/side.png",
+      "exists": true,
+      "size_bytes": 156876,
+      "sha256": "e65afb2287a6e16eccd9c837ef285821ae07a92012a96102afd43039dc30c321",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aarav/previews/three_quarter.png": {
+      "path": "aarav/previews/three_quarter.png",
+      "exists": true,
+      "size_bytes": 172094,
+      "sha256": "51e87a68ae35876fa7341ed22d909160c0f87dbdae8cfae0b22febca5c250cf5",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aarav/previews/wave_pose.png": {
+      "path": "aarav/previews/wave_pose.png",
+      "exists": true,
+      "size_bytes": 173884,
+      "sha256": "594abd7a363dc8d3e481c036650ecf6d048042519361c5f9ae2d00320ad7dc5f",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aarav/previews/happy_expression.png": {
+      "path": "aarav/previews/happy_expression.png",
+      "exists": true,
+      "size_bytes": 224433,
+      "sha256": "5aa8ab1e03177ca74bf9ea7351f180613cbe7c95c8678121ff5c82c98ac7b7b0",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aanya/previews/front.png": {
+      "path": "aanya/previews/front.png",
+      "exists": true,
+      "size_bytes": 180685,
+      "sha256": "53e860bdef44671b05dd7a2b973cdfe156c5290201885b48a6d5ba643380829f",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aanya/previews/side.png": {
+      "path": "aanya/previews/side.png",
+      "exists": true,
+      "size_bytes": 161137,
+      "sha256": "e58a40429d4ce5c16cdd607feb07441a3cb21165bdba59d596db32e75b6ceb71",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aanya/previews/three_quarter.png": {
+      "path": "aanya/previews/three_quarter.png",
+      "exists": true,
+      "size_bytes": 175409,
+      "sha256": "7edf68af52898934af085396d318e9c2ef782bf7d0933ebdf3c55f17c97ce8f3",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aanya/previews/wave_pose.png": {
+      "path": "aanya/previews/wave_pose.png",
+      "exists": true,
+      "size_bytes": 180685,
+      "sha256": "9342131759dce7c786cfa304ede8567539531da2e8527b5c8051de0c1e97ffc4",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "aanya/previews/happy_expression.png": {
+      "path": "aanya/previews/happy_expression.png",
+      "exists": true,
+      "size_bytes": 219037,
+      "sha256": "ea7cd37ae30c0bcb852c907eece107465f32676c364fdab8b0209eb867b074cd",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    },
+    "combined/both_characters.png": {
+      "path": "combined/both_characters.png",
+      "exists": true,
+      "size_bytes": 186679,
+      "sha256": "bafd6e7d504a2a79d445f386fb2f5e93026fa12d9c23259dfea7d505519365c9",
+      "valid_png": true,
+      "width": 640,
+      "height": 360,
+      "mode": "RGBA"
+    }
+  },
+  "comparisons": {
+    "aarav": {
+      "char": "aarav",
+      "total_pixels": 230400,
+      "changed_pixels": 0,
+      "changed_pct": 0.0,
+      "hashes_match": false,
+      "sizes_match": true,
+      "diff_image": "aarav_front_vs_wave_diff.png"
+    },
+    "aanya": {
+      "char": "aanya",
+      "total_pixels": 230400,
+      "changed_pixels": 0,
+      "changed_pct": 0.0,
+      "hashes_match": false,
+      "sizes_match": true,
+      "diff_image": "aanya_front_vs_wave_diff.png"
+    }
+  }
+}

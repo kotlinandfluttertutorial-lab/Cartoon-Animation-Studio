@@ -1,0 +1,42 @@
+{
+  "blend_file": "p:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\environments\\garden\\garden.blend",
+  "verdict": "PASS",
+  "checks": {
+    "all_9_collections_exist": {
+      "pass": true,
+      "missing": []
+    },
+    "ground_plane_at_z0": {
+      "pass": true,
+      "location_z": 0.0
+    },
+    "at_least_3_trees": {
+      "pass": true,
+      "count": 5
+    },
+    "at_least_4_bushes": {
+      "pass": true,
+      "count": 6
+    },
+    "at_least_8_flowers": {
+      "pass": true,
+      "count": 12
+    },
+    "at_least_3_cameras": {
+      "pass": true,
+      "count": 3
+    },
+    "all_objects_valid_dimensions": {
+      "pass": true,
+      "invalid": []
+    },
+    "character_area_clear": {
+      "pass": true,
+      "blocking_objects": []
+    },
+    "validation_json_written": {
+      "pass": true,
+      "path": "p:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\.agents\\tasks\\stage3-garden\\validation.json"
+    }
+  }
+}
