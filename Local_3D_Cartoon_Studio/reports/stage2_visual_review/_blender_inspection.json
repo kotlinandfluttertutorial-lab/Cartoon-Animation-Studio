@@ -1,0 +1,86 @@
+{
+  "aarav": {
+    "character": "Aarav",
+    "blend_file": "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aarav\\aarav.blend",
+    "blend_exists": true,
+    "checks": {
+      "collection_exists": true,
+      "armature_exists": true,
+      "all_bones_present": true,
+      "bone_count": 20,
+      "missing_bones": [],
+      "mesh_object_count": 26,
+      "mesh_objects_exist": true,
+      "required_parts_present": true,
+      "missing_parts": [],
+      "material_count": 8,
+      "materials_non_default": true,
+      "default_grey_materials": [],
+      "facial_components_found": [
+        "Aarav_Eye_L",
+        "Aarav_Eye_R",
+        "Aarav_Eyebrow_L",
+        "Aarav_Eyebrow_R",
+        "Aarav_Mouth",
+        "Aarav_Nose"
+      ],
+      "facial_components_missing": [],
+      "facial_components_exist": true,
+      "estimated_height": 1.76,
+      "height_in_range": true,
+      "approx_ground_z": 0.0,
+      "ground_level_valid": true,
+      "armature_custom_properties": [
+        "expressions"
+      ]
+    },
+    "warnings": [
+      "STRUCTURAL ONLY: Pose visual correctness cannot be verified without rendering.",
+      "STRUCTURAL ONLY: Expression visual correctness cannot be verified without rendering."
+    ],
+    "overall": "PASS",
+    "failed_checks": []
+  },
+  "aanya": {
+    "character": "Aanya",
+    "blend_file": "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aanya\\aanya.blend",
+    "blend_exists": true,
+    "checks": {
+      "collection_exists": true,
+      "armature_exists": true,
+      "all_bones_present": true,
+      "bone_count": 20,
+      "missing_bones": [],
+      "mesh_object_count": 28,
+      "mesh_objects_exist": true,
+      "required_parts_present": true,
+      "missing_parts": [],
+      "material_count": 8,
+      "materials_non_default": true,
+      "default_grey_materials": [],
+      "facial_components_found": [
+        "Aanya_Eye_L",
+        "Aanya_Eye_R",
+        "Aanya_Eyebrow_L",
+        "Aanya_Eyebrow_R",
+        "Aanya_Mouth",
+        "Aanya_Nose"
+      ],
+      "facial_components_missing": [],
+      "facial_components_exist": true,
+      "estimated_height": 1.69,
+      "height_in_range": true,
+      "approx_ground_z": 0.0,
+      "ground_level_valid": true,
+      "armature_custom_properties": [
+        "expressions"
+      ]
+    },
+    "warnings": [
+      "STRUCTURAL ONLY: Pose visual correctness cannot be verified without rendering.",
+      "STRUCTURAL ONLY: Expression visual correctness cannot be verified without rendering."
+    ],
+    "overall": "PASS",
+    "failed_checks": []
+  }
+}

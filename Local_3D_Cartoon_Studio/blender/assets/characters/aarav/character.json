@@ -2,14 +2,14 @@
   "character_id": "aarav",
   "character_name": "Aarav",
   "version": "1.0.0",
-  "created_date": "2026-11-10T13:45:28.576082Z",
+  "created_date": "2026-11-11T05:28:27.158643Z",
   "blend_file": "aarav.blend",
   "statistics": {
     "total_polygons": 684,
     "total_objects": 26,
     "total_materials": 8,
     "armature_bones": 20,
-    "generation_time_s": 0.247,
+    "generation_time_s": 0.266,
     "peak_memory_mb": 0.0
   },
   "expressions": [
