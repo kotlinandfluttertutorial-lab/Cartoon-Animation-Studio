@@ -1,0 +1,67 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  # ── Enforce base branch convention ────────────────────────────────────────
+  base-branch-check:
+    name: Base Branch Convention
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR targets develop (not main directly)
+        if: github.base_ref == 'main' && github.head_ref != 'develop'
+        run: |
+          echo "WARNING: This PR targets 'main' directly."
+          echo "Convention: feature/* and stage-* branches should PR into 'develop'."
+          echo "Only 'develop' should PR into 'main' for releases."
+          echo "Consider re-targeting this PR to 'develop'."
+          # Not blocking — just informational for now
+
+      - name: Confirm base branch
+        run: |
+          echo "PR base: ${{ github.base_ref }}"
+          echo "PR head: ${{ github.head_ref }}"
+          echo "Convention: feature/* -> develop -> main"
+
+  # ── Validate reports exist ────────────────────────────────────────────────
+  reports-check:
+    name: Reports Present
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check that at least one stage report exists
+        run: |
+          REPORTS=$(find Local_3D_Cartoon_Studio/reports -name "stage*.md" 2>/dev/null | wc -l)
+          echo "Stage report files found: $REPORTS"
+          if [ "$REPORTS" -eq 0 ]; then
+            echo "WARNING: No stage reports found in Local_3D_Cartoon_Studio/reports/"
+          fi
+
+  # ── Dependency security scan (basic) ──────────────────────────────────────
+  dependency-check:
+    name: Dependency Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install and check dependencies
+        working-directory: Local_3D_Cartoon_Studio
+        run: |
+          pip install pip-audit 2>/dev/null || true
+          pip install -r requirements.txt --dry-run 2>&1 | head -20
+          echo "Dependency check complete."

@@ -1,0 +1,100 @@
+name: CI — Cartoon Animation Studio
+
+on:
+  push:
+    branches:
+      - develop
+      - 'feature/**'
+      - 'fix/**'
+      - 'stage-**'
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  # ── Python unit tests ───────────────────────────────────────────────────────
+  test:
+    name: Python Tests
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: Local_3D_Cartoon_Studio
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run unit tests (non-integration)
+        working-directory: Local_3D_Cartoon_Studio
+        run: |
+          python -m pytest tests/ -v --ignore=tests/test_integration.py `
+            -k "not Blender and not blender and not Integration and not integration and not Render and not render" `
+            --tb=short
+
+  # ── Lint / syntax check ────────────────────────────────────────────────────
+  lint:
+    name: Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Python syntax (py_compile)
+        run: |
+          find Local_3D_Cartoon_Studio -name "*.py" \
+            ! -path "*/node_modules/*" \
+            ! -path "*/__pycache__/*" \
+            -print0 | xargs -0 python -m py_compile
+          echo "All Python files are syntactically valid."
+
+      - name: Check JSON validity
+        run: |
+          find Local_3D_Cartoon_Studio/config -name "*.json" -print0 | \
+            xargs -0 -I{} python -c "import json,sys; json.load(open('{}'))"
+          echo "All config JSON files are valid."
+
+  # ── File integrity check ───────────────────────────────────────────────────
+  integrity:
+    name: Asset Integrity
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify character blend files exist
+        run: |
+          test -f Local_3D_Cartoon_Studio/blender/assets/characters/aarav/aarav.blend && echo "aarav.blend OK"
+          test -f Local_3D_Cartoon_Studio/blender/assets/characters/aanya/aanya.blend && echo "aanya.blend OK"
+
+      - name: Verify garden blend file exists
+        run: |
+          test -f Local_3D_Cartoon_Studio/blender/assets/environments/garden/garden.blend && echo "garden.blend OK"
+
+      - name: Verify garden previews exist
+        run: |
+          for f in garden_wide garden_main garden_close garden_with_characters; do
+            test -f "Local_3D_Cartoon_Studio/blender/assets/environments/garden/previews/${f}.png" && echo "${f}.png OK"
+          done
+
+      - name: Verify character previews exist
+        run: |
+          for char in aarav aanya; do
+            for view in front side three_quarter wave_pose happy_expression; do
+              test -f "Local_3D_Cartoon_Studio/blender/assets/characters/${char}/previews/${view}.png" && echo "${char}/${view}.png OK"
+            done
+          done
