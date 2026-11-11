@@ -27,17 +27,21 @@ bpy.ops.wm.append(
     filename="Aanya"
 )
 
-# 4. Move all Aanya objects to X=0.65
+# 4. Move all Aanya objects: only move top-level (parentless) objects to avoid
+#    double-transforming parented children. Set X offset on the armature and
+#    any other root objects; parented meshes follow automatically.
 aanya_col = bpy.data.collections.get("Aanya")
 if aanya_col:
     for obj in aanya_col.all_objects:
-        obj.location.x = 0.65
+        if obj.parent is None:
+            obj.location.x += 0.65
 
-# 5. Move all Aarav objects to X=-0.4
+# 5. Move all Aarav root objects to X=-0.4
 aarav_col = bpy.data.collections.get("Aarav")
 if aarav_col:
     for obj in aarav_col.all_objects:
-        obj.location.x = -0.4
+        if obj.parent is None:
+            obj.location.x -= 0.4
 
 # 6. Add camera
 # Fix 4: Both characters must face the camera from the front.
