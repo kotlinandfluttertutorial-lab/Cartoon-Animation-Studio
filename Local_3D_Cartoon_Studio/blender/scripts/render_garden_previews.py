@@ -66,13 +66,15 @@ aarav_col = bpy.data.collections.get('Aarav')
 if aarav_col:
     for obj in aarav_col.all_objects:
         if obj.parent is None:
-            obj.location.x -= 0.4   # to X = -0.4 (root starts at 0)
+            obj.location.x -= 0.4   # X = -0.4
+            obj.location.y -= 2.0   # Y = -2.0 (mid-garden, camera at Y=+9 sees them)
 
 aanya_col = bpy.data.collections.get('Aanya')
 if aanya_col:
     for obj in aanya_col.all_objects:
         if obj.parent is None:
-            obj.location.x += 0.5   # to X = 0.5 (root starts at 0)
+            obj.location.x += 0.5   # X = +0.5
+            obj.location.y -= 2.0   # Y = -2.0
 
 # Re-apply Workbench settings (append can reset shading display)
 garden_utils.configure_workbench(scene)

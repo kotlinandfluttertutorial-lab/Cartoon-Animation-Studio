@@ -123,31 +123,39 @@ def configure_workbench(scene):
         shading.show_object_outline = True
     except AttributeError:
         pass
+    # Workbench background colour: set the viewport/background colour directly.
+    # The world node tree is only used by EEVEE/Cycles; Workbench uses
+    # scene.world.color (the flat viewport background) in background mode.
+    _set_workbench_background_color(scene, '#87CEEB')
+
+
+def _set_workbench_background_color(scene, hex_color):
+    """Set the Workbench background to a solid colour.
+    Workbench ignores world node trees; it reads scene.world.color directly."""
+    rgba = hex_to_rgba(hex_color)
+    if scene.world is None:
+        scene.world = bpy.data.worlds.new('GardenWorld')
+    # Use nodes=False so Workbench reads world.color as a flat background
+    scene.world.use_nodes = False
+    scene.world.color = rgba[:3]  # world.color is RGB not RGBA
 
 
 # ---------------------------------------------------------------------------
 # World background
 # ---------------------------------------------------------------------------
 def create_world_background(hex_color='#87CEEB'):
+    """Set world background colour for Workbench rendering.
+    Workbench uses world.color (not world node tree) in background mode.
+    Sets use_nodes=False so the flat colour is used."""
     scene = bpy.context.scene
     world = scene.world
     if world is None:
         world = bpy.data.worlds.new('GardenWorld')
         scene.world = world
-    world.use_nodes = True
-    nt = world.node_tree
+    # Workbench reads world.color directly; node tree is for EEVEE/Cycles only
+    world.use_nodes = False
     rgba = hex_to_rgba(hex_color)
-    bg = nt.nodes.get('Background')
-    if bg is None:
-        bg = nt.nodes.new('ShaderNodeBackground')
-    bg.inputs['Color'].default_value = rgba
-    bg.inputs['Strength'].default_value = 1.0
-    out = nt.nodes.get('World Output')
-    if out is None:
-        out = nt.nodes.new('ShaderNodeOutputWorld')
-    linked = any(l.from_node == bg and l.to_node == out for l in nt.links)
-    if not linked:
-        nt.links.new(bg.outputs['Background'], out.inputs['Surface'])
+    world.color = rgba[:3]
 
 
 # ---------------------------------------------------------------------------

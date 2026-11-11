@@ -113,9 +113,16 @@ for cd in cloud_defs:
 garden_utils.create_sun_light()
 
 # Cameras (3)
-main_cam = garden_utils.create_camera('Garden_Main_Camera', (0, -6, 2.5), (0, 0, 0.8), 50)
-garden_utils.create_camera('Garden_Wide_Camera', (0, -10, 4), (0, 0, 0), 35)
-garden_utils.create_camera('Garden_Close_Camera', (0, -3, 1.8), (0, 0, 0.8), 85)
+# Characters face +Y (nose at Y=+0.265). Cameras must be at +Y looking toward -Y.
+# Ground plane is 20x20 centred at origin, extending Y=-10 to Y=+10.
+# Camera at Y=+6 is INSIDE the ground extent — foreground fills the frame.
+# Fix: push camera to Y=+9 (outside/near edge of ground), raise to Z=4 so it
+# looks over the ground rather than across it at ground level.
+main_cam = garden_utils.create_camera('Garden_Main_Camera', (0, 9, 5.5), (0, -1.5, 0.5), 50)
+# Wide: even further back and higher
+garden_utils.create_camera('Garden_Wide_Camera', (0, 12, 7), (0, 0, 0), 35)
+# Close: moderate distance, eye-level
+garden_utils.create_camera('Garden_Close_Camera', (0, 5, 2.5), (0, 0, 0.8), 85)
 bpy.context.scene.camera = main_cam
 
 # ---------------------------------------------------------------------------

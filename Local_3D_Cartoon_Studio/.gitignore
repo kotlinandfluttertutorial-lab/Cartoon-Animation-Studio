@@ -11,3 +11,10 @@ logs/*.log
 logs/jobs/*.json
 output/smoke_test/
 output/*.mp4
+
+# Backup files
+*.bak
+*.blend1
+*.blend.20*
+aarav_v*.blend
+aanya_v*.blend
