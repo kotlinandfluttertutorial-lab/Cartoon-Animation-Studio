@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-11-10T08:11:50.476156",
+  "stage": 1,
+  "steps": {
+    "config": {
+      "success": true,
+      "profile": "PREVIEW"
+    },
+    "blender": {
+      "success": true,
+      "exit_code": 0,
+      "duration_seconds": 3.03,
+      "peak_memory_mb": 235.6,
+      "frames_rendered": 3,
+      "png_files": 3,
+      "smoke_result": {
+        "frames_rendered": 3,
+        "avg_frame_time_s": 0.588,
+        "total_time_s": 1.764,
+        "engine": "BLENDER_WORKBENCH",
+        "resolution": "640x360",
+        "success": true
+      }
+    },
+    "ffmpeg": {
+      "success": true,
+      "exit_code": 0,
+      "duration_seconds": 0.08,
+      "output_path": "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\smoke_test.mp4",
+      "file_size_bytes": 1775
+    },
+    "validate": {
+      "success": true,
+      "codec": "h264",
+      "duration_seconds": 0.25
+    }
+  },
+  "system_info": {
+    "cpu": "Intel64 Family 6 Model 142 Stepping 10, GenuineIntel, 4 cores, 2.1 GHz",
+    "ram_gb": 31.88,
+    "gpu": "Unknown",
+    "blender_version": "Blender 4.4.3",
+    "ffmpeg_version": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "python_version": "3.11.9",
+    "platform": "Windows-10-10.0.26300-SP0"
+  },
+  "total_duration_seconds": 3.44,
+  "overall_success": true
+}

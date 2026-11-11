@@ -1,0 +1,91 @@
+﻿python.exe : test_blender_background_python (__main__.TestB
+lenderDetection.test_blender_background_python)
+At line:1 char:1
++ & $python 
+"P:\AI\Cartoon-Animation-Studio\tests\test_stage0.py" 2>&1 
+ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_blender_ 
+   ba...kground_python):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Verify --background --python mode works with a trivial 
+script. ... ok
+test_blender_executable_exists (__main__.TestBlenderDetecti
+on.test_blender_executable_exists) ... ok
+test_blender_version 
+(__main__.TestBlenderDetection.test_blender_version) ... ok
+test_frame_time_reasonable 
+(__main__.TestBlenderRendering.test_frame_time_reasonable) 
+... 
+P:\AI\Cartoon-Animation-Studio\tests\test_stage0.py:139: 
+ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\
+\Users\\admin\\AppData\\Local\\Temp\\stage0_test_7zkjwr72\\
+timing.json' mode='r' encoding='cp1252'>
+  data = json.load(open(self.json_out))
+ResourceWarning: Enable tracemalloc to get the object 
+allocation traceback
+ok
+test_frame_was_saved 
+(__main__.TestBlenderRendering.test_frame_was_saved) ... 
+P:\AI\Cartoon-Animation-Studio\tests\test_stage0.py:133: 
+ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\
+\Users\\admin\\AppData\\Local\\Temp\\stage0_test_7zkjwr72\\
+timing.json' mode='r' encoding='cp1252'>
+  data = json.load(open(self.json_out))
+ResourceWarning: Enable tracemalloc to get the object 
+allocation traceback
+ok
+test_render_exit_code 
+(__main__.TestBlenderRendering.test_render_exit_code) ... 
+ok
+test_blender_version_in_sysinfo (__main__.TestBlenderSysInf
+o.test_blender_version_in_sysinfo) ... ok
+test_cycles_device_info 
+(__main__.TestBlenderSysInfo.test_cycles_device_info) ... 
+ok
+test_no_cuda_on_intel 
+(__main__.TestBlenderSysInfo.test_no_cuda_on_intel) ... ok
+test_sysinfo_exists 
+(__main__.TestBlenderSysInfo.test_sysinfo_exists) ... ok
+test_ffmpeg_exists 
+(__main__.TestFFmpeg.test_ffmpeg_exists) ... ok
+test_ffmpeg_mux_from_frames 
+(__main__.TestFFmpeg.test_ffmpeg_mux_from_frames)
+Mux 5 frames into a test MP4 to verify FFmpeg pipeline 
+works. ... ok
+test_ffmpeg_version 
+(__main__.TestFFmpeg.test_ffmpeg_version) ... ok
+test_mp4_output_exists 
+(__main__.TestFFmpeg.test_mp4_output_exists) ... ok
+test_all_frames_present (__main__.TestWorkbenchTimingReport
+.test_all_frames_present) ... ok
+test_timing_json_exists (__main__.TestWorkbenchTimingReport
+.test_timing_json_exists) ... ok
+test_timing_json_valid (__main__.TestWorkbenchTimingReport.
+test_timing_json_valid) ... ok
+test_workbench_speed 
+(__main__.TestWorkbenchTimingReport.test_workbench_speed)
+Workbench should render 60 frames at 640x360 in under 60 
+seconds. ... ok
+
+-----------------------------------------------------------
+-----------
+Ran 18 tests in 7.381s
+
+OK
+Blender  : P:\AI\Cartoon-Animation-Studio\tools\blender-4.4.3-windows-x64\blender.exe
+FFmpeg   : C:\Users\admin\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.2-full_build\bin\ffmpeg.exe
+Output   : P:\AI\Cartoon-Animation-Studio\output
+
+  Python expr output: ['BPY_OK: 4.4.3']
+  Blender version output: Blender 4.4.3
+  Workbench 320x180 frame time: 3.478s OK
+  Cycles devices: []
+  Default compute type: NONE
+  ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers
+  MP4 size: 53.0 KB
+  total_render_time_s : 10.37
+  avg_frame_time_s    : 0.172
+  total_output_mb     : 13.17

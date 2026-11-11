@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stage 2 Visual Review — Aarav &amp; Aanya</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #1a1a2e; color: #e0e0e0; padding: 24px; }
+  h1 { font-size: 1.6rem; color: #90caf9; margin-bottom: 6px; }
+  .subtitle { color: #888; font-size: 0.9rem; margin-bottom: 32px; }
+  h2 { font-size: 1.25rem; color: #f48fb1; border-bottom: 1px solid #444; padding-bottom: 6px; margin: 32px 0 16px; }
+  h3 { font-size: 1rem; color: #80cbc4; margin: 24px 0 12px; }
+  .grid { display: flex; flex-wrap: wrap; gap: 16px; }
+  .card { background: #16213e; border: 1px solid #333; border-radius: 8px; padding: 12px; width: 320px; }
+  .card img { width: 100%; height: 180px; object-fit: contain; background: #0f0f23; border-radius: 4px; display: block; }
+  .card .missing { width: 100%; height: 180px; display: flex; align-items: center; justify-content: center;
+    background: #2d1b1b; border-radius: 4px; color: #ef9a9a; font-size: 0.85rem; border: 1px dashed #c62828; }
+  .card-label { margin-top: 8px; font-size: 0.8rem; color: #bbb; }
+  .card-label .name { font-weight: bold; color: #e0e0e0; }
+  .card-label .dims { color: #888; font-size: 0.75rem; }
+  .warning-box { background: #3e2723; border: 1px solid #bf360c; border-radius: 6px; padding: 12px 16px;
+    margin: 16px 0; color: #ffccbc; font-size: 0.9rem; }
+  .warning-box strong { color: #ff7043; }
+  .info-box { background: #1b2838; border: 1px solid #37474f; border-radius: 6px; padding: 12px 16px;
+    margin: 16px 0; color: #b0bec5; font-size: 0.85rem; }
+  .compare-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; margin: 12px 0; }
+  .compare-row .card { width: 300px; }
+  .diff-card { background: #16213e; border: 2px solid #bf360c; border-radius: 8px; padding: 12px; width: 300px; }
+  .diff-card img { width: 100%; height: 180px; object-fit: contain; background: #0f0f23; border-radius: 4px; }
+  .diff-card .label { margin-top: 8px; font-size: 0.8rem; color: #ef9a9a; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.82rem; margin: 12px 0; }
+  th { background: #0d47a1; color: #e3f2fd; padding: 6px 10px; text-align: left; }
+  td { padding: 5px 10px; border-bottom: 1px solid #2a2a4a; }
+  tr:nth-child(even) td { background: #1a1a3e; }
+  .pass { color: #69f0ae; } .fail { color: #ff5252; } .warn { color: #ffd740; }
+  footer { margin-top: 48px; font-size: 0.75rem; color: #555; border-top: 1px solid #333; padding-top: 12px; }
+</style>
+</head>
+<body>
+
+<h1>Stage 2 Visual Review — Character Gallery</h1>
+<p class="subtitle">Local 3D Cartoon Animation Studio &nbsp;|&nbsp; Generated 2026-11-10 &nbsp;|&nbsp; Blender 4.4.3 Workbench &nbsp;|&nbsp; 640×360</p>
+
+<div class="warning-box">
+  <strong>⚠ AUTOMATED FINDING — ACTION REQUIRED BEFORE STAGE 3:</strong><br><br>
+  Pixel analysis confirms that <strong>wave_pose.png is identical to front.png for both characters</strong> (0.0% pixels differ).
+  The wave pose was not applied during preview rendering — the render_character_preview.py script called the
+  pose function but Blender's rigid-body-parent armature did not propagate the pose to the mesh objects
+  before the render captured the frame. This must be fixed in Stage 3 (or as a targeted Stage 2 fix)
+  before poses can be considered working.<br><br>
+  Happy expressions differ significantly from neutral (different file sizes: Aarav 224 KB vs 174 KB front;
+  Aanya 219 KB vs 181 KB front), confirming expressions ARE visually distinct.
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ AARAV ══ -->
+<h2>Aarav</h2>
+
+<h3>All Views</h3>
+<div class="grid">
+  <div class="card">
+    <img src="../../blender/assets/characters/aarav/previews/front.png" alt="Aarav Front" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: front.png</div>
+    <div class="card-label"><span class="name">front.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 173,884 B</span></div>
+  </div>
+  <div class="card">
+    <img src="../../blender/assets/characters/aarav/previews/side.png" alt="Aarav Side" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: side.png</div>
+    <div class="card-label"><span class="name">side.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 156,876 B</span></div>
+  </div>
+  <div class="card">
+    <img src="../../blender/assets/characters/aarav/previews/three_quarter.png" alt="Aarav Three-quarter" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: three_quarter.png</div>
+    <div class="card-label"><span class="name">three_quarter.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 172,094 B</span></div>
+  </div>
+  <div class="card">
+    <img src="../../blender/assets/characters/aarav/previews/happy_expression.png" alt="Aarav Happy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: happy_expression.png</div>
+    <div class="card-label"><span class="name">happy_expression.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 224,433 B</span></div>
+  </div>
+</div>
+
+<h3>⚠ Front vs Wave Pose Comparison</h3>
+<div class="info-box">Pixel analysis: <strong class="warn">0.0% pixels differ</strong> — these two images are visually identical. The wave pose was NOT applied during rendering.</div>
+<div class="compare-row">
+  <div class="card">
+    <img src="../../blender/assets/characters/aarav/previews/front.png" alt="Aarav Front">
+    <div class="card-label"><span class="name">front.png</span><br><span class="dims">SHA-256: 78686D3C…C442A1 &nbsp;|&nbsp; 173,884 B</span></div>
+  </div>
+  <div class="card" style="border-color:#bf360c">
+    <img src="../../blender/assets/characters/aarav/previews/wave_pose.png" alt="Aarav Wave">
+    <div class="card-label"><span class="name">wave_pose.png</span><br><span class="dims">SHA-256: 594ABD7A…DC5F &nbsp;|&nbsp; 173,884 B</span></div>
+  </div>
+  <div class="diff-card">
+    <img src="aarav_front_vs_wave_diff.png" alt="Diff image" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Diff image not generated</div>
+    <div class="label">Difference image (10× enhanced) — should be black if identical</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ AANYA ══ -->
+<h2>Aanya</h2>
+
+<h3>All Views</h3>
+<div class="grid">
+  <div class="card">
+    <img src="../../blender/assets/characters/aanya/previews/front.png" alt="Aanya Front" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: front.png</div>
+    <div class="card-label"><span class="name">front.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 180,685 B</span></div>
+  </div>
+  <div class="card">
+    <img src="../../blender/assets/characters/aanya/previews/side.png" alt="Aanya Side" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: side.png</div>
+    <div class="card-label"><span class="name">side.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 161,137 B</span></div>
+  </div>
+  <div class="card">
+    <img src="../../blender/assets/characters/aanya/previews/three_quarter.png" alt="Aanya Three-quarter" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: three_quarter.png</div>
+    <div class="card-label"><span class="name">three_quarter.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 175,409 B</span></div>
+  </div>
+  <div class="card">
+    <img src="../../blender/assets/characters/aanya/previews/happy_expression.png" alt="Aanya Happy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: happy_expression.png</div>
+    <div class="card-label"><span class="name">happy_expression.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 219,037 B</span></div>
+  </div>
+</div>
+
+<h3>⚠ Front vs Wave Pose Comparison</h3>
+<div class="info-box">Pixel analysis: <strong class="warn">0.0% pixels differ</strong> — these two images are visually identical. The wave pose was NOT applied during rendering.</div>
+<div class="compare-row">
+  <div class="card">
+    <img src="../../blender/assets/characters/aanya/previews/front.png" alt="Aanya Front">
+    <div class="card-label"><span class="name">front.png</span><br><span class="dims">SHA-256: 53E860BD…829F &nbsp;|&nbsp; 180,685 B</span></div>
+  </div>
+  <div class="card" style="border-color:#bf360c">
+    <img src="../../blender/assets/characters/aanya/previews/wave_pose.png" alt="Aanya Wave">
+    <div class="card-label"><span class="name">wave_pose.png</span><br><span class="dims">SHA-256: 93421317…FFC4 &nbsp;|&nbsp; 180,685 B</span></div>
+  </div>
+  <div class="diff-card">
+    <img src="aanya_front_vs_wave_diff.png" alt="Diff image" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Diff image not generated</div>
+    <div class="label">Difference image (10× enhanced)</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ COMBINED ══ -->
+<h2>Combined — Both Characters</h2>
+<div class="grid">
+  <div class="card" style="width:460px">
+    <img src="../../blender/assets/characters/combined/both_characters.png" alt="Both Characters" style="height:260px" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="missing" style="display:none">Missing: both_characters.png</div>
+    <div class="card-label"><span class="name">both_characters.png</span><br><span class="dims">640×360 &nbsp;|&nbsp; 186,679 B</span></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ IMAGE TABLE ══ -->
+<h2>Image Integrity Summary</h2>
+<table>
+  <tr><th>File</th><th>Exists</th><th>Valid PNG</th><th>Dimensions</th><th>Size (bytes)</th><th>SHA-256 (first 16)</th></tr>
+  <tr><td>aarav/front.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>173,884</td><td>78686D3CCAC2FD29…</td></tr>
+  <tr><td>aarav/side.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>156,876</td><td>E65AFB2287A6E16E…</td></tr>
+  <tr><td>aarav/three_quarter.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>172,094</td><td>51E87A68AE35876F…</td></tr>
+  <tr><td>aarav/wave_pose.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>173,884</td><td class="warn">594ABD7A363DC8D3… ⚠ identical to front</td></tr>
+  <tr><td>aarav/happy_expression.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>224,433</td><td>5AA8AB1E03177CA7…</td></tr>
+  <tr><td>aanya/front.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>180,685</td><td>53E860BDEF44671B…</td></tr>
+  <tr><td>aanya/side.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>161,137</td><td>E58A40429D4CE5C1…</td></tr>
+  <tr><td>aanya/three_quarter.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>175,409</td><td>7EDF68AF52898934…</td></tr>
+  <tr><td>aanya/wave_pose.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>180,685</td><td class="warn">93421317… ⚠ identical to front</td></tr>
+  <tr><td>aanya/happy_expression.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>219,037</td><td>EA7CD37AE30C0CBB…</td></tr>
+  <tr><td>combined/both_characters.png</td><td class="pass">✓</td><td class="pass">✓</td><td>640×360</td><td>186,679</td><td>BAFD6E7D504A2A79…</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════ STRUCTURAL ══ -->
+<h2>Blender Structural Inspection</h2>
+<table>
+  <tr><th>Check</th><th>Aarav</th><th>Aanya</th></tr>
+  <tr><td>Collection exists</td><td class="pass">✓ PASS</td><td class="pass">✓ PASS</td></tr>
+  <tr><td>Armature exists</td><td class="pass">✓ PASS</td><td class="pass">✓ PASS</td></tr>
+  <tr><td>All 20 bones present</td><td class="pass">✓ 20/20</td><td class="pass">✓ 20/20</td></tr>
+  <tr><td>Mesh objects</td><td class="pass">✓ 26 objects</td><td class="pass">✓ 28 objects</td></tr>
+  <tr><td>Required body parts</td><td class="pass">✓ All present</td><td class="pass">✓ All present</td></tr>
+  <tr><td>Materials (8, non-default)</td><td class="pass">✓ PASS</td><td class="pass">✓ PASS</td></tr>
+  <tr><td>Facial components (6/6)</td><td class="pass">✓ Eye×2, Brow×2, Mouth, Nose</td><td class="pass">✓ Eye×2, Brow×2, Mouth, Nose</td></tr>
+  <tr><td>Height in range (1–3 BU)</td><td class="pass">✓ 1.76 BU</td><td class="pass">✓ 1.69 BU</td></tr>
+  <tr><td>Ground level (z≈0)</td><td class="pass">✓ z=0.000</td><td class="pass">✓ z=0.000</td></tr>
+  <tr><td>Expressions property</td><td class="pass">✓ stored</td><td class="pass">✓ stored</td></tr>
+  <tr><td>Pose visual correctness</td><td class="warn">⚠ Not verifiable structurally</td><td class="warn">⚠ Not verifiable structurally</td></tr>
+</table>
+
+<footer>
+  Stage 2 Visual Review &nbsp;|&nbsp; Local 3D Cartoon Animation Studio &nbsp;|&nbsp; 2026-11-10 &nbsp;|&nbsp;
+  Blender 4.4.3 &nbsp;|&nbsp; Python 3.11.9 &nbsp;|&nbsp; Pillow 12.3.0 &nbsp;|&nbsp; numpy
+</footer>
+</body>
+</html>

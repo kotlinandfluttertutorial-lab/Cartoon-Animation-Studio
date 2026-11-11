@@ -1,0 +1,19 @@
+{
+  "stage": "Stage 2",
+  "run_date": "2026-11-10T14:00:35.197587Z",
+  "python_version": "3.11.9",
+  "blender_version": "4.4.3",
+  "summary": {
+    "total": 22,
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "duration_s": 6.23
+  },
+  "test_files": [
+    {"file": "test_character_generation.py", "passed": 9, "failed": 0, "skipped": 0},
+    {"file": "test_character_rig.py", "passed": 7, "failed": 0, "skipped": 0},
+    {"file": "test_character_render.py", "passed": 6, "failed": 0, "skipped": 0}
+  ],
+  "failures": []
+}
