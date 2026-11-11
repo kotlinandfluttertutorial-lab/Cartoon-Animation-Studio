@@ -1,0 +1,35 @@
+{
+  "environment_id": "garden",
+  "version": "1.0.0",
+  "created_date": "2026-11-11T11:47:19.769713Z",
+  "blend_file": "garden.blend",
+  "statistics": {
+    "total_polygons": 2416,
+    "total_objects": 75,
+    "total_materials": 34,
+    "generation_time_s": 0.541,
+    "blend_file_size_bytes": 1707018
+  },
+  "collections": [
+    "Environment_Ground",
+    "Environment_Path",
+    "Environment_Trees",
+    "Environment_Bushes",
+    "Environment_Flowers",
+    "Environment_Decorations",
+    "Environment_Sky",
+    "Lighting",
+    "Cameras"
+  ],
+  "cameras": [
+    "Garden_Main_Camera",
+    "Garden_Wide_Camera",
+    "Garden_Close_Camera"
+  ],
+  "previews": {
+    "garden_wide": "previews/garden_wide.png",
+    "garden_main": "previews/garden_main.png",
+    "garden_close": "previews/garden_close.png",
+    "garden_with_characters": "previews/garden_with_characters.png"
+  }
+}

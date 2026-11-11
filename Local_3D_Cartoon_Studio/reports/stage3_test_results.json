@@ -1,0 +1,40 @@
+{
+  "stage": "3",
+  "overall": "PASS",
+  "total_passed": 33,
+  "total_failed": 0,
+  "total_skipped": 0,
+  "total_errors": 0,
+  "new_tests": {
+    "passed": 11,
+    "failed": 0,
+    "files": [
+      {
+        "file": "tests/test_garden_generation.py",
+        "passed": 6
+      },
+      {
+        "file": "tests/test_garden_render.py",
+        "passed": 5
+      }
+    ]
+  },
+  "regression_tests": {
+    "passed": 22,
+    "failed": 0,
+    "files": [
+      {
+        "file": "tests/test_character_generation.py",
+        "passed": 9
+      },
+      {
+        "file": "tests/test_character_rig.py",
+        "passed": 7
+      },
+      {
+        "file": "tests/test_character_render.py",
+        "passed": 6
+      }
+    ]
+  }
+}
