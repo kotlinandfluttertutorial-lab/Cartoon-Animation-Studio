@@ -29,12 +29,21 @@ import unittest
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
-# Paths
+# Paths — derived from this file's location so they work in any checkout
 # ---------------------------------------------------------------------------
-PROJECT  = Path(r'P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio')
-REPO_ROOT = Path(r'P:\AI\Cartoon-Animation-Studio')
-PREVIEWS = PROJECT / 'output' / 'stage4_2_2' / 'previews'
-BLENDER  = r'P:\AI\Cartoon-Animation-Studio\tools\blender-4.4.3-windows-x64\blender.exe'
+# tests/ -> Local_3D_Cartoon_Studio/ -> Cartoon-Animation-Studio/
+PROJECT   = Path(__file__).resolve().parent.parent          # Local_3D_Cartoon_Studio
+REPO_ROOT = PROJECT.parent                                   # Cartoon-Animation-Studio
+PREVIEWS  = PROJECT / 'output' / 'stage4_2_2' / 'previews'
+
+# Blender executable — look alongside the repo root first, then fall back to
+# the well-known CI/local path so existing developer machines still work.
+_BLENDER_CANDIDATES = [
+    REPO_ROOT / 'tools' / 'blender-4.4.3-windows-x64' / 'blender.exe',
+    Path(r'P:\AI\Cartoon-Animation-Studio\tools\blender-4.4.3-windows-x64\blender.exe'),
+]
+BLENDER = next((str(p) for p in _BLENDER_CANDIDATES if p.is_file()), str(_BLENDER_CANDIDATES[0]))
+
 AARAV_STAGE4 = str(PROJECT / 'blender' / 'assets' / 'characters' / 'aarav' / 'aarav_stage4.blend')
 AANYA_STAGE4 = str(PROJECT / 'blender' / 'assets' / 'characters' / 'aanya' / 'aanya_stage4.blend')
 _BLENDER_MISSING = not os.path.isfile(BLENDER)
