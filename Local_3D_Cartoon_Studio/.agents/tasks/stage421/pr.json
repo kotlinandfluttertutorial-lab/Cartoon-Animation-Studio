@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/kotlinandfluttertutorial-lab/Cartoon-Animation-Studio/pull/13",
+  "number": 13,
+  "sha": "0e38a5ea5759def21eac216891252164796685db",
+  "title": "stage-4.2.1: fix mesh transform preservation and animation reliability",
+  "branch": "feature/stage-4-2-1-animation-reliability",
+  "base": "develop"
+}
