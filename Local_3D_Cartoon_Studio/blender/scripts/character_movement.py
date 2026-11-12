@@ -28,7 +28,11 @@ _BONE_TO_MESH = {
     'spine':       ['Spine'],
     'chest':       ['Chest'],
     'neck':        ['Neck'],
-    'head':        ['Head'],
+    # Stage 4.2.2: 'Hijab' listed alongside 'Head' because it tracks the head
+    # bone position for Aanya.  bpy.data.objects.get() returns None when the
+    # object does not exist, so the entry is silently skipped for Aarav (who
+    # has no Aarav_Hijab object) without any special-casing.
+    'head':        ['Head', 'Hijab'],
     # Arms - Left
     'shoulder_L':  ['Shoulder_L'],
     'upper_arm_L': ['UpperArm_L'],
@@ -199,16 +203,31 @@ def move_to(char_objects, target_x, target_y):
     bpy.context.view_layer.update()
 
 
-# Bones whose mesh objects we are SAFE to move (arm/leg only).
-# Head, Neck, Spine, Chest, Shoulder are excluded to avoid detachment
-# in rigid-parenting mode.  NOD gesture applies head bone rotation but
-# the head mesh does not visually move in still renders — this is a known
-# limitation of Option B with rigid parenting; the rotation is captured
-# in bone data and visible in Blender viewport animation playback.
+# Stage 4.2.2: 'head' and 'neck' are now included in _SAFE_BONES.
+#
+# Safety rationale (confirmed by probe_results.json):
+#   (a) Both head_mesh and neck_mesh have parent_type == 'OBJECT' (rigid
+#       parenting, not BONE parenting), so they do NOT follow bone transforms
+#       automatically — the same situation as arm/leg mesh objects.
+#   (b) The offset-corrected Option B approach
+#         new_pos = new_bone_midpoint + rest_offset
+#       correctly repositions head and neck meshes relative to the evaluated
+#       head/neck bone midpoints, preserving the original spatial relationship
+#       without detachment.  This is identical to how arms and legs are handled.
+#   (c) The hijab (Aanya_Hijab) is handled via _BONE_TO_MESH 'head' → ['Head',
+#       'Hijab']; it is silently skipped for Aarav since Aarav_Hijab does not
+#       exist.  If Aanya_Hijab is added in future it will be picked up
+#       automatically by compute_rest_offsets() / apply_action_pose().
 _SAFE_BONES = frozenset({
+    # Spine chain (Stage 4.2.2: head and neck now included with offset correction)
+    'neck', 'head',
+    # Arms - Left
     'upper_arm_L', 'forearm_L', 'hand_L',
+    # Arms - Right
     'upper_arm_R', 'forearm_R', 'hand_R',
+    # Legs - Left
     'thigh_L', 'shin_L', 'foot_L',
+    # Legs - Right
     'thigh_R', 'shin_R', 'foot_R',
 })
 
@@ -269,9 +288,11 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix,
     If rest_offsets is None, falls back to computing offsets in-place (slower
     but safe for single-frame use).
 
-    Only arm/leg mesh objects are moved (_SAFE_BONES).  Head, Neck, Torso,
-    Spine, Chest objects are intentionally excluded to prevent detachment
-    in rigid-parenting mode.
+    Only arm/leg/head/neck mesh objects are moved (_SAFE_BONES).  Spine, Chest,
+    Shoulder objects are intentionally excluded to prevent detachment
+    in rigid-parenting mode.  Head and Neck are included from Stage 4.2.2
+    because probe confirmed their parent_type is OBJECT and offset correction
+    correctly repositions them (same approach as arms/legs).
 
     Parameters
     ----------
@@ -323,7 +344,7 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix,
     # Step 4: move only safe (arm/leg) mesh objects with correct offset
     for bone_name in keyed_bones:
         if bone_name not in _SAFE_BONES:
-            continue  # skip head, neck, spine, chest — prevents detachment
+            continue  # skip spine, chest, shoulders — not in _SAFE_BONES
         mesh_suffixes = _BONE_TO_MESH.get(bone_name, [])
         midpoint = _bone_world_midpoint(arm_eval, bone_name)
         if midpoint is None:

@@ -1,0 +1,50 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.3.5, pluggy-1.6.0 -- C:\Users\admin\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase(WindowsPath('P:/AI/Cartoon-Animation-Studio/.hypothesis/examples'))
+metadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.26300-SP0', 'Packages': {'pytest': '8.3.5', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.6.2', 'hypothesis': '6.115.3', 'asyncio': '1.4.0', 'cov': '5.0.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}, 'JAVA_HOME': 'C:\\Program Files\\Java\\jdk-17'}
+rootdir: P:\AI\Cartoon-Animation-Studio
+plugins: anyio-4.6.2, hypothesis-6.115.3, asyncio-1.4.0, cov-5.0.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 20 items
+
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestStage41Regression::test_stage41_regression_aanya_idle PASSED [  5%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestStage41Regression::test_stage41_regression_aanya_walk PASSED [ 10%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestStage41Regression::test_stage41_regression_aarav_idle PASSED [ 15%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestStage41Regression::test_stage41_regression_aarav_walk PASSED [ 20%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestOriginalFilesUnchanged::test_original_aanya_unchanged PASSED [ 25%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestOriginalFilesUnchanged::test_original_aarav_unchanged PASSED [ 30%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestScriptFilesExist::test_character_movement_script_exists PASSED [ 35%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestScriptFilesExist::test_gesture_library_script_exists PASSED [ 40%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestScriptFilesExist::test_render_script_exists PASSED [ 45%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestPreviewPNGs::test_all_8_previews_640x360 PASSED [ 50%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestPreviewPNGs::test_all_8_previews_above_20kb PASSED [ 55%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestPreviewPNGs::test_all_8_previews_exist PASSED [ 60%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestPreviewPNGs::test_all_8_previews_valid_png PASSED [ 65%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestGestureActionsAarav::test_aarav_greeting_action_exists PASSED [ 70%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestGestureActionsAarav::test_aarav_point_action_exists PASSED [ 75%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestGestureActionsAarav::test_aarav_wave_action_exists PASSED [ 80%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestGestureActionsAanya::test_aanya_greeting_action_exists PASSED [ 85%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestGestureActionsAanya::test_aanya_nod_action_exists PASSED [ 90%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestGestureActionsAanya::test_aanya_wave_action_exists PASSED [ 95%]
+Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestReportFiles::test_all_reports_exist FAILED [100%]
+
+================================== FAILURES ===================================
+___________________ TestReportFiles.test_all_reports_exist ____________________
+Local_3D_Cartoon_Studio\tests\test_stage4_2_movement.py:280: in test_all_reports_exist
+    self.assertEqual(missing, [], f'Missing reports: {missing}')
+E   AssertionError: Lists differ: ['stage4_2_playback_validation_report.md'] != []
+E   
+E   First list contains 1 additional elements.
+E   First extra element 0:
+E   'stage4_2_playback_validation_report.md'
+E   
+E   - ['stage4_2_playback_validation_report.md']
+E   + [] : Missing reports: ['stage4_2_playback_validation_report.md']
+=========================== short test summary info ===========================
+FAILED Local_3D_Cartoon_Studio/tests/test_stage4_2_movement.py::TestReportFiles::test_all_reports_exist
+======================== 1 failed, 19 passed in 7.53s =========================
+C:\Users\admin\AppData\Local\Programs\Python\Python311\Lib\site-packages\pytest_asyncio\plugin.py:299: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
+The event loop scope for asynchronous fixtures will default to the "fixture" caching scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session"
+
+  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))

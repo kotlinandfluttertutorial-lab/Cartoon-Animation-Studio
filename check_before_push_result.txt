@@ -1,0 +1,75 @@
+﻿
+[1mCartoon Animation Studio ΓÇö Pre-push CI Check[0m
+Repo:    P:\AI\Cartoon-Animation-Studio
+Project: P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio
+Mode:    fast
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  1. Git state[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  Git branch detected  ΓÇö feature/stage-4-2-1-animation-reliability
+  [32mPASS[0m  Branch convention  ΓÇö 'feature/stage-4-2-1-animation-reliability' is a feature/fix branch ΓÇö PR should target develop
+  [33mWARN[0m  Uncommitted changes  ΓÇö 29 file(s) modified/untracked
+       A  Local_3D_Cartoon_Studio/.agents/tasks/stage-4-2/pr.json
+       A  Local_3D_Cartoon_Studio/.agents/tasks/stage-4-2/review.json
+       A  Local_3D_Cartoon_Studio/.agents/tasks/stage-4-2/review.md
+       A  Local_3D_Cartoon_Studio/.agents/tasks/stage421/pr.json
+       A  Local_3D_Cartoon_Studio/.agents/tasks/stage421/review.json
+       ΓÇª and 24 more
+  [33mWARN[0m  .bak files tracked  ΓÇö backup files should be in .gitignore
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  2. Python syntax check[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  Python syntax  ΓÇö 45 files checked
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  3. JSON config validity[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  Config JSON  ΓÇö 2 files valid
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  4. Requirements[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  requirements.txt  ΓÇö dry-run install OK
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  5. Asset integrity[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  aarav.blend integrity  ΓÇö 774392 bytes
+  [32mPASS[0m  aanya.blend integrity  ΓÇö 796228 bytes
+  [32mPASS[0m  garden.blend exists  ΓÇö 1,702,138 bytes
+  [32mPASS[0m  Character previews scanned  ΓÇö 10 ├ù character preview PNGs checked
+  [32mPASS[0m  Garden previews scanned  ΓÇö 4 ├ù garden preview PNGs checked
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  6. Stage reports[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  Stage reports  ΓÇö 5 reports present
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  7. Automated tests[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  pytest unit tests (non-integration)  ΓÇö 83 passed  (19.4s)
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  8. Secret scan (basic)[0m
+[1m[36m------------------------------------------------------------[0m
+  [32mPASS[0m  Secret scan  ΓÇö 14 staged file(s) scanned
+
+[1m[36m------------------------------------------------------------[0m
+[1m[36m  9. Blender smoke test[0m
+[1m[36m------------------------------------------------------------[0m
+  [36mSKIP[0m  Blender version check  ΓÇö --fast mode
+
+[1m============================================================[0m
+[1m  PRE-PUSH CHECK SUMMARY[0m
+============================================================
+  [32mPASS[0m  13
+  [31mFAIL[0m  0
+  [33mWARN[0m  2
+  [36mSKIP[0m  1
+------------------------------------------------------------
+
+  [32m[1mAll checks passed - safe to push.[0m
+
