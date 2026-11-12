@@ -1,0 +1,29 @@
+{
+  "fps": 24,
+  "total_frames": 60,
+  "character": "Aarav",
+  "text": "Hello Aanya, how are you today?",
+  "frames": {
+    "1": "REST",
+    "2": "OPEN",
+    "5": "EI",
+    "8": "TD",
+    "11": "WQ",
+    "14": "OPEN",
+    "18": "TD",
+    "21": "EI",
+    "24": "OPEN",
+    "27": "OPEN",
+    "31": "WQ",
+    "34": "OPEN",
+    "37": "WQ",
+    "40": "EI",
+    "43": "WQ",
+    "47": "TD",
+    "50": "OPEN",
+    "53": "TD",
+    "56": "EI",
+    "60": "REST"
+  },
+  "blink_frames": []
+}
