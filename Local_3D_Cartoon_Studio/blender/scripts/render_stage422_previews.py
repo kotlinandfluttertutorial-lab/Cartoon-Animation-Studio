@@ -137,8 +137,10 @@ FRAME        = {frame}
 OUT_FILENAME = {out_filename!r}
 FIX_AANYA    = {fix_aanya}
 
-# Camera: single-character — location (0, -4.5, 0.875), look-at (0, 0, 0.875), lens 50mm
-cam_pos    = (0.0, -4.5, 0.875)
+# Camera: single-character — location (0, +4.5, 0.875), look-at (0, 0, 0.875), lens 50mm
+# Aarav nose is at Y=+0.265 (face on +Y side). Camera at +Y looks toward -Y, sees the front.
+# Aanya nose is at Y=-0.320 (face on -Y side). FIX_AANYA rotates her 180deg so she also faces +Y.
+cam_pos    = (0.0, {cam_y}, 0.875)
 cam_target = (0.0,  0.0, 0.875)
 cam_lens   = 50
 
@@ -151,6 +153,9 @@ action = bpy.data.actions.get(ACTION_NAME)
 if action is None:
     print(f'ERROR: action {{ACTION_NAME!r}} not found')
     import sys; sys.exit(1)
+
+# Compute rest offsets BEFORE orientation fix (must be in original rest pose)
+rest_offsets = compute_rest_offsets(arm_obj, CHAR_NAME)
 
 # Aanya orientation fix: mesh faces -Y, needs 180-degree Z flip
 if FIX_AANYA:
@@ -166,9 +171,6 @@ if FIX_AANYA:
     bpy.context.view_layer.update()
     print(f'  Applied 180 deg Z rotation to Aanya objects')
 
-# Compute rest offsets once in rest pose
-rest_offsets = compute_rest_offsets(arm_obj, CHAR_NAME)
-
 make_camera(scene, 'RenderCam422', cam_pos, cam_target, cam_lens)
 
 saved = apply_action_pose(arm_obj, ACTION_NAME, FRAME, CHAR_NAME, rest_offsets=rest_offsets)
@@ -182,7 +184,7 @@ restore_pose(arm_obj, saved)
 '''
 
 def _build_single_script(char_name, blend_file, action_name, frame, out_filename,
-                          fix_aanya=False):
+                          fix_aanya=False, cam_y=4.5):
     label = f'{char_name} {action_name} fr{frame} -> {out_filename}'
     return _SINGLE_CHAR_TEMPLATE.format(
         header=_header(),
@@ -193,6 +195,7 @@ def _build_single_script(char_name, blend_file, action_name, frame, out_filename
         frame=frame,
         out_filename=out_filename,
         fix_aanya=fix_aanya,
+        cam_y=cam_y,
     )
 
 # ---------------------------------------------------------------------------
@@ -213,8 +216,9 @@ OUT_FILENAME = {out_filename!r}
 AARAV_X      = {aarav_x}
 AANYA_X      = {aanya_x}
 
-# Camera: combined — location (0, -5.5, 0.875), look-at (0, 0, 0.875), lens 40mm
-cam_pos    = (0.0, -5.5, 0.875)
+# Camera: combined — location (0, +5.5, 0.875), look-at (0, 0, 0.875), lens 40mm
+# Camera at +Y looks toward -Y. Aarav faces +Y natively, Aanya has 180deg flip applied.
+cam_pos    = (0.0, 5.5, 0.875)
 cam_target = (0.0,  0.0, 0.875)
 cam_lens   = 40
 
@@ -327,11 +331,11 @@ print()
 results = []
 
 def _run_single(n, total, script_name, char_name, blend_file, action_name, frame,
-                out_filename, fix_aanya=False):
+                out_filename, fix_aanya=False, cam_y=4.5):
     label = f'{n}/{total} {out_filename}'
     print(label)
     body = _build_single_script(char_name, blend_file, action_name, frame,
-                                 out_filename, fix_aanya=fix_aanya)
+                                 out_filename, fix_aanya=fix_aanya, cam_y=cam_y)
     ok = _run_blender(blend_file, script_name, body, out_filename)
     results.append((out_filename, ok))
 
@@ -358,18 +362,24 @@ _run_single(3, 14, 'r03_aarav_point.py',
 _run_single(4, 14, 'r04_aarav_nod.py',
             'Aarav', AARAV_BLEND, 'AARAV_NOD', 4, 'aarav_nod.png')
 
-# -- Single-character: Aanya (fix_aanya=True) --
+# -- Single-character: Aanya (fix_aanya=False, camera at -Y sees Aanya's -Y face natively)
+# Aanya's nose is at Y=-0.320 (faces -Y). Camera at -Y looks toward +Y and sees her back.
+# WRONG — camera at -Y: cam_y=-4.5 → target=(0,0,0.875), direction=(0,+4.5,0) → looks +Y → sees -Y face? NO.
+# Aanya face at -Y → camera at +Y looking toward -Y sees her face. Use cam_y=+4.5, fix_aanya=False.
+# BUT we already proved FIX_AANYA breaks Option B. So: no flip, camera at -Y sees face (-Y face visible from -Y camera).
+# Camera at (0, -4.5, 0.875) targeting (0, 0, 0.875): direction = (0, +4.5, 0) → looks in +Y direction.
+# Aanya face at Y=-0.320 → -Y hemisphere → camera looking in +Y direction SEES the -Y face. CORRECT.
 _run_single(5, 14, 'r05_aanya_idle.py',
-            'Aanya', AANYA_BLEND, 'AANYA_IDLE', 1, 'aanya_idle.png', fix_aanya=True)
+            'Aanya', AANYA_BLEND, 'AANYA_IDLE', 1, 'aanya_idle.png', fix_aanya=False, cam_y=-4.5)
 
 _run_single(6, 14, 'r06_aanya_wave.py',
-            'Aanya', AANYA_BLEND, 'AANYA_WAVE', 6, 'aanya_wave.png', fix_aanya=True)
+            'Aanya', AANYA_BLEND, 'AANYA_WAVE', 6, 'aanya_wave.png', fix_aanya=False, cam_y=-4.5)
 
 _run_single(7, 14, 'r07_aanya_point.py',
-            'Aanya', AANYA_BLEND, 'AANYA_POINT', 8, 'aanya_point.png', fix_aanya=True)
+            'Aanya', AANYA_BLEND, 'AANYA_POINT', 8, 'aanya_point.png', fix_aanya=False, cam_y=-4.5)
 
 _run_single(8, 14, 'r08_aanya_nod.py',
-            'Aanya', AANYA_BLEND, 'AANYA_NOD', 4, 'aanya_nod.png', fix_aanya=True)
+            'Aanya', AANYA_BLEND, 'AANYA_NOD', 4, 'aanya_nod.png', fix_aanya=False, cam_y=-4.5)
 
 # -- Combined renders --
 _run_combined(9, 14, 'r09_both_facing_camera.py',
@@ -397,7 +407,7 @@ _run_single(13, 14, 'r13_aarav_nod_sequence.py',
             'Aarav', AARAV_BLEND, 'AARAV_NOD', 4, 'aarav_nod_sequence.png')
 
 _run_single(14, 14, 'r14_aanya_nod_sequence.py',
-            'Aanya', AANYA_BLEND, 'AANYA_NOD', 4, 'aanya_nod_sequence.png', fix_aanya=True)
+            'Aanya', AANYA_BLEND, 'AANYA_NOD', 4, 'aanya_nod_sequence.png', fix_aanya=False, cam_y=-4.5)
 
 # ---------------------------------------------------------------------------
 # Verification
