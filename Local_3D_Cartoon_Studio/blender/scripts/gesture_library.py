@@ -191,11 +191,13 @@ print(f'  Keyframe points: {point_kf}  Frame range: 1-20')
 # ===========================================================================
 # NOD action (16 frames)
 # ===========================================================================
-# Frame  1: head X=0    (neutral)
-# Frame  4: head X=0.3  (nod down)
-# Frame  8: head X=-0.1 (back up slightly past neutral)
-# Frame 12: head X=0.2  (nod down again)
-# Frame 16: head X=0    (neutral)
+# Stage 4.2.2: angles increased for clearly visible head movement now that
+# head mesh follows the head bone via Option B offset-corrected repositioning.
+# Frame  1: head X=0.0  (neutral)
+# Frame  4: head X=0.5  (peak nod down, 0.5 rad ≈ 29° — clearly visible)
+# Frame  8: head X=-0.1 (slight back-rebound past neutral)
+# Frame 12: head X=0.3  (second nod, more visible)
+# Frame 16: head X=0.0  (return to neutral)
 # ===========================================================================
 
 nod_name = f'{character_name.upper()}_NOD'
@@ -204,11 +206,11 @@ nod.use_cyclic = False
 
 dp_head = bone_dp('head')
 
-insert_key(nod, dp_head, 0, 1,  0.0)
-insert_key(nod, dp_head, 0, 4,  0.3)
-insert_key(nod, dp_head, 0, 8,  -0.1)
-insert_key(nod, dp_head, 0, 12, 0.2)
-insert_key(nod, dp_head, 0, 16, 0.0)
+insert_key(nod, dp_head, 0, 1,  0.0)    # neutral
+insert_key(nod, dp_head, 0, 4,  0.5)    # peak nod down (0.5 rad ≈ 29°, clearly visible)
+insert_key(nod, dp_head, 0, 8,  -0.1)   # slight back
+insert_key(nod, dp_head, 0, 12, 0.3)    # second nod (more visible)
+insert_key(nod, dp_head, 0, 16, 0.0)    # return to neutral
 
 nod.frame_range = (1, 16)
 nod.frame_start = 1
