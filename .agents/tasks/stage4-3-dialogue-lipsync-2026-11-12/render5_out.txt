@@ -1,0 +1,14 @@
+Blender 4.4.3 (hash 802179c51ccc built 2025-04-29 15:39:58)
+Read blend: "P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\blender\assets\characters\aarav\aarav_stage4.blend"
+Saved: 'P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\output\stage4_3\previews\aarav_happy.png'
+Time: 00:02.20 (Saving: 00:00.20)
+
+  Applied happy to Aarav_Eyebrow_L
+  Applied happy to Aarav_Eyebrow_R
+  Applied happy to Aarav_Mouth
+
+=== EXPRESSION RENDER SUMMARY ===
+Character : Aarav
+Emotion   : happy
+Output    : P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\output\stage4_3\previews\aarav_happy.png
+EXPRESSION_RENDER_OK

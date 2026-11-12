@@ -1,0 +1,32 @@
+{
+  "fps": 24,
+  "total_frames": 67,
+  "character": "Aarav",
+  "text": "I am very happy to see you again!",
+  "frames": {
+    "1": "REST",
+    "2": "EI",
+    "5": "OPEN",
+    "8": "MBP",
+    "11": "FV",
+    "14": "EI",
+    "17": "WQ",
+    "20": "EI",
+    "23": "OPEN",
+    "26": "OPEN",
+    "29": "MBP",
+    "32": "EI",
+    "36": "TD",
+    "39": "WQ",
+    "42": "TD",
+    "45": "EI",
+    "48": "EI",
+    "51": "WQ",
+    "54": "OPEN",
+    "57": "TD",
+    "60": "EI",
+    "63": "TD",
+    "67": "REST"
+  },
+  "blink_frames": []
+}

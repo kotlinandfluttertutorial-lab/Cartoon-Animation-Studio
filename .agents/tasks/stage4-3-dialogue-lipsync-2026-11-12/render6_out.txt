@@ -1,0 +1,16 @@
+Blender 4.4.3 (hash 802179c51ccc built 2025-04-29 15:39:58)
+Read blend: "P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\blender\assets\characters\aanya\aanya_stage4.blend"
+Saved: 'P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\output\stage4_3\previews\aanya_surprised.png'
+Time: 00:02.21 (Saving: 00:00.19)
+
+  Applied surprised to Aanya_Eyebrow_L
+  Applied surprised to Aanya_Eyebrow_R
+  Applied surprised to Aanya_Eye_L
+  Applied surprised to Aanya_Eye_R
+  Applied surprised to Aanya_Mouth
+
+=== EXPRESSION RENDER SUMMARY ===
+Character : Aanya
+Emotion   : surprised
+Output    : P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\output\stage4_3\previews\aanya_surprised.png
+EXPRESSION_RENDER_OK

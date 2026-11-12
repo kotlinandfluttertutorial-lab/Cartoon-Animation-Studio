@@ -1,0 +1,106 @@
+{
+  "stage": "4.3",
+  "date": "2026-11-12",
+  "branch": "feature/stage-4-3-dialogue-lipsync",
+  "python": "3.11.9",
+  "pytest": "8.3.5",
+  "new_tests": {
+    "test_stage4_3_dialogue": {
+      "total": 13,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    "test_stage4_3_lipsync": {
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    "test_stage4_3_expressions": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    "total_new": 34,
+    "total_new_passed": 34
+  },
+  "regression_tests": {
+    "test_stage4_2_movement": {
+      "total": 20,
+      "passed": 20,
+      "failed": 0
+    },
+    "test_stage4_2_1_reliability": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0
+    },
+    "test_stage4_2_2_transform_hierarchy": {
+      "total": 29,
+      "passed": 29,
+      "failed": 0
+    },
+    "total_regression": 61,
+    "total_regression_passed": 61
+  },
+  "check_before_push": {
+    "mode": "--fast",
+    "fail": 0,
+    "pass": 13,
+    "warn": 2,
+    "skip": 1,
+    "result": "PASS"
+  },
+  "preview_renders": [
+    {
+      "path": "output/stage4_3/previews/aarav_speaking_1.png",
+      "character": "Aarav",
+      "type": "viseme_OPEN",
+      "size_bytes": 222558,
+      "resolution": "640x360"
+    },
+    {
+      "path": "output/stage4_3/previews/aarav_speaking_2.png",
+      "character": "Aarav",
+      "type": "viseme_EI",
+      "size_bytes": 208975,
+      "resolution": "640x360"
+    },
+    {
+      "path": "output/stage4_3/previews/aanya_speaking_1.png",
+      "character": "Aanya",
+      "type": "viseme_OPEN",
+      "size_bytes": 228677,
+      "resolution": "640x360"
+    },
+    {
+      "path": "output/stage4_3/previews/aanya_speaking_2.png",
+      "character": "Aanya",
+      "type": "viseme_MBP",
+      "size_bytes": 169207,
+      "resolution": "640x360"
+    },
+    {
+      "path": "output/stage4_3/previews/aarav_happy.png",
+      "character": "Aarav",
+      "type": "expression_happy",
+      "size_bytes": 166113,
+      "resolution": "640x360"
+    },
+    {
+      "path": "output/stage4_3/previews/aanya_surprised.png",
+      "character": "Aanya",
+      "type": "expression_surprised",
+      "size_bytes": 166089,
+      "resolution": "640x360"
+    }
+  ],
+  "lipsync_data_files": [
+    "output/stage4_3/lipsync_data/aarav_hello_aany.json",
+    "output/stage4_3/lipsync_data/aarav_i_am_very_.json",
+    "output/stage4_3/lipsync_data/aanya_hi_aarav,_.json",
+    "output/stage4_3/lipsync_data/aanya_shall_we_g.json"
+  ]
+}

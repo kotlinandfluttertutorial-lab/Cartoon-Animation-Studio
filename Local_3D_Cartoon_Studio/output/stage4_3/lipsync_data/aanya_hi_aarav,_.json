@@ -1,0 +1,33 @@
+{
+  "fps": 24,
+  "total_frames": 72,
+  "character": "Aanya",
+  "text": "Hi Aarav, I am doing great thank you.",
+  "frames": {
+    "1": "REST",
+    "2": "OPEN",
+    "5": "EI",
+    "8": "OPEN",
+    "11": "WQ",
+    "14": "OPEN",
+    "17": "FV",
+    "21": "EI",
+    "24": "OPEN",
+    "27": "MBP",
+    "30": "TD",
+    "33": "WQ",
+    "37": "TD",
+    "40": "TD",
+    "43": "WQ",
+    "46": "EI",
+    "49": "TD",
+    "52": "TD",
+    "56": "OPEN",
+    "59": "TD",
+    "62": "TD",
+    "65": "EI",
+    "68": "WQ",
+    "72": "REST"
+  },
+  "blink_frames": []
+}
