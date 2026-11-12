@@ -1,0 +1,46 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-8.3.5, pluggy-1.6.0 -- C:\Users\admin\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+hypothesis profile 'default' -> database=DirectoryBasedExampleDatabase(WindowsPath('P:/AI/Cartoon-Animation-Studio/Local_3D_Cartoon_Studio/.hypothesis/examples'))
+metadata: {'Python': '3.11.9', 'Platform': 'Windows-10-10.0.26300-SP0', 'Packages': {'pytest': '8.3.5', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.6.2', 'hypothesis': '6.115.3', 'asyncio': '1.4.0', 'cov': '5.0.0', 'json-report': '1.5.0', 'metadata': '3.1.1'}, 'JAVA_HOME': 'C:\\Program Files\\Java\\jdk-17'}
+rootdir: P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio
+plugins: anyio-4.6.2, hypothesis-6.115.3, asyncio-1.4.0, cov-5.0.0, json-report-1.5.0, metadata-3.1.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 34 items
+
+tests/test_stage4_3_dialogue.py::TestPhonemeMapper::test_01_phoneme_mapper_imports PASSED [  2%]
+tests/test_stage4_3_dialogue.py::TestPhonemeMapper::test_02_text_to_viseme_sequence_nonempty PASSED [  5%]
+tests/test_stage4_3_dialogue.py::TestPhonemeMapper::test_03_all_seven_visemes_in_long_text PASSED [  8%]
+tests/test_stage4_3_dialogue.py::TestPhonemeMapper::test_11_text_to_viseme_list_valid_names PASSED [ 11%]
+tests/test_stage4_3_dialogue.py::TestPhonemeMapper::test_12_sequence_frame_one_is_rest PASSED [ 14%]
+tests/test_stage4_3_dialogue.py::TestPhonemeMapper::test_13_empty_text_handled_gracefully PASSED [ 17%]
+tests/test_stage4_3_dialogue.py::TestLipsyncData::test_04_lipsync_data_constructs PASSED [ 20%]
+tests/test_stage4_3_dialogue.py::TestLipsyncData::test_05_save_load_roundtrip PASSED [ 23%]
+tests/test_stage4_3_dialogue.py::TestLipsyncData::test_06_frame_count_matches_fps_times_duration PASSED [ 26%]
+tests/test_stage4_3_dialogue.py::TestExpressionLibrary::test_07_expression_library_has_six_emotions PASSED [ 29%]
+tests/test_stage4_3_dialogue.py::TestExpressionLibrary::test_08_apply_expression_returns_dict PASSED [ 32%]
+tests/test_stage4_3_dialogue.py::TestExpressionLibrary::test_09_restore_expression_no_error PASSED [ 35%]
+tests/test_stage4_3_dialogue.py::TestDialogueLine::test_10_dialogue_line_constructs PASSED [ 38%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_01_returns_lipsync_data PASSED [ 41%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_02_frame_one_is_rest PASSED [ 44%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_03_blink_events_at_correct_intervals PASSED [ 47%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_04_all_frame_visemes_valid PASSED [ 50%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_05_json_saved_correctly PASSED [ 52%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_06_json_loads_to_same_data PASSED [ 55%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_07_get_viseme_defaults_to_rest PASSED [ 58%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_08_no_blinks_when_disabled PASSED [ 61%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_09_fps_parameter_respected PASSED [ 64%]
+tests/test_stage4_3_lipsync.py::TestGenerateLipsync::test_10_missing_file_raises PASSED [ 67%]
+tests/test_stage4_3_lipsync.py::TestLipsyncGenerator::test_11_lipsync_generator_class PASSED [ 70%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_01_library_has_six_emotions PASSED [ 73%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_02_each_emotion_has_valid_transform_keys PASSED [ 76%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_03_apply_expression_script_exists PASSED [ 79%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_06_expression_library_get_valid PASSED [ 82%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_07_expression_library_get_neutral PASSED [ 85%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_08_expression_library_is_valid PASSED [ 88%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_09_apply_expression_records_applied_transforms PASSED [ 91%]
+tests/test_stage4_3_expressions.py::TestExpressionLibraryPython::test_10_expressions_covers_all_required_emotions PASSED [ 94%]
+tests/test_stage4_3_expressions.py::TestExpressionBlender::test_04_blender_expression_changes_scale PASSED [ 97%]
+tests/test_stage4_3_expressions.py::TestExpressionBlender::test_05_blender_expression_restores_correctly PASSED [100%]
+
+============================= 34 passed in 13.80s =============================

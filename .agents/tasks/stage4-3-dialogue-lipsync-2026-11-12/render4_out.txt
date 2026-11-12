@@ -1,0 +1,12 @@
+Blender 4.4.3 (hash 802179c51ccc built 2025-04-29 15:39:58)
+Read blend: "P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\blender\assets\characters\aanya\aanya_stage4.blend"
+Saved: 'P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\output\stage4_3\previews\aanya_speaking_2.png'
+Time: 00:02.18 (Saving: 00:00.21)
+
+Applied viseme 'MBP' to Aanya_Mouth: scale=(0.4, 1.0, 0.3) z_offset=0.0
+
+=== VISEME PREVIEW ===
+Character: Aanya
+Viseme   : MBP
+Output   : P:\AI\Cartoon-Animation-Studio\Local_3D_Cartoon_Studio\output\stage4_3\previews\aanya_speaking_2.png
+VISEME_PREVIEW_OK
