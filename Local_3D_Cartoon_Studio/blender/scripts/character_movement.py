@@ -199,11 +199,79 @@ def move_to(char_objects, target_x, target_y):
     bpy.context.view_layer.update()
 
 
-def apply_action_pose(arm_obj, action_name, frame, char_prefix, mesh_objects=None):
-    """
-    Option B: apply the named action at *frame*, move meshes to bone midpoints.
+# Bones whose mesh objects we are SAFE to move (arm/leg only).
+# Head, Neck, Spine, Chest, Shoulder are excluded to avoid detachment
+# in rigid-parenting mode.  NOD gesture applies head bone rotation but
+# the head mesh does not visually move in still renders — this is a known
+# limitation of Option B with rigid parenting; the rotation is captured
+# in bone data and visible in Blender viewport animation playback.
+_SAFE_BONES = frozenset({
+    'upper_arm_L', 'forearm_L', 'hand_L',
+    'upper_arm_R', 'forearm_R', 'hand_R',
+    'thigh_L', 'shin_L', 'foot_L',
+    'thigh_R', 'shin_R', 'foot_R',
+})
 
-    This is the exact pattern from render_animation_preview.apply_animation_pose().
+
+def compute_rest_offsets(arm_obj, char_prefix):
+    """
+    Compute per-object rest-pose offsets: {obj_name: (obj.location - bone_midpoint_in_rest)}.
+
+    Call this ONCE per character in rest pose (all bones at identity) before
+    calling apply_action_pose().  Pass the returned dict to apply_action_pose()
+    as the `rest_offsets` parameter so mesh objects are repositioned correctly.
+
+    Parameters
+    ----------
+    arm_obj     : bpy.types.Object  — the character armature
+    char_prefix : str               — 'Aarav' or 'Aanya'
+
+    Returns
+    -------
+    dict  {obj_name: mathutils.Vector}  offset = mesh_origin - rest_bone_midpoint
+    """
+    # Ensure all bones are at rest pose (identity)
+    bpy.context.view_layer.objects.active = arm_obj
+    bpy.ops.object.mode_set(mode='POSE')
+    for pb in arm_obj.pose.bones:
+        pb.rotation_mode = 'XYZ'
+        pb.rotation_euler = mathutils.Euler((0.0, 0.0, 0.0), 'XYZ')
+        pb.location = mathutils.Vector((0.0, 0.0, 0.0))
+        pb.scale = mathutils.Vector((1.0, 1.0, 1.0))
+    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.context.view_layer.update()
+
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    arm_eval = arm_obj.evaluated_get(depsgraph)
+
+    offsets = {}
+    for bone_name, mesh_suffixes in _BONE_TO_MESH.items():
+        midpoint = _bone_world_midpoint(arm_eval, bone_name)
+        if midpoint is None:
+            continue
+        for suffix in mesh_suffixes:
+            obj_name = f'{char_prefix}_{suffix}'
+            obj = bpy.data.objects.get(obj_name)
+            if obj is None:
+                continue
+            offsets[obj_name] = obj.location.copy() - midpoint
+
+    return offsets
+
+
+def apply_action_pose(arm_obj, action_name, frame, char_prefix,
+                      mesh_objects=None, rest_offsets=None):
+    """
+    Option B: apply the named action at *frame*, move meshes to corrected positions.
+
+    Uses rest_offsets (computed by compute_rest_offsets()) to preserve the
+    original spatial relationship between each mesh origin and its bone midpoint.
+    If rest_offsets is None, falls back to computing offsets in-place (slower
+    but safe for single-frame use).
+
+    Only arm/leg mesh objects are moved (_SAFE_BONES).  Head, Neck, Torso,
+    Spine, Chest objects are intentionally excluded to prevent detachment
+    in rigid-parenting mode.
 
     Parameters
     ----------
@@ -212,6 +280,7 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix, mesh_objects=Non
     frame        : int               — frame to sample
     char_prefix  : str               — 'Aarav' or 'Aanya'
     mesh_objects : unused (kept for API symmetry)
+    rest_offsets : dict or None      — from compute_rest_offsets()
 
     Returns
     -------
@@ -230,6 +299,15 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix, mesh_objects=Non
     depsgraph = bpy.context.evaluated_depsgraph_get()
     arm_eval = arm_obj.evaluated_get(depsgraph)
 
+    # Step 2b: if no offsets provided, compute from rest pose (resets+reapplies pose)
+    if rest_offsets is None:
+        rest_offsets = compute_rest_offsets(arm_obj, char_prefix)
+        # Re-apply pose after computing offsets (compute_rest_offsets resets to rest)
+        _apply_pose_from_action(arm_obj, action, frame)
+        bpy.context.view_layer.update()
+        depsgraph = bpy.context.evaluated_depsgraph_get()
+        arm_eval = arm_obj.evaluated_get(depsgraph)
+
     saved = {}
 
     # Step 3: collect which bones are keyed in this action
@@ -242,7 +320,10 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix, mesh_objects=Non
             except IndexError:
                 pass
 
+    # Step 4: move only safe (arm/leg) mesh objects with correct offset
     for bone_name in keyed_bones:
+        if bone_name not in _SAFE_BONES:
+            continue  # skip head, neck, spine, chest — prevents detachment
         mesh_suffixes = _BONE_TO_MESH.get(bone_name, [])
         midpoint = _bone_world_midpoint(arm_eval, bone_name)
         if midpoint is None:
@@ -253,9 +334,11 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix, mesh_objects=Non
             if obj is None:
                 continue
             saved[obj_name] = obj.location.copy()
-            obj.location = midpoint
+            # CORRECT: new_position = new_bone_midpoint + rest_offset
+            offset = rest_offsets.get(obj_name, mathutils.Vector((0.0, 0.0, 0.0)))
+            obj.location = midpoint + offset
 
-    # Step 4: update scene after mesh moves
+    # Step 5: update scene after mesh moves
     bpy.context.view_layer.update()
 
     return saved

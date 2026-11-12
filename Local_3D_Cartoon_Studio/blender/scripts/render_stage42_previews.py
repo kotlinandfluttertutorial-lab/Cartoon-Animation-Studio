@@ -164,7 +164,51 @@ def _bone_world_midpoint(arm_eval, bone_name):
     return (mw @ pb.head + mw @ pb.tail) * 0.5
 
 
-def apply_animation_pose(arm_obj, action, frame, char_prefix):
+# Bones whose mesh objects are SAFE to move (arm/leg only).
+# Head, Neck, Spine, Chest, Shoulder are excluded to avoid detachment
+# in rigid-parenting mode.
+_SAFE_BONES = frozenset({
+    'upper_arm_L', 'forearm_L', 'hand_L',
+    'upper_arm_R', 'forearm_R', 'hand_R',
+    'thigh_L', 'shin_L', 'foot_L',
+    'thigh_R', 'shin_R', 'foot_R',
+})
+
+
+def _compute_rest_offsets(arm_obj, char_prefix):
+    """Compute per-object rest-pose offsets: offset = mesh_origin - rest_bone_midpoint."""
+    bpy.context.view_layer.objects.active = arm_obj
+    bpy.ops.object.mode_set(mode='POSE')
+    for pb in arm_obj.pose.bones:
+        pb.rotation_mode = 'XYZ'
+        pb.rotation_euler = mathutils.Euler((0.0, 0.0, 0.0), 'XYZ')
+        pb.location = mathutils.Vector((0.0, 0.0, 0.0))
+        pb.scale = mathutils.Vector((1.0, 1.0, 1.0))
+    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.context.view_layer.update()
+
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    arm_eval = arm_obj.evaluated_get(depsgraph)
+
+    offsets = {}
+    for bone_name, mesh_suffixes in _BONE_TO_MESH.items():
+        midpoint = _bone_world_midpoint(arm_eval, bone_name)
+        if midpoint is None:
+            continue
+        for suffix in mesh_suffixes:
+            obj_name = f'{char_prefix}_{suffix}'
+            obj = bpy.data.objects.get(obj_name)
+            if obj is None:
+                continue
+            offsets[obj_name] = obj.location.copy() - midpoint
+    return offsets
+
+
+def apply_animation_pose(arm_obj, action, frame, char_prefix, rest_offsets=None):
+    # Compute rest offsets if not provided
+    if rest_offsets is None:
+        rest_offsets = _compute_rest_offsets(arm_obj, char_prefix)
+
     _apply_pose_from_action(arm_obj, action, frame)
     bpy.context.view_layer.update()
     depsgraph = bpy.context.evaluated_depsgraph_get()
@@ -180,6 +224,8 @@ def apply_animation_pose(arm_obj, action, frame, char_prefix):
                 pass
 
     for bone_name in keyed_bones:
+        if bone_name not in _SAFE_BONES:
+            continue  # skip head, neck, spine, chest — prevents detachment
         mesh_suffixes = _BONE_TO_MESH.get(bone_name, [])
         midpoint = _bone_world_midpoint(arm_eval, bone_name)
         if midpoint is None:
@@ -190,7 +236,9 @@ def apply_animation_pose(arm_obj, action, frame, char_prefix):
             if obj is None:
                 continue
             saved[obj_name] = obj.location.copy()
-            obj.location = midpoint
+            # CORRECT: new_position = new_bone_midpoint + rest_offset
+            offset = rest_offsets.get(obj_name, mathutils.Vector((0.0, 0.0, 0.0)))
+            obj.location = midpoint + offset
 
     bpy.context.view_layer.update()
     return saved
@@ -308,9 +356,10 @@ def render_combined(aarav_action, aarav_frame,
     bpy.ops.wm.open_mainfile(filepath=AARAV_BLEND)
     scene = setup_scene()
 
-    # Append Aanya objects
+    # Append Aanya objects AND actions
     with bpy.data.libraries.load(AANYA_BLEND, link=False) as (src, dst):
         dst.objects = [name for name in src.objects if 'Aanya' in name]
+        dst.actions = [name for name in src.actions if 'AANYA' in name]
 
     # Link to scene
     existing_names = {o.name for o in scene.collection.objects}
