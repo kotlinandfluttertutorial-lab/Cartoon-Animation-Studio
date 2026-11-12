@@ -1,6 +1,19 @@
-# Local 3D Cartoon Animation Studio — Stage 1
+# Local 3D Cartoon Animation Studio
 
-A modular Python foundation for automated 3D cartoon animation using Blender Workbench, FFmpeg, and Ollama (Qwen3).
+A local studio for story planning, character dialogue, and 3D animation using Blender Workbench, FFmpeg, Ollama, and Piper.
+
+## Open the studio
+
+From the `Local_3D_Cartoon_Studio` directory, with Python 3.11 active:
+
+```powershell
+python -m pip install -r requirements.txt
+python -m streamlit run studio_ui.py
+```
+
+Open [the local studio](http://127.0.0.1:8501). Use **Story generator** to create or paste a story, **Scene editor** and **Animation controls** to adjust it, then **Dialogue and voice** to prepare audio or import an existing Stage 5 package. Start or resume the job in **Render settings** and review the finished MP4 in **Preview**.
+
+Ollama is needed for story generation. Manual story JSON and imported packages can be used offline. Voice synthesis uses the existing Windows Piper studio directory entered on the dialogue page. Blender and FFmpeg paths are loaded from `config/settings.json`. UI projects are saved under `output/studio_ui`, which can be overridden with the `CARTOON_STUDIO_PROJECTS` environment variable.
 
 ---
 
@@ -25,6 +38,7 @@ Packages installed:
 - `pydantic>=2.0,<3.0` — data validation (v2 syntax)
 - `psutil>=5.9` — process and system monitoring
 - `pytest>=7.0` — test runner
+- `streamlit>=1.67,<2` — local studio interface
 
 ---
 
@@ -47,7 +61,7 @@ Render profiles are in `config/render_profiles.json`. Never edit them directly i
 
 ---
 
-## Running the application
+## Running the Stage 1 smoke test
 
 ```powershell
 python app.py

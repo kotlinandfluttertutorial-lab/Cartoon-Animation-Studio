@@ -43,6 +43,12 @@ def setup_preview(character):
     camera.location = target + Vector((0, 4.5 * FRONT_Y[character], 0))
     camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()
 
+    prepare_character_face(character)
+    return scene
+
+
+def prepare_character_face(character):
+    """Apply the in-memory face and headwear adjustments in native rest space."""
     if character == "Aarav":
         # The Stage 4 working copy uses unit cubes for the crown and fringe.
         # Round them in the preview scene while preserving their authored fit.
@@ -83,7 +89,6 @@ def setup_preview(character):
         if eye is not None and iris is not None:
             iris.location.y = eye.location.y + FRONT_Y[character] * eye.scale.y
 
-    return scene
 
 
 @contextmanager
