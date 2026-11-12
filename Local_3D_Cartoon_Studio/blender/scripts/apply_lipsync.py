@@ -19,8 +19,7 @@ Prints 'LIPSYNC_RENDER_OK' on success.
 import sys
 import os
 import json
-import shutil
-from datetime import datetime
+from pathlib import Path
 
 # ---------------------------------------------------------------------------
 # Parse arguments
@@ -38,24 +37,10 @@ lipsync_json_path = args[0]
 char_name = args[1]   # 'Aarav' or 'Aanya'
 output_dir = args[2]
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bpy
-import mathutils
-
-# ---------------------------------------------------------------------------
-# Viseme mouth transforms  (mirrors mouth_shapes.py)
-# ---------------------------------------------------------------------------
-VISEME_MOUTH_TRANSFORMS = {
-    "REST": {"scale": (1.0, 1.0, 1.0), "z_offset":  0.0},
-    "MBP":  {"scale": (0.4, 1.0, 0.3), "z_offset":  0.0},
-    "FV":   {"scale": (0.6, 1.0, 0.4), "z_offset":  0.0},
-    "TD":   {"scale": (0.8, 1.0, 0.6), "z_offset": -0.005},
-    "WQ":   {"scale": (0.6, 1.0, 0.8), "z_offset": -0.005},
-    "OPEN": {"scale": (1.3, 1.0, 1.4), "z_offset": -0.015},
-    "EI":   {"scale": (1.4, 1.0, 0.7), "z_offset":  0.0},
-}
-
-BLINK_INTERVAL_FRAMES = 96
-BLINK_DURATION_FRAMES = 3
+from facial_preview import mouth_surface, setup_preview, viseme_pose
+from studio.dialogue.mouth_shapes import BLINK_DURATION_FRAMES
 
 # ---------------------------------------------------------------------------
 # Load lipsync data
@@ -81,60 +66,19 @@ if mouth_obj is None:
     print(f"ERROR: mouth object '{mouth_obj_name}' not found in scene")
     sys.exit(1)
 
-# Save original mouth state
-orig_scale = tuple(mouth_obj.scale)
-orig_z = float(mouth_obj.location.z)
-
-# ---------------------------------------------------------------------------
 # Eye objects for blink
 # ---------------------------------------------------------------------------
-eye_l_name = f"{char_name}_Eye_L"
-eye_r_name = f"{char_name}_Eye_R"
-eye_l = bpy.data.objects.get(eye_l_name)
-eye_r = bpy.data.objects.get(eye_r_name)
-
-orig_eye_l_scale = tuple(eye_l.scale) if eye_l else None
-orig_eye_r_scale = tuple(eye_r.scale) if eye_r else None
+eye_scales = {
+    obj: obj.scale.z
+    for suffix in ("Eye_L", "Eye_R", "Iris_L", "Iris_R")
+    if (obj := bpy.data.objects.get(f"{char_name}_{suffix}")) is not None
+}
 
 # ---------------------------------------------------------------------------
 # Scene / render setup
 # ---------------------------------------------------------------------------
-scene = bpy.context.scene
-scene.render.engine = "BLENDER_WORKBENCH"
-scene.render.resolution_x = 640
-scene.render.resolution_y = 360
-scene.render.film_transparent = False
+scene = setup_preview(char_name)
 scene.render.fps = fps
-
-shading = scene.display.shading
-shading.light = "STUDIO"
-shading.color_type = "MATERIAL"
-shading.show_shadows = True
-shading.show_cavity = True
-try:
-    shading.show_object_outline = True
-except AttributeError:
-    pass
-
-# Camera setup: position at (0, 4.5, 0.875) looking at (0, 0, 0.875)
-cam_pos = (0.0, 4.5, 0.875)
-cam_target = (0.0, 0.0, 0.875)
-
-# Remove existing camera if any
-for cam_obj in list(bpy.data.objects):
-    if cam_obj.type == "CAMERA":
-        bpy.data.objects.remove(cam_obj, do_unlink=True)
-
-cam_data = bpy.data.cameras.new("LipsyncCam")
-cam_data.lens = 50
-cam_obj_new = bpy.data.objects.new("LipsyncCam", cam_data)
-scene.collection.objects.link(cam_obj_new)
-scene.camera = cam_obj_new
-
-cam_obj_new.location = mathutils.Vector(cam_pos)
-direction = mathutils.Vector(cam_target) - mathutils.Vector(cam_pos)
-rot_quat = direction.to_track_quat("-Z", "Y")
-cam_obj_new.rotation_euler = rot_quat.to_euler()
 
 # Output directory
 os.makedirs(output_dir, exist_ok=True)
@@ -143,39 +87,10 @@ os.makedirs(output_dir, exist_ok=True)
 # Helpers
 # ---------------------------------------------------------------------------
 
-def apply_mouth(viseme: str) -> None:
-    tx = VISEME_MOUTH_TRANSFORMS.get(viseme, VISEME_MOUTH_TRANSFORMS["REST"])
-    sx, sy, sz = tx["scale"]
-    mouth_obj.scale.x = sx
-    mouth_obj.scale.y = sy
-    mouth_obj.scale.z = sz
-    mouth_obj.location.z = orig_z + tx["z_offset"]
-
-
-def restore_mouth() -> None:
-    mouth_obj.scale.x, mouth_obj.scale.y, mouth_obj.scale.z = orig_scale
-    mouth_obj.location.z = orig_z
-
-
 def apply_blink(fraction: float) -> None:
     """fraction 0.0 = open, 1.0 = fully closed."""
-    for eye, orig_sc in ((eye_l, orig_eye_l_scale), (eye_r, orig_eye_r_scale)):
-        if eye is None or orig_sc is None:
-            continue
-        eye.scale.z = orig_sc[2] * max(0.05, 1.0 - fraction)
-
-
-def restore_eyes() -> None:
-    for eye, orig_sc in ((eye_l, orig_eye_l_scale), (eye_r, orig_eye_r_scale)):
-        if eye is None or orig_sc is None:
-            continue
-        eye.scale.x, eye.scale.y, eye.scale.z = orig_sc
-
-
-# ---------------------------------------------------------------------------
-# Expression overlay (if lipsync JSON contains per-frame expression)
-# ---------------------------------------------------------------------------
-expressions_data = lipsync.get("expressions", {})
+    for eye, rest_z_scale in eye_scales.items():
+        eye.scale.z = rest_z_scale * max(0.05, 1.0 - fraction)
 
 # ---------------------------------------------------------------------------
 # Render loop
@@ -184,7 +99,6 @@ rendered_count = 0
 for frame_num in range(1, total_frames + 1):
     scene.frame_set(frame_num)
     viseme = frames_data.get(frame_num, "REST")
-    apply_mouth(viseme)
 
     # Blink handling: closed on blink_frame, gradually re-open over duration
     if frame_num in blink_frames_set:
@@ -200,18 +114,16 @@ for frame_num in range(1, total_frames + 1):
                 apply_blink(1.0 - progress)
                 break
     else:
-        restore_eyes()
+        apply_blink(0.0)
 
     # Render
     output_path = os.path.join(output_dir, f"frame_{frame_num:04d}.png")
     scene.render.filepath = output_path
-    bpy.ops.render.render(write_still=True)
+    with viseme_pose(mouth_obj, viseme), mouth_surface(char_name, viseme):
+        bpy.ops.render.render(write_still=True)
     rendered_count += 1
 
-    # Restore mouth to REST between frames
-    restore_mouth()
-
-restore_eyes()
+apply_blink(0.0)
 
 print(f"\n=== LIPSYNC RENDER SUMMARY ===")
 print(f"Character  : {char_name}")
