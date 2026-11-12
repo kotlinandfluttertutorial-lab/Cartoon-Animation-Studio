@@ -1,6 +1,6 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
-check_before_push.py ΓÇö Local pre-push CI check for Cartoon Animation Studio.
+check_before_push.py — Local pre-push CI check for Cartoon Animation Studio.
 
 Mirrors the checks in .github/workflows/ci.yml and pr-checks.yml so you can
 catch failures before pushing to the remote.
@@ -11,8 +11,8 @@ Usage:
     python check_before_push.py --syntax     # syntax check only
 
 Exit codes:
-    0 ΓÇö all checks passed
-    1 ΓÇö one or more checks failed
+    0 — all checks passed
+    1 — one or more checks failed
 """
 
 import argparse
@@ -24,44 +24,38 @@ import sys
 import time
 from pathlib import Path
 
-# Ensure stdout/stderr use UTF-8 on Windows (cp1252 cannot encode em-dash etc.)
-if hasattr(sys.stdout, "reconfigure"):
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-if hasattr(sys.stderr, "reconfigure"):
-    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
-
-# ΓöÇΓöÇ Paths ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── Paths ─────────────────────────────────────────────────────────────────────
 REPO_ROOT    = Path(__file__).resolve().parent
 PROJECT_DIR  = REPO_ROOT / "Local_3D_Cartoon_Studio"
 PYTHON       = sys.executable                     # same Python running this script
 BLENDER      = REPO_ROOT / "tools" / "blender-4.4.3-windows-x64" / "blender.exe"
 
-# ΓöÇΓöÇ ANSI colours ΓÇö disabled for Windows PowerShell compatibility ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── ANSI colours — disabled for Windows PowerShell compatibility ──────────────
 GREEN = RED = YELLOW = CYAN = RESET = BOLD = ""
 
 
-# ΓöÇΓöÇ Result tracking ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── Result tracking ────────────────────────────────────────────────────────────
 _results: list[dict] = []
 
 def _pass(name: str, detail: str = "") -> None:
     _results.append({"name": name, "status": "PASS", "detail": detail})
     tag = f"{GREEN}PASS{RESET}"
-    print(f"  {tag}  {name}" + (f"  ΓÇö {detail}" if detail else ""))
+    print(f"  {tag}  {name}" + (f"  — {detail}" if detail else ""))
 
 def _fail(name: str, detail: str = "") -> None:
     _results.append({"name": name, "status": "FAIL", "detail": detail})
     tag = f"{RED}FAIL{RESET}"
-    print(f"  {tag}  {name}" + (f"  ΓÇö {detail}" if detail else ""))
+    print(f"  {tag}  {name}" + (f"  — {detail}" if detail else ""))
 
 def _warn(name: str, detail: str = "") -> None:
     _results.append({"name": name, "status": "WARN", "detail": detail})
     tag = f"{YELLOW}WARN{RESET}"
-    print(f"  {tag}  {name}" + (f"  ΓÇö {detail}" if detail else ""))
+    print(f"  {tag}  {name}" + (f"  — {detail}" if detail else ""))
 
 def _skip(name: str, reason: str = "") -> None:
     _results.append({"name": name, "status": "SKIP", "detail": reason})
     tag = f"{CYAN}SKIP{RESET}"
-    print(f"  {tag}  {name}" + (f"  ΓÇö {reason}" if reason else ""))
+    print(f"  {tag}  {name}" + (f"  — {reason}" if reason else ""))
 
 def section(title: str) -> None:
     print(f"\n{BOLD}{CYAN}{'-'*60}{RESET}")
@@ -69,7 +63,7 @@ def section(title: str) -> None:
     print(f"{BOLD}{CYAN}{'-'*60}{RESET}")
 
 
-# ΓöÇΓöÇ 1. Git state ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 1. Git state ───────────────────────────────────────────────────────────────
 def check_git(fast: bool) -> None:
     section("1. Git state")
 
@@ -87,7 +81,7 @@ def check_git(fast: bool) -> None:
     if branch in ("develop", "main"):
         _warn("Branch convention", f"You are on '{branch}'. Feature work should be on feature/* or fix/*")
     else:
-        _pass("Branch convention", f"'{branch}' is a feature/fix branch ΓÇö PR should target develop")
+        _pass("Branch convention", f"'{branch}' is a feature/fix branch — PR should target develop")
 
     # Clean working tree
     status = subprocess.run(
@@ -102,7 +96,7 @@ def check_git(fast: bool) -> None:
         for l in lines[:5]:
             print(f"       {l}")
         if len(lines) > 5:
-            print(f"       ΓÇª and {len(lines)-5} more")
+            print(f"       … and {len(lines)-5} more")
 
     # Check .bak files are gitignored
     tracked_bak = subprocess.run(
@@ -115,7 +109,7 @@ def check_git(fast: bool) -> None:
         _pass(".bak files gitignored")
 
 
-# ΓöÇΓöÇ 2. Python syntax check ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 2. Python syntax check ─────────────────────────────────────────────────────
 def check_syntax() -> None:
     section("2. Python syntax check")
 
@@ -139,13 +133,13 @@ def check_syntax() -> None:
         _pass("Python syntax", f"{len(py_files)} files checked")
 
 
-# ΓöÇΓöÇ 3. JSON config validity ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 3. JSON config validity ────────────────────────────────────────────────────
 def check_json_configs() -> None:
     section("3. JSON config validity")
 
     config_dir = PROJECT_DIR / "config"
     if not config_dir.exists():
-        _warn("Config directory", "not found ΓÇö skipping")
+        _warn("Config directory", "not found — skipping")
         return
 
     json_files = list(config_dir.glob("*.json"))
@@ -164,7 +158,7 @@ def check_json_configs() -> None:
         _pass("Config JSON", f"{len(json_files)} files valid")
 
 
-# ΓöÇΓöÇ 4. requirements.txt installable ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 4. requirements.txt installable ───────────────────────────────────────────
 def check_requirements() -> None:
     section("4. Requirements")
 
@@ -184,7 +178,7 @@ def check_requirements() -> None:
         print(f"       {result.stderr[:300]}")
 
 
-# ΓöÇΓöÇ 5. Asset integrity ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 5. Asset integrity ─────────────────────────────────────────────────────────
 def check_assets() -> None:
     section("5. Asset integrity")
 
@@ -198,7 +192,7 @@ def check_assets() -> None:
             _fail(f"{name} exists", str(path))
         elif path.stat().st_size != expected_size:
             actual = path.stat().st_size
-            _warn(f"{name} size", f"expected {expected_size}, got {actual} ΓÇö may have been regenerated")
+            _warn(f"{name} size", f"expected {expected_size}, got {actual} — may have been regenerated")
         else:
             _pass(f"{name} integrity", f"{expected_size} bytes")
 
@@ -214,21 +208,21 @@ def check_assets() -> None:
         for view in ("front", "side", "three_quarter", "wave_pose", "happy_expression"):
             p = PROJECT_DIR / f"blender/assets/characters/{char}/previews/{view}.png"
             if p.exists() and p.stat().st_size > 20480:
-                pass  # silent pass for previews ΓÇö too many to list individually
+                pass  # silent pass for previews — too many to list individually
             else:
                 _warn(f"{char}/{view}.png", "missing or too small")
 
-    _pass("Character previews scanned", "10 ├ù character preview PNGs checked")
+    _pass("Character previews scanned", "10 × character preview PNGs checked")
 
     # Garden previews
     for view in ("garden_wide", "garden_main", "garden_close", "garden_with_characters"):
         p = PROJECT_DIR / f"blender/assets/environments/garden/previews/{view}.png"
         if not (p.exists() and p.stat().st_size > 20480):
             _warn(f"{view}.png", "missing or too small")
-    _pass("Garden previews scanned", "4 ├ù garden preview PNGs checked")
+    _pass("Garden previews scanned", "4 × garden preview PNGs checked")
 
 
-# ΓöÇΓöÇ 6. Stage reports present ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 6. Stage reports present ───────────────────────────────────────────────────
 def check_reports() -> None:
     section("6. Stage reports")
 
@@ -255,7 +249,7 @@ def check_reports() -> None:
         _pass("Stage reports", f"{len(expected)} reports present")
 
 
-# ΓöÇΓöÇ 7. Unit tests (non-integration) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 7. Unit tests (non-integration) ────────────────────────────────────────────
 def check_unit_tests(fast: bool) -> None:
     section("7. Automated tests")
 
@@ -312,7 +306,7 @@ def check_unit_tests(fast: bool) -> None:
             print(f"       {line}")
 
 
-# ΓöÇΓöÇ 8. No secrets in staged files ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 8. No secrets in staged files ─────────────────────────────────────────────
 def check_secrets() -> None:
     section("8. Secret scan (basic)")
 
@@ -349,7 +343,7 @@ def check_secrets() -> None:
         _pass("Secret scan", f"{len(staged)} staged file(s) scanned")
 
 
-# ΓöÇΓöÇ 9. Blender smoke test (optional) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── 9. Blender smoke test (optional) ──────────────────────────────────────────
 def check_blender(fast: bool) -> None:
     section("9. Blender smoke test")
 
@@ -372,7 +366,7 @@ def check_blender(fast: bool) -> None:
         _fail("Blender executable", "blender --version failed")
 
 
-# ΓöÇΓöÇ Summary ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── Summary ────────────────────────────────────────────────────────────────────
 def print_summary() -> int:
     passed  = sum(1 for r in _results if r["status"] == "PASS")
     failed  = sum(1 for r in _results if r["status"] == "FAIL")
@@ -396,14 +390,14 @@ def print_summary() -> int:
         return 1
 
 
-# ΓöÇΓöÇ Entry point ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+# ── Entry point ────────────────────────────────────────────────────────────────
 def main() -> int:
     parser = argparse.ArgumentParser(description="Pre-push CI check")
     parser.add_argument("--fast",   action="store_true", help="Skip Blender + integration tests")
     parser.add_argument("--syntax", action="store_true", help="Syntax check only")
     args = parser.parse_args()
 
-    print(f"\n{BOLD}Cartoon Animation Studio ΓÇö Pre-push CI Check{RESET}")
+    print(f"\n{BOLD}Cartoon Animation Studio — Pre-push CI Check{RESET}")
     print(f"Repo:    {REPO_ROOT}")
     print(f"Project: {PROJECT_DIR}")
     print(f"Mode:    {'syntax-only' if args.syntax else 'fast' if args.fast else 'full'}")

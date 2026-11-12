@@ -34,3 +34,12 @@ google-services.json
 # Android Profiling
 *.hprof
 /tools/
+
+check_output.txt
+check_before_push_result.txt
+__pycache__/
+*.pyc
+*.pyo
+test*_junit.xml
+test*_results.txt
+System.Xml.XmlDocument
