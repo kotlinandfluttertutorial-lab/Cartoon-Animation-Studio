@@ -21,6 +21,11 @@ import pytest
 # ---------------------------------------------------------------------------
 _REPO_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__), '..'))
 _BLENDER_EXE = r'P:\AI\Cartoon-Animation-Studio\tools\blender-4.4.3-windows-x64\blender.exe'
+_BLENDER_MISSING = not os.path.isfile(_BLENDER_EXE)
+_skip_no_blender = pytest.mark.skipif(
+    _BLENDER_MISSING,
+    reason=f'Blender executable not found: {_BLENDER_EXE}',
+)
 _AARAV_BLEND_ORIG = os.path.join(_REPO_ROOT, 'blender', 'assets', 'characters', 'aarav', 'aarav.blend')
 _AANYA_BLEND_ORIG = os.path.join(_REPO_ROOT, 'blender', 'assets', 'characters', 'aanya', 'aanya.blend')
 _AARAV_BLEND_STAGE4 = os.path.join(_REPO_ROOT, 'blender', 'assets', 'characters', 'aarav', 'aarav_stage4.blend')
@@ -174,6 +179,7 @@ class TestPreviewFiles:
 class TestGestureActions:
     """Tests 8–11: Gesture actions present in stage4 blend files."""
 
+    @_skip_no_blender
     def test_aarav_gesture_actions_present(self):
         """AARAV_WAVE, AARAV_POINT, AARAV_NOD, AARAV_GREETING present in aarav_stage4.blend."""
         required = ['AARAV_WAVE', 'AARAV_POINT', 'AARAV_NOD', 'AARAV_GREETING']
@@ -181,6 +187,7 @@ class TestGestureActions:
         missing = [n for n in required if not findings.get(n, False)]
         assert not missing, f'Missing Aarav gesture actions: {missing}'
 
+    @_skip_no_blender
     def test_aanya_gesture_actions_present(self):
         """AANYA_WAVE, AANYA_POINT, AANYA_NOD, AANYA_GREETING present in aanya_stage4.blend."""
         required = ['AANYA_WAVE', 'AANYA_POINT', 'AANYA_NOD', 'AANYA_GREETING']
@@ -188,6 +195,7 @@ class TestGestureActions:
         missing = [n for n in required if not findings.get(n, False)]
         assert not missing, f'Missing Aanya gesture actions: {missing}'
 
+    @_skip_no_blender
     def test_aarav_regression_actions(self):
         """AARAV_IDLE and AARAV_WALK still present in aarav_stage4.blend."""
         required = ['AARAV_IDLE', 'AARAV_WALK']
@@ -195,6 +203,7 @@ class TestGestureActions:
         missing = [n for n in required if not findings.get(n, False)]
         assert not missing, f'Missing Aarav regression actions: {missing}'
 
+    @_skip_no_blender
     def test_aanya_regression_actions(self):
         """AANYA_IDLE and AANYA_WALK still present in aanya_stage4.blend."""
         required = ['AANYA_IDLE', 'AANYA_WALK']
