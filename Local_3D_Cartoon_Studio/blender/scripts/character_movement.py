@@ -341,7 +341,7 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix,
             except IndexError:
                 pass
 
-    # Step 4: move only safe (arm/leg) mesh objects with correct offset
+    # Step 4: move only safe (arm/leg/head) mesh objects with correct offset + rotation
     for bone_name in keyed_bones:
         if bone_name not in _SAFE_BONES:
             continue  # skip spine, chest, shoulders — not in _SAFE_BONES
@@ -349,15 +349,43 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix,
         midpoint = _bone_world_midpoint(arm_eval, bone_name)
         if midpoint is None:
             continue
+
         for suffix in mesh_suffixes:
             obj_name = f'{char_prefix}_{suffix}'
             obj = bpy.data.objects.get(obj_name)
             if obj is None:
                 continue
             saved[obj_name] = obj.location.copy()
+            # Also save original rotation so restore_pose can reset it correctly
+            if obj_name + '_rot' not in saved:
+                saved[obj_name + '_rot'] = obj.rotation_euler.copy()
             # CORRECT: new_position = new_bone_midpoint + rest_offset
             offset = rest_offsets.get(obj_name, mathutils.Vector((0.0, 0.0, 0.0)))
             obj.location = midpoint + offset
+
+            # For head bone: also apply rotation to the mesh object so NOD is
+            # a genuine rotation rather than pure translation.
+            # We rotate around the neck pivot (head bone BASE = pb.head in world space).
+            if bone_name == 'head':
+                pb_current = arm_obj.pose.bones.get(bone_name)
+                pb_eval = arm_eval.pose.bones.get(bone_name)
+                if pb_current is not None and pb_eval is not None:
+                    # Neck pivot = head bone base in world space
+                    neck_pivot = arm_eval.matrix_world @ pb_eval.head
+                    # Rotation from bone's pose (XYZ Euler from action)
+                    rot_euler = pb_current.rotation_euler
+                    rot_mat = mathutils.Euler(rot_euler, 'XYZ').to_matrix().to_4x4()
+
+                    # Rest mesh origin to pivot offset
+                    rest_origin = saved[obj_name]
+                    pivot_to_rest = rest_origin - neck_pivot
+
+                    # Rotate that offset by the bone rotation
+                    rotated = rot_mat @ pivot_to_rest.to_4d()
+                    obj.location = neck_pivot + mathutils.Vector(rotated.xyz)
+
+                    # Also apply the same euler rotation to the mesh object itself
+                    obj.rotation_euler = rot_euler.copy()
 
     # Step 5: update scene after mesh moves
     bpy.context.view_layer.update()
@@ -367,20 +395,23 @@ def apply_action_pose(arm_obj, action_name, frame, char_prefix,
 
 def restore_pose(arm_obj, saved_locations):
     """
-    Restore mesh object locations and clear all bone rotations.
-
-    Exact pattern from render_animation_preview.restore_pose().
-
-    Parameters
-    ----------
-    arm_obj         : bpy.types.Object  — character armature
-    saved_locations : dict              — {obj_name: original_location} returned
-                                          by apply_action_pose()
+    Restore mesh object locations and clear animation rotations (X, Y).
+    Preserves Z rotation (structural FIX_AANYA 180° flip if present).
+    Uses saved rotation if available, otherwise resets X and Y to 0.
     """
     for obj_name, orig_loc in saved_locations.items():
+        if obj_name.endswith('_rot'):
+            continue  # skip rotation save entries
         obj = bpy.data.objects.get(obj_name)
         if obj:
             obj.location = orig_loc
+            # Restore to saved rotation if available, otherwise reset X/Y only
+            rot_key = obj_name + '_rot'
+            if rot_key in saved_locations:
+                obj.rotation_euler = saved_locations[rot_key].copy()
+            else:
+                obj.rotation_euler.x = 0.0
+                obj.rotation_euler.y = 0.0
 
     if arm_obj is not None:
         bpy.context.view_layer.objects.active = arm_obj
