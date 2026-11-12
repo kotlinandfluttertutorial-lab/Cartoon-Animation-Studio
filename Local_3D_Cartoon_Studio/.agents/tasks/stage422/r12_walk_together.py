@@ -20,20 +20,21 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 scene = bpy.context.scene
 setup_workbench(scene)
 
-# -- Combined render: Aarav AARAV_WALK fr9 + Aanya AANYA_WALK fr9 -> walk_together.png --
+# -- Combined render: Aarav AARAV_IDLE fr1 + Aanya AANYA_IDLE fr1 -> walk_together.png --
 
 AARAV_BLEND  = 'P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aarav\\aarav_stage4.blend'
 AANYA_BLEND  = 'P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\characters\\aanya\\aanya_stage4.blend'
-AARAV_ACTION = 'AARAV_WALK'
-AARAV_FRAME  = 9
-AANYA_ACTION = 'AANYA_WALK'
-AANYA_FRAME  = 9
+AARAV_ACTION = 'AARAV_IDLE'
+AARAV_FRAME  = 1
+AANYA_ACTION = 'AANYA_IDLE'
+AANYA_FRAME  = 1
 OUT_FILENAME = 'walk_together.png'
 AARAV_X      = -0.6
 AANYA_X      = 0.6
 
-# Camera: combined — location (0, -5.5, 0.875), look-at (0, 0, 0.875), lens 40mm
-cam_pos    = (0.0, -5.5, 0.875)
+# Camera: combined — location (0, +5.5, 0.875), look-at (0, 0, 0.875), lens 40mm
+# Camera at +Y looks toward -Y. Aarav faces +Y natively, Aanya has 180deg flip applied.
+cam_pos    = (0.0, 5.5, 0.875)
 cam_target = (0.0,  0.0, 0.875)
 cam_lens   = 40
 
@@ -48,6 +49,9 @@ for obj in bpy.data.objects:
         scene.collection.objects.link(obj)
 
 bpy.context.view_layer.update()
+
+# Compute Aanya rest offsets BEFORE orientation fix (must be in original rest pose)
+aanya_rest = compute_rest_offsets(aanya_arm, 'Aanya')
 
 # Aanya orientation fix: mesh faces -Y, needs 180-degree Z flip
 aanya_arm_obj = bpy.data.objects.get('Aanya_Armature')
@@ -83,9 +87,9 @@ if aanya_arm is None:
     print('ERROR: Aanya_Armature not found')
     import sys; sys.exit(1)
 
-# Compute rest offsets after orientation/position fixes
+# Compute Aarav rest offsets (after position fix, before any pose)
 aarav_rest = compute_rest_offsets(aarav_arm, 'Aarav')
-aanya_rest = compute_rest_offsets(aanya_arm, 'Aanya')
+# Aanya rest offsets already computed above (before orientation fix)
 
 # Apply poses
 saved_aarav = {}

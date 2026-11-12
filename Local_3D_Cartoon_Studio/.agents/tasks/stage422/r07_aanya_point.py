@@ -27,9 +27,11 @@ CHAR_NAME    = 'Aanya'
 ACTION_NAME  = 'AANYA_POINT'
 FRAME        = 8
 OUT_FILENAME = 'aanya_point.png'
-FIX_AANYA    = True
+FIX_AANYA    = False
 
-# Camera: single-character — location (0, -4.5, 0.875), look-at (0, 0, 0.875), lens 50mm
+# Camera: single-character — location (0, +4.5, 0.875), look-at (0, 0, 0.875), lens 50mm
+# Aarav nose is at Y=+0.265 (face on +Y side). Camera at +Y looks toward -Y, sees the front.
+# Aanya nose is at Y=-0.320 (face on -Y side). FIX_AANYA rotates her 180deg so she also faces +Y.
 cam_pos    = (0.0, -4.5, 0.875)
 cam_target = (0.0,  0.0, 0.875)
 cam_lens   = 50
@@ -44,6 +46,9 @@ if action is None:
     print(f'ERROR: action {ACTION_NAME!r} not found')
     import sys; sys.exit(1)
 
+# Compute rest offsets BEFORE orientation fix (must be in original rest pose)
+rest_offsets = compute_rest_offsets(arm_obj, CHAR_NAME)
+
 # Aanya orientation fix: mesh faces -Y, needs 180-degree Z flip
 if FIX_AANYA:
     aanya_arm = bpy.data.objects.get('Aanya_Armature')
@@ -57,9 +62,6 @@ if FIX_AANYA:
                 obj.rotation_euler[2] -= arm_z
     bpy.context.view_layer.update()
     print(f'  Applied 180 deg Z rotation to Aanya objects')
-
-# Compute rest offsets once in rest pose
-rest_offsets = compute_rest_offsets(arm_obj, CHAR_NAME)
 
 make_camera(scene, 'RenderCam422', cam_pos, cam_target, cam_lens)
 

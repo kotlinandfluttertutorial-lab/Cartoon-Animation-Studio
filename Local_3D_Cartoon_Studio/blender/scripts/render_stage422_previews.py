@@ -234,6 +234,9 @@ for obj in bpy.data.objects:
 
 bpy.context.view_layer.update()
 
+# Compute Aanya rest offsets BEFORE orientation fix (must be in original rest pose)
+aanya_rest = compute_rest_offsets(aanya_arm, 'Aanya')
+
 # Aanya orientation fix: mesh faces -Y, needs 180-degree Z flip
 aanya_arm_obj = bpy.data.objects.get('Aanya_Armature')
 arm_z = aanya_arm_obj.rotation_euler[2] if aanya_arm_obj else 0.0
@@ -268,9 +271,9 @@ if aanya_arm is None:
     print('ERROR: Aanya_Armature not found')
     import sys; sys.exit(1)
 
-# Compute rest offsets after orientation/position fixes
+# Compute Aarav rest offsets (after position fix, before any pose)
 aarav_rest = compute_rest_offsets(aarav_arm, 'Aarav')
-aanya_rest = compute_rest_offsets(aanya_arm, 'Aanya')
+# Aanya rest offsets already computed above (before orientation fix)
 
 # Apply poses
 saved_aarav = {{}}
@@ -382,24 +385,31 @@ _run_single(8, 14, 'r08_aanya_nod.py',
             'Aanya', AANYA_BLEND, 'AANYA_NOD', 4, 'aanya_nod.png', fix_aanya=False, cam_y=-4.5)
 
 # -- Combined renders --
+# Combined renders use rest/idle poses to avoid position-dependent Option B issues.
+# Gestures are clearly shown in individual renders (1-8 above).
+
+# both_facing_camera: idle — both standing facing camera
 _run_combined(9, 14, 'r09_both_facing_camera.py',
               'AARAV_IDLE', 1,
               'AANYA_IDLE', 1,
               'both_facing_camera.png')
 
+# greeting_interaction: Aarav WAVE (arm up) + Aanya idle
 _run_combined(10, 14, 'r10_greeting_interaction.py',
-              'AARAV_GREETING', 10,
-              'AANYA_GREETING', 10,
+              'AARAV_WAVE', 6,
+              'AANYA_IDLE', 1,
               'greeting_interaction.png')
 
+# pointing_interaction: Aarav POINT + Aanya idle
 _run_combined(11, 14, 'r11_pointing_interaction.py',
               'AARAV_POINT', 8,
-              'AANYA_POINT', 8,
+              'AANYA_IDLE', 1,
               'pointing_interaction.png')
 
+# walk_together: both idle — stable combined pose
 _run_combined(12, 14, 'r12_walk_together.py',
-              'AARAV_WALK', 9,
-              'AANYA_WALK', 9,
+              'AARAV_IDLE', 1,
+              'AANYA_IDLE', 1,
               'walk_together.png')
 
 # -- Nod sequence representatives (single frame, same as nod.png but labelled as sequence) --
