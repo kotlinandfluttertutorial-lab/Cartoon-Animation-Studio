@@ -32,8 +32,9 @@ OUT_FILENAME = 'both_facing_camera.png'
 AARAV_X      = -0.6
 AANYA_X      = 0.6
 
-# Camera: combined — location (0, -5.5, 0.875), look-at (0, 0, 0.875), lens 40mm
-cam_pos    = (0.0, -5.5, 0.875)
+# Camera: combined — location (0, +5.5, 0.875), look-at (0, 0, 0.875), lens 40mm
+# Camera at +Y looks toward -Y. Aarav faces +Y natively, Aanya has 180deg flip applied.
+cam_pos    = (0.0, 5.5, 0.875)
 cam_target = (0.0,  0.0, 0.875)
 cam_lens   = 40
 
@@ -48,6 +49,9 @@ for obj in bpy.data.objects:
         scene.collection.objects.link(obj)
 
 bpy.context.view_layer.update()
+
+# Compute Aanya rest offsets BEFORE orientation fix (must be in original rest pose)
+aanya_rest = compute_rest_offsets(aanya_arm, 'Aanya')
 
 # Aanya orientation fix: mesh faces -Y, needs 180-degree Z flip
 aanya_arm_obj = bpy.data.objects.get('Aanya_Armature')
@@ -83,9 +87,9 @@ if aanya_arm is None:
     print('ERROR: Aanya_Armature not found')
     import sys; sys.exit(1)
 
-# Compute rest offsets after orientation/position fixes
+# Compute Aarav rest offsets (after position fix, before any pose)
 aarav_rest = compute_rest_offsets(aarav_arm, 'Aarav')
-aanya_rest = compute_rest_offsets(aanya_arm, 'Aanya')
+# Aanya rest offsets already computed above (before orientation fix)
 
 # Apply poses
 saved_aarav = {}
