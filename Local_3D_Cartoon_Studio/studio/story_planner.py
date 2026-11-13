@@ -118,6 +118,7 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
         schema["$defs"]["Scene"]["properties"]["duration_seconds"] = {
             "type": "integer", "enum": [duration],
         }
+        schema["$defs"]["SoundCue"]["properties"]["at_seconds"]["maximum"] = duration - 1
     payload = {
         "model": model,
         "stream": False,
@@ -132,6 +133,9 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
                     "Scene durations must sum exactly to the requested duration. Include both characters, "
                     "short dialogue (for a story under 15 seconds, exactly one short line per character "
                     "and one scene), and one sound cue. Use an empty narration string if none is needed. "
+                    "A sound cue's at_seconds is an integer offset from the start of its own scene. "
+                    "Use 0 through scene duration minus 1. For a 5-second scene, use 0 through 4, "
+                    "even if that scene starts later in the story. "
                     "Set entrance to false unless the action is walk. "
                     "Build physical objects requested by the user as scene props in the relevant scenes, "
                     "even if characters also mention them in dialogue. Invent a recognizable low-poly "
@@ -161,6 +165,14 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
             for performance in scene["performances"]:
                 if performance["action"] != "walk" and performance.get("entrance") is True:
                     performance["entrance"] = False
+            # Keep generated cues that land at or beyond the cut. Manual JSON
+            # still goes through the unmodified scene validator.
+            seconds = scene["duration_seconds"]
+            if type(seconds) is int and seconds >= 2:
+                for cue in scene["sound_effects"]:
+                    offset = cue["at_seconds"]
+                    if type(offset) is int and offset >= seconds:
+                        cue["at_seconds"] = seconds - 1
         story = Story.model_validate_json(json.dumps(data))
         if story.duration_seconds != duration:
             raise ValueError(f"Expected a {duration}-second story, got {story.duration_seconds}.")

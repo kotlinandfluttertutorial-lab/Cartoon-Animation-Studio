@@ -8,7 +8,7 @@ import streamlit as st
 
 from studio.story_planner import Story, load_story
 from studio.story_render import PROJECT, atomic_json, input_file
-from studio.ui_jobs import import_prepared, jobs, new_directory, project_path, read_json, start_job
+from studio.ui_jobs import cinematic_report, import_prepared, jobs, new_directory, project_path, read_json, start_job
 
 ASSETS = PROJECT / "blender" / "assets"
 WORKSPACE = Path(os.environ.get("CARTOON_STUDIO_PROJECTS", PROJECT / "output" / "studio_ui")).resolve()
@@ -18,6 +18,7 @@ CAMERAS = ("wide", "medium", "close", "approach", "follow", "pullback")
 PROFILES = {"preview": "Preview · 640 × 360 · 12 fps", "720p": "Production · 1280 × 720 · 24 fps"}
 DEFAULT_VOICE = "en_US-ryan-medium"
 TITLE = "Cartoon Animation Studio"
+CINEMATIC_SAMPLE = PROJECT / "output/stage13_cinematic_previews/shot_sequence"
 
 st.set_page_config(page_title=TITLE, page_icon=":material/movie:", layout="wide")
 st.session_state.setdefault("active_project", "magical-garden")
@@ -72,7 +73,8 @@ def activity(project):
         return
     directory, job, result = latest
     status = result["status"]
-    labels = {"plan": "Story generation", "audio": "Voice and audio preparation", "render": "Blender render"}
+    labels = {"plan": "Story generation", "audio": "Voice and audio preparation",
+              "render": "Blender render", "cinematic": "Stage 13 cinematic render"}
     label = f"{labels[job['kind']]} · {status.capitalize()}"
     if status == "complete":
         st.success(label)
@@ -92,6 +94,9 @@ def activity(project):
             total = sum(scene["duration_frames"] for scene in timing["scenes"]) * render_fps // fps
             if total:
                 st.progress(min(frame_count / total, 1.0), text=f"{frame_count} of {total} frames written")
+    elif job["kind"] == "cinematic":
+        frame_count = sum(1 for _ in (Path(job["output"]) / "frames").glob("[0-9][0-9][0-9][0-9].png"))
+        st.caption(f"{frame_count} frames written")
     log = directory / "process.log"
     if log.is_file():
         details = st.expander("Job log", on_change="rerun")
@@ -366,6 +371,39 @@ def render_settings():
     activity(project)
 
 
+def cinematic_preview():
+    project = selected_project()
+    st.title("Stage 13 cinematic preview")
+    st.caption("Render the 24-second, seven-shot garden sequence with Aarav and Aanya.")
+    if st.button("Render cinematic preview", type="primary", icon=":material/movie:"):
+        target = new_directory(project / "cinematic")
+        launch(project, "cinematic", [], target)
+    activity(project)
+
+    st.subheader("Playback")
+    st.button("Refresh completed renders", icon=":material/refresh:")
+    directories = sorted((project / "cinematic").glob("*/sequence.json"), reverse=True)
+    completed = [(path.parent, report) for path in directories
+                 if (report := cinematic_report(path.parent))]
+    if sample := cinematic_report(CINEMATIC_SAMPLE):
+        completed.append((CINEMATIC_SAMPLE, sample))
+    if not completed:
+        st.info("A preview appears here once the render passes verification.")
+        return
+    directory, report = st.selectbox(
+        "Cinematic render", completed,
+        format_func=lambda pair: "Original Stage 13 preview" if pair[0] == CINEMATIC_SAMPLE else pair[0].name,
+    )
+    st.video(directory / "final_video.mp4", alt="Stage 13 garden sequence with dialogue")
+    width, height = report["resolution"]
+    st.caption(f"{report['duration_seconds']:g} seconds · {width} × {height} · {report['fps']} fps")
+    st.download_button(
+        "Download timing report", (directory / "sequence.json").read_bytes(),
+        "sequence.json", mime="application/json", icon=":material/download:",
+    )
+    st.code(str(directory), language="text")
+
+
 def reports():
     project = selected_project()
     st.title("Production reports")
@@ -404,6 +442,8 @@ navigation = st.navigation({
     "Libraries": [st.Page(characters, title="Characters", icon=":material/person:"),
                   st.Page(environments, title="Environments", icon=":material/park:")],
     "Production": [preview_page, st.Page(render_settings, title="Render settings", icon=":material/tune:"),
+                   st.Page(cinematic_preview, title="Stage 13 cinematic", icon=":material/movie:",
+                           help="Render and play the Stage 13 garden sequence."),
                    st.Page(reports, title="Production reports", icon=":material/description:")],
 })
 with st.sidebar:

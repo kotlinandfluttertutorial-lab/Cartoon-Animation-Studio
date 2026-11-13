@@ -85,6 +85,7 @@ def test_ollama_request_constrains_short_story_duration(monkeypatch):
         payload = json.loads(request.data)
         assert payload["format"]["properties"]["duration_seconds"]["enum"] == [10]
         assert payload["format"]["properties"]["scenes"]["maxItems"] == 1
+        assert payload["format"]["$defs"]["SoundCue"]["properties"]["at_seconds"]["maximum"] == 9
         assert "props" in payload["format"]["$defs"]["Scene"]["required"]
         return io.StringIO(json.dumps({"message": {"content": json.dumps(data)}}))
 
@@ -93,6 +94,32 @@ def test_ollama_request_constrains_short_story_duration(monkeypatch):
     assert story.duration_seconds == 10
     assert story.scenes[0].props[0].parts[0].shape == "cylinder"
     assert Story.model_validate_json(story.model_dump_json()) == story
+
+
+def test_ollama_cues_are_kept_inside_their_own_scene(monkeypatch, tmp_path):
+    import io
+
+    data = story_data()
+    data["duration_seconds"] = 18
+    data["scenes"].append({
+        **data["scenes"][0],
+        "duration_seconds": 8,
+        "sound_effects": [
+            {"effect": "chime", "at_seconds": 8},
+            {"effect": "bird_chirp", "at_seconds": 12},
+            {"effect": "chime", "at_seconds": 0},
+        ],
+    })
+    source = tmp_path / "story.json"
+    source.write_text(json.dumps(data), encoding="utf-8")
+    with pytest.raises(ValidationError, match="Sound effects must start within the scene"):
+        load_story(source)
+
+    response = json.dumps({"message": {"content": json.dumps(data)}})
+    monkeypatch.setattr("studio.story_planner.urlopen", lambda *args, **kwargs: io.StringIO(response))
+    story = generate_story("Find a bird in the garden.", 18, "http://localhost:11434", "qwen3:4b")
+    assert [cue.at_seconds for cue in story.scenes[0].sound_effects] == [3]
+    assert [cue.at_seconds for cue in story.scenes[1].sound_effects] == [7, 7, 0]
 
 
 def test_silence_closes_mouth_and_partial_frame_is_retained(tmp_path):

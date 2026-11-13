@@ -14,10 +14,12 @@ import uuid
 
 import psutil
 
+from studio.config_manager import ConfigManager
 from studio.story_render import PROJECT, atomic_json, input_file, read_inputs
 
 LOCK = threading.Lock()
 COMMANDS = {"plan": "stage5_story.py", "audio": "stage5_story.py", "render": "stage6_render.py"}
+CINEMATIC_SCRIPT = PROJECT / "blender/scripts/render_stage13_sequence.py"
 
 
 def project_path(root, name):
@@ -105,12 +107,24 @@ def import_prepared(source, target):
         shutil.copy2(path, destination)
 
 
+def cinematic_report(output):
+    report = read_json(output / "sequence.json")
+    video = output / "final_video.mp4"
+    size = report.get("media", {}).get("bytes")
+    if size and video.is_file() and video.stat().st_size == size:
+        return report
+    return {}
+
+
 def verify_result(kind, output):
     if kind == "plan":
         if (output / "story.json").is_file():
             return {"status": "complete"}
     elif kind == "audio":
         if (output / "timing.json").is_file():
+            return {"status": "complete"}
+    elif kind == "cinematic":
+        if cinematic_report(output):
             return {"status": "complete"}
     else:
         report = read_json(output / "production_report.json")
@@ -125,9 +139,16 @@ def verify_result(kind, output):
 def execute_job(directory):
     job = read_json(directory / "job.json")
     try:
+        if job["kind"] == "cinematic":
+            config = ConfigManager(PROJECT / "config")
+            config.load()
+            command = [config.settings.blender_executable, "-b", "-t", "6", "--python-exit-code", "1",
+                       "--python", str(CINEMATIC_SCRIPT), "--", job["output"]]
+        else:
+            command = [sys.executable, str(PROJECT / COMMANDS[job["kind"]]), *job["args"]]
         with (directory / "process.log").open("w", encoding="utf-8") as log:
             result = subprocess.run(
-                [sys.executable, str(PROJECT / COMMANDS[job["kind"]]), *job["args"]],
+                command,
                 cwd=PROJECT, stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT,
             )
         if result.returncode:
