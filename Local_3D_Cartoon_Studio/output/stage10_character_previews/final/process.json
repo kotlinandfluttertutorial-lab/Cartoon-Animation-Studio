@@ -1,0 +1,17 @@
+{
+  "command": [
+    "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+    "-b",
+    "-t",
+    "6",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\scripts\\build_stage10_characters.py",
+    "--",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage10_character_previews\\final"
+  ],
+  "wall_seconds": 5.97,
+  "peak_rss_mib": 323.04,
+  "exit_code": 0
+}

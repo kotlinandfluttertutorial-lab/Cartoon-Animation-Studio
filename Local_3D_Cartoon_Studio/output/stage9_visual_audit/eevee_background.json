@@ -1,0 +1,13 @@
+{
+  "engine": "BLENDER_EEVEE_NEXT",
+  "width": 640,
+  "height": 360,
+  "fps": 24,
+  "background": true,
+  "seconds": [
+    25.4882
+  ],
+  "bytes": [
+    257253
+  ]
+}

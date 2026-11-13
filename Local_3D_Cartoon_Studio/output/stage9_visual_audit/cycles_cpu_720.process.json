@@ -1,0 +1,23 @@
+{
+  "command": [
+    "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+    "-b",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage9_visual_audit\\comparison.blend",
+    "-t",
+    "6",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage9_visual_audit\\audit_scene.py",
+    "--",
+    "CYCLES",
+    "1280",
+    "24",
+    "1",
+    "cycles_cpu_720"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 17.3,
+  "peak_rss_mib": 958.2,
+  "timed_out": false
+}

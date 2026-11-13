@@ -1,0 +1,13 @@
+{
+  "engine": "CYCLES",
+  "width": 1280,
+  "height": 720,
+  "fps": 24,
+  "background": true,
+  "seconds": [
+    16.4477
+  ],
+  "bytes": [
+    969981
+  ]
+}

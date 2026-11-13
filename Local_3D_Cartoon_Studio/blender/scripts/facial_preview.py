@@ -49,6 +49,10 @@ def setup_preview(character):
 
 def prepare_character_face(character):
     """Apply the in-memory face and headwear adjustments in native rest space."""
+    armature = bpy.data.objects.get(f"{character}_Armature")
+    if armature is not None and armature.get("stage10_face_ready"):
+        return
+
     if character == "Aarav":
         # The Stage 4 working copy uses unit cubes for the crown and fringe.
         # Round them in the preview scene while preserving their authored fit.

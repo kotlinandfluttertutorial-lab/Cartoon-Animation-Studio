@@ -1,0 +1,29 @@
+{
+  "fingerprint": "5285c34f3948eae1050f7e3298eef0692f3e025601aa17b90bfb96a3ee10d84e",
+  "scenes": {
+    "1": {
+      "valid_frames": 120,
+      "total_frames": 120
+    },
+    "2": {
+      "valid_frames": 168,
+      "total_frames": 168
+    },
+    "3": {
+      "valid_frames": 168,
+      "total_frames": 168
+    },
+    "4": {
+      "valid_frames": 192,
+      "total_frames": 192
+    },
+    "5": {
+      "valid_frames": 240,
+      "total_frames": 240
+    },
+    "6": {
+      "valid_frames": 192,
+      "total_frames": 192
+    }
+  }
+}

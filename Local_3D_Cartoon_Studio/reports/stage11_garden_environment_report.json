@@ -1,0 +1,90 @@
+{
+  "blender": "4.4.3",
+  "engine": "BLENDER_WORKBENCH",
+  "resolution": [
+    640,
+    360
+  ],
+  "build_seconds": 0.398,
+  "reload_seconds": 0.028,
+  "render_seconds": {
+    "garden_wide": 2.042,
+    "garden_front": 0.245,
+    "garden_three_quarter": 0.221,
+    "pathway_close": 0.22,
+    "trees_bushes": 0.157,
+    "flowers_grass": 0.178,
+    "bench_decor": 0.152,
+    "garden_with_characters": 0.294,
+    "character_walking": 0.284,
+    "final_composition": 0.26
+  },
+  "environment_mesh_objects": 243,
+  "environment_face_instances": 16245,
+  "walk_route_samples": 55,
+  "character_views": {
+    "garden_with_characters": "framing and sightlines pass",
+    "character_walking": "framing and sightlines pass",
+    "final_composition": "framing and sightlines pass"
+  },
+  "human_visual_approval": "approved",
+  "source_asset_hash_differences": 0,
+  "ffmpeg": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "width": 640,
+        "height": 360,
+        "r_frame_rate": "12/1",
+        "duration": "1.000000",
+        "nb_read_frames": "12"
+      }
+    ]
+  },
+  "tests": {
+    "passed": 182,
+    "failed": 0,
+    "warnings": 1
+  },
+  "baseline_process": {
+    "command": [
+      "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+      "-b",
+      "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\environments\\garden\\garden.blend",
+      "-t",
+      "6",
+      "--python-expr",
+      "import bpy,time; s=bpy.context.scene; s.render.engine=\"BLENDER_WORKBENCH\"; s.render.resolution_x=640; s.render.resolution_y=360; s.render.resolution_percentage=100; s.camera=bpy.data.objects[\"Garden_Wide_Camera\"]; s.render.filepath='P:\\\\AI\\\\Cartoon-Animation-Studio\\\\Local_3D_Cartoon_Studio\\\\output\\\\stage11_garden_previews\\\\baseline.png'; t=time.perf_counter(); bpy.ops.render.render(write_still=True); print(\"BASELINE_SECONDS\",time.perf_counter()-t)"
+    ],
+    "wall_seconds": 2.43,
+    "peak_rss_mib": 257.95,
+    "exit_code": 0
+  },
+  "process": {
+    "command": [
+      "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+      "-b",
+      "-t",
+      "6",
+      "--python-exit-code",
+      "1",
+      "--python",
+      "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\scripts\\build_stage11_garden.py",
+      "--",
+      "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage11_garden_previews\\final"
+    ],
+    "wall_seconds": 5.607,
+    "peak_rss_mib": 334.98,
+    "exit_code": 0
+  },
+  "original_video_unchanged": true,
+  "baseline_render_seconds": 1.6014,
+  "source_asset_hashes_checked": 164,
+  "stage": 11,
+  "known_limitations": [
+    "Walking preview is a sampled pose",
+    "Path clearance and visibility tests sample specific points",
+    "Stage 6 defaults still load the original garden"
+  ]
+}

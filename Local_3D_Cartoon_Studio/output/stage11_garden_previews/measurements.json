@@ -1,0 +1,30 @@
+{
+  "blender": "4.4.3",
+  "engine": "BLENDER_WORKBENCH",
+  "resolution": [
+    640,
+    360
+  ],
+  "build_seconds": 0.38,
+  "reload_seconds": 0.03,
+  "render_seconds": {
+    "garden_wide": 2.183,
+    "garden_front": 0.257,
+    "garden_three_quarter": 0.236,
+    "pathway_close": 0.189,
+    "trees_bushes": 0.187,
+    "flowers_grass": 0.214,
+    "bench_decor": 0.173,
+    "garden_with_characters": 0.361,
+    "character_walking": 0.268,
+    "final_composition": 0.23
+  },
+  "environment_mesh_objects": 243,
+  "environment_face_instances": 16245,
+  "walk_route_samples": 55,
+  "character_views": {
+    "garden_with_characters": "framing and sightlines pass",
+    "character_walking": "framing and sightlines pass",
+    "final_composition": "framing and sightlines pass"
+  }
+}

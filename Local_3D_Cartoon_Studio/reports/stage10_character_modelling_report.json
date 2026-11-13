@@ -1,0 +1,129 @@
+{
+  "Aarav": {
+    "load_seconds": 0.0089,
+    "bones": 20,
+    "actions": {
+      "AARAV_GREETING": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_IDLE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_NOD": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_POINT": {
+        "samples": 4,
+        "distinct_mesh_poses": 3
+      },
+      "AARAV_WALK": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_WAVE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      }
+    },
+    "visible_meshes": 43,
+    "source_base_polygons": 684,
+    "polygons": 6466,
+    "render_seconds": {
+      "idle_front": 1.806,
+      "idle_three_quarter": 0.063,
+      "side": 0.062,
+      "happy": 0.084,
+      "surprised": 0.069,
+      "speaking": 0.063,
+      "nod": 0.069,
+      "walk": 0.067,
+      "wave": 0.068
+    }
+  },
+  "Aanya": {
+    "load_seconds": 0.0125,
+    "bones": 20,
+    "actions": {
+      "AANYA_GREETING": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_IDLE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_NOD": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_POINT": {
+        "samples": 4,
+        "distinct_mesh_poses": 3
+      },
+      "AANYA_WALK": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_WAVE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      }
+    },
+    "visible_meshes": 42,
+    "source_base_polygons": 818,
+    "polygons": 6724,
+    "render_seconds": {
+      "idle_front": 0.074,
+      "idle_three_quarter": 0.071,
+      "side": 0.066,
+      "happy": 0.082,
+      "surprised": 0.076,
+      "speaking": 0.07,
+      "nod": 0.071,
+      "walk": 0.072,
+      "wave": 0.113
+    }
+  },
+  "pair_seconds": {
+    "pair_standing": 0.115,
+    "pair_smiling": 0.098,
+    "pair_garden": 0.76
+  },
+  "process": {
+    "command": [
+      "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+      "-b",
+      "-t",
+      "6",
+      "--python-exit-code",
+      "1",
+      "--python",
+      "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\scripts\\build_stage10_characters.py",
+      "--",
+      "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage10_character_previews\\final"
+    ],
+    "wall_seconds": 5.97,
+    "peak_rss_mib": 323.04,
+    "exit_code": 0
+  },
+  "stage": 10,
+  "pytest": {
+    "passed": 182,
+    "warnings": 1
+  },
+  "validated_stills": 21,
+  "motion_frames": 36,
+  "motion_fps": 12,
+  "existing_source_asset_hash_differences": 0,
+  "original_video_unchanged": true,
+  "human_approval": "approved",
+  "limitations": [
+    "Rigid segmented meshes use existing action sampling rather than weighted skinning.",
+    "Wave angles are shallow and wrist and elbow seams remain in some poses.",
+    "Scarf follows the rigid head motion; broad non-intersection across all possible poses is unverified.",
+    "Production still defaults to the original Stage 4 character assets."
+  ]
+}

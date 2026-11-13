@@ -1,0 +1,93 @@
+{
+  "Aarav": {
+    "load_seconds": 0.0098,
+    "bones": 20,
+    "actions": {
+      "AARAV_GREETING": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_IDLE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_NOD": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_POINT": {
+        "samples": 4,
+        "distinct_mesh_poses": 3
+      },
+      "AARAV_WALK": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AARAV_WAVE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      }
+    },
+    "visible_meshes": 43,
+    "polygons": 6466,
+    "render_seconds": {
+      "idle_front": 2.596,
+      "idle_three_quarter": 0.103,
+      "side": 0.087,
+      "happy": 0.12,
+      "surprised": 0.113,
+      "speaking": 0.101,
+      "nod": 0.11,
+      "walk": 0.093,
+      "wave": 0.16
+    }
+  },
+  "Aanya": {
+    "load_seconds": 0.0196,
+    "bones": 20,
+    "actions": {
+      "AANYA_GREETING": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_IDLE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_NOD": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_POINT": {
+        "samples": 4,
+        "distinct_mesh_poses": 3
+      },
+      "AANYA_WALK": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      },
+      "AANYA_WAVE": {
+        "samples": 4,
+        "distinct_mesh_poses": 4
+      }
+    },
+    "visible_meshes": 42,
+    "polygons": 6724,
+    "render_seconds": {
+      "idle_front": 0.161,
+      "idle_three_quarter": 0.126,
+      "side": 0.093,
+      "happy": 0.097,
+      "surprised": 0.115,
+      "speaking": 0.124,
+      "nod": 0.105,
+      "walk": 0.106,
+      "wave": 0.105
+    }
+  },
+  "pair_seconds": {
+    "pair_standing": 0.131,
+    "pair_smiling": 0.104,
+    "pair_garden": 1.059
+  }
+}

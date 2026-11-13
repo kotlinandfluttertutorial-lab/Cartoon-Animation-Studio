@@ -224,11 +224,11 @@ def assemble(output, scenes, timing_fps, profile, settings):
     return metadata
 
 
-def render_story(source, output, profile, settings, resume=False, budget=None):
+def render_story(source, output, profile, settings, resume=False, budget=None, *, visual_upgrade=False):
     source, output = source.resolve(), output.resolve()
     width, height, fps = profile
     story, timing_fps, scenes, files = read_inputs(source)
-    identity = fingerprint(files, profile)
+    identity = fingerprint(files, (profile, "garden-upgrade") if visual_upgrade else profile)
     progress = output / "progress.json"
     if (output / "final_video.mp4").exists():
         raise ValueError("The final video already exists. Choose a new output directory.")
@@ -262,6 +262,7 @@ def render_story(source, output, profile, settings, resume=False, budget=None):
                 "scene": plan.model_dump(), "output": str(directory), "width": width, "height": height,
                 "fps": fps, "timing_fps": timing_fps, "total_frames": total,
                 "lines": lines, "frames": requested,
+                "visual_upgrade": visual_upgrade,
             })
             with (directory / "blender.log").open("a", encoding="utf-8") as log:
                 result = subprocess.run([

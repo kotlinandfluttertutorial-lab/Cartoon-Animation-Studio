@@ -15,6 +15,7 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("--quality", choices=("preview", "720p"), default="preview")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--visual-upgrade", action="store_true", help="Use the alternate garden art direction.")
     parser.add_argument("--frame-budget", type=int, help="Pause after rendering this many new frames.")
     args = parser.parse_args()
     if args.frame_budget is not None and args.frame_budget < 1:
@@ -24,7 +25,10 @@ def main():
     preview = config.get_profile("PREVIEW")
     profile = (preview.width, preview.height, preview.fps) if args.quality == "preview" else (1280, 720, 24)
     try:
-        result = render_story(args.prepared, args.output, profile, config.settings, args.resume, args.frame_budget)
+        result = render_story(
+            args.prepared, args.output, profile, config.settings, args.resume, args.frame_budget,
+            visual_upgrade=args.visual_upgrade,
+        )
     except (OSError, ValueError, KeyError, RuntimeError, subprocess.TimeoutExpired) as exc:
         parser.exit(1, f"{exc}\n")
     print(json.dumps(result, indent=2))

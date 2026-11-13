@@ -1,0 +1,17 @@
+{
+  "command": [
+    "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+    "-b",
+    "-t",
+    "6",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\scripts\\build_stage11_garden.py",
+    "--",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage11_garden_previews\\final"
+  ],
+  "wall_seconds": 5.607,
+  "peak_rss_mib": 334.98,
+  "exit_code": 0
+}

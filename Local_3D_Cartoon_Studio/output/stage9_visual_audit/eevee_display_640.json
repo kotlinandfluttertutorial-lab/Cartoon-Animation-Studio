@@ -1,0 +1,19 @@
+{
+  "engine": "BLENDER_EEVEE_NEXT",
+  "width": 640,
+  "height": 360,
+  "fps": 24,
+  "background": false,
+  "seconds": [
+    24.6339,
+    1.4493,
+    1.5091
+  ],
+  "bytes": [
+    257253,
+    257768,
+    257859
+  ],
+  "renderer": "Intel(R) UHD Graphics 620",
+  "driver": "4.6.0 - Build 31.0.101.2134"
+}

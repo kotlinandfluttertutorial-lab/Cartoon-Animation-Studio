@@ -1,0 +1,21 @@
+{
+  "command": [
+    "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+    "--factory-startup",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage9_visual_audit\\comparison.blend",
+    "-t",
+    "6",
+    "--python",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\output\\stage9_visual_audit\\audit_scene.py",
+    "--",
+    "BLENDER_EEVEE_NEXT",
+    "640",
+    "24",
+    "3",
+    "eevee_display_640"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 39.486,
+  "peak_rss_mib": 1497.14,
+  "timed_out": false
+}

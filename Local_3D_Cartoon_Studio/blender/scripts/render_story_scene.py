@@ -91,7 +91,7 @@ def check_performer(scene, character, root, frame):
         center = obj.matrix_world.translation
         origin = center + front * (camera.location - center).dot(front)
         hit, _, _, _, visible, _ = scene.ray_cast(depsgraph, origin, -front)
-        if not hit or visible.parent != root:
+        if not hit or visible not in root.children_recursive:
             obstruction = visible.name if hit else "no mesh hit"
             raise ValueError(f"{obj.name} is obstructed at frame {frame}: {obstruction}.")
         if suffix.startswith("Foot"):
@@ -103,6 +103,10 @@ def check_performer(scene, character, root, frame):
 def render_job(job):
     scene = bpy.context.scene
     configure_workbench(scene)
+    if job.get("visual_upgrade"):
+        from garden_art_direction import dress_garden, soften_character
+
+        dress_garden(scene)
     scene.render.resolution_x = job["width"]
     scene.render.resolution_y = job["height"]
     scene.render.resolution_percentage = 100
@@ -115,6 +119,9 @@ def render_job(job):
 
     performance = job["scene"]["performances"]
     rigs = [rig_performance(scene, spec, total) for spec in performance]
+    if job.get("visual_upgrade"):
+        for root, _, _, _ in rigs:
+            soften_character(root)
     camera_for_scene(scene, job["scene"]["camera"], total)
     if any(cue["effect"] == "bird_chirp" for cue in job["scene"]["sound_effects"]):
         flying_bird(scene, "Story bird", "#4BADE8", 1, total, -0.5, 2.15)

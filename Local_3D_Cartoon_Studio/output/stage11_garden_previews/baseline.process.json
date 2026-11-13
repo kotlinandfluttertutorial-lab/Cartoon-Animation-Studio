@@ -1,0 +1,14 @@
+{
+  "command": [
+    "P:\\AI\\Cartoon-Animation-Studio\\tools\\blender-4.4.3-windows-x64\\blender.exe",
+    "-b",
+    "P:\\AI\\Cartoon-Animation-Studio\\Local_3D_Cartoon_Studio\\blender\\assets\\environments\\garden\\garden.blend",
+    "-t",
+    "6",
+    "--python-expr",
+    "import bpy,time; s=bpy.context.scene; s.render.engine=\"BLENDER_WORKBENCH\"; s.render.resolution_x=640; s.render.resolution_y=360; s.render.resolution_percentage=100; s.camera=bpy.data.objects[\"Garden_Wide_Camera\"]; s.render.filepath='P:\\\\AI\\\\Cartoon-Animation-Studio\\\\Local_3D_Cartoon_Studio\\\\output\\\\stage11_garden_previews\\\\baseline.png'; t=time.perf_counter(); bpy.ops.render.render(write_still=True); print(\"BASELINE_SECONDS\",time.perf_counter()-t)"
+  ],
+  "wall_seconds": 2.43,
+  "peak_rss_mib": 257.95,
+  "exit_code": 0
+}
