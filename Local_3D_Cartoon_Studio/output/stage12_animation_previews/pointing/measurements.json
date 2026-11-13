@@ -1,0 +1,33 @@
+{
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "engine": "BLENDER_WORKBENCH",
+  "load_seconds": 0.185,
+  "seed": 1205,
+  "source_actions": {
+    "Aarav": 6,
+    "Aanya": 6
+  },
+  "clips": {
+    "aarav_pointing": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 4.863,
+      "render_seconds": 12.193
+    },
+    "aanya_pointing": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 4.973,
+      "render_seconds": 8.126
+    }
+  },
+  "max_stance_drift_m_per_frame": 0,
+  "max_ankle_target_error_m": 0,
+  "max_scarf_relative_transform_error": 9.5367431640625e-07
+}

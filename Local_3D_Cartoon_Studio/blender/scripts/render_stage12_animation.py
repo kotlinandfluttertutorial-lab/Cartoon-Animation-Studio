@@ -211,9 +211,12 @@ class Performer:
             forearm = self.bones[f"forearm_{side}"]
             wrist = self.bones[f"hand_{side}"]
             if mode == "pointing":
-                arm.rotation_euler.x = self.front * .82 * weight
-                arm.rotation_euler.z = -outward * .67 * weight
-                forearm.rotation_euler.x = self.front * .26 * weight
+                direction = Vector((outward * .92, self.front * .35, .08)).normalized()
+                base = (arm.bone.tail_local - arm.bone.head_local).normalized()
+                lift = base.rotation_difference(direction)
+                arm_basis = arm.bone.matrix_local.to_quaternion()
+                arm.rotation_euler = (arm_basis.inverted() @ lift @ arm_basis).to_euler()[:]
+                arm.rotation_euler = tuple(angle * weight for angle in arm.rotation_euler)
                 wrist.rotation_euler.y += .20 * weight
             else:
                 arm.rotation_euler.z = -outward * 1.16 * weight

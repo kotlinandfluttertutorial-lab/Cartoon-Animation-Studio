@@ -130,7 +130,7 @@ def story_generator():
     project = selected_project()
     st.title("Story generator")
     with st.form("generate_story"):
-        idea = st.text_area("Story idea", placeholder="Aarav and Aanya spot a bird in the garden…")
+        idea = st.text_area("Story idea", placeholder="Aanya dances beside a red drum and a golden lamp.")
         duration = st.number_input("Target duration in seconds", min_value=2, max_value=120, value=10)
         if st.form_submit_button("Generate with Ollama", type="primary"):
             if not idea.strip():
@@ -228,6 +228,8 @@ def edit_scene(animation_only=False):
             else:
                 st.success("Scene saved. Prepare audio again to render this revision.")
         if not animation_only:
+            if scene["props"]:
+                st.caption("Scene props · " + ", ".join(prop["name"] for prop in scene["props"]))
             for line in scene["dialogue"]:
                 st.caption(f"{line['character']} · {line['text']}")
 

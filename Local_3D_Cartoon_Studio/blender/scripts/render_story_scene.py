@@ -15,6 +15,7 @@ from character_movement import _apply_pose_from_action, _BONE_TO_MESH, _SAFE_BON
 from facial_preview import mouth_surface, prepare_character_face, viseme_pose
 from garden_utils import configure_workbench
 from render_stage44_preview import append_character, camera_move, dance, flying_bird
+from story_props import add_story_props
 from studio.dialogue.expression_library import apply_expression, restore_expression
 
 
@@ -123,6 +124,7 @@ def render_job(job):
         for root, _, _, _ in rigs:
             soften_character(root)
     camera_for_scene(scene, job["scene"]["camera"], total)
+    add_story_props(job["scene"].get("props", []))
     if any(cue["effect"] == "bird_chirp" for cue in job["scene"]["sound_effects"]):
         flying_bird(scene, "Story bird", "#4BADE8", 1, total, -0.5, 2.15)
         if not performance:

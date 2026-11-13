@@ -1,7 +1,7 @@
 """Validated story plans for the local cartoon production pipeline."""
 
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 import json
@@ -13,6 +13,8 @@ Emotion = Literal["neutral", "happy", "surprised", "sad", "thinking", "excited"]
 Action = Literal["idle", "walk", "wave", "point", "nod", "greeting", "dance", "turn"]
 Camera = Literal["wide", "medium", "close", "approach", "follow", "pullback"]
 Effect = Literal["bird_chirp", "chime"]
+PartSize = Annotated[float, Field(ge=0.02, le=1.5)]
+PartAngle = Annotated[float, Field(ge=-360, le=360)]
 
 
 class StoryModel(BaseModel):
@@ -43,6 +45,24 @@ class SoundCue(StoryModel):
     at_seconds: int = Field(ge=0)
 
 
+class PropPart(StoryModel):
+    shape: Literal["box", "sphere", "cylinder", "cone", "torus"]
+    color: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
+    center: tuple[
+        Annotated[float, Field(ge=-0.65, le=0.65)],
+        Annotated[float, Field(ge=-0.65, le=0.65)],
+        Annotated[float, Field(ge=0, le=1.5)],
+    ]
+    size: tuple[PartSize, PartSize, PartSize]
+    rotation: tuple[PartAngle, PartAngle, PartAngle] = (0, 0, 0)
+
+
+class SceneProp(StoryModel):
+    name: str = Field(min_length=1, max_length=60)
+    position: Literal["screen_left", "center", "screen_right"]
+    parts: list[PropPart] = Field(min_length=1, max_length=10)
+
+
 class Scene(StoryModel):
     title: str = Field(min_length=1, max_length=100)
     duration_seconds: int = Field(ge=2, le=60)
@@ -51,9 +71,12 @@ class Scene(StoryModel):
     narration: str = Field(max_length=300)
     dialogue: list[Dialogue] = Field(max_length=8)
     sound_effects: list[SoundCue] = Field(max_length=8)
+    props: list[SceneProp] = Field(default_factory=list, max_length=3)
 
     @model_validator(mode="after")
     def validate_cast_and_cues(self):
+        if len({prop.position for prop in self.props}) != len(self.props):
+            raise ValueError("Each scene prop needs a different position.")
         cast = {performance.character for performance in self.performances}
         if len(cast) != len(self.performances):
             raise ValueError("A character can have only one performance per scene.")
@@ -90,6 +113,7 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
     if not idea.strip() or not 2 <= duration <= 120:
         raise ValueError("Provide a story idea and a duration from 2 to 120 seconds.")
     schema = Story.model_json_schema()
+    schema["$defs"]["Scene"]["required"].append("props")
     schema["properties"]["duration_seconds"] = {"type": "integer", "enum": [duration]}
     if duration < 15:
         schema["properties"]["scenes"].update(minItems=1, maxItems=1)
@@ -101,7 +125,7 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
         "stream": False,
         "think": False,
         "format": schema,
-        "options": {"temperature": 0.2, "num_predict": 2048},
+        "options": {"temperature": 0.2, "num_predict": 8192},
         "messages": [
             {
                 "role": "system",
@@ -109,7 +133,15 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
                     "Plan a short English cartoon in the garden. Follow the JSON schema. "
                     "Scene durations must sum exactly to the requested duration. Include both characters, "
                     "short dialogue (for a story under 15 seconds, exactly one short line per character "
-                    "and one scene), and one sound cue. Use an empty narration string if none is needed."
+                    "and one scene), and one sound cue. Use an empty narration string if none is needed. "
+                    "Build physical objects requested by the user as scene props in the relevant scenes, "
+                    "even if characters also mention them in dialogue. Invent a recognizable low-poly "
+                    "design for each object using colored geometric parts, with no preset object catalog. "
+                    "Use a different position for each prop. Each part's center is local [x, y, z] in "
+                    "meters, with positive z up. Size is its full [width, depth, height] in meters. "
+                    "Optional rotation is [x, y, z] in degrees. Cylinders, cones and toruses use the z axis. "
+                    "For example, a drum can be a red cylinder with two thin tan cylinders as its heads. "
+                    "Use an empty props array in scenes without requested objects."
                 ),
             },
             {"role": "user", "content": f"Duration: {duration} seconds. Story idea: {idea}"},

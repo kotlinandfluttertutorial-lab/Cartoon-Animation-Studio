@@ -1,0 +1,33 @@
+{
+  "fps": 12,
+  "total_frames": 24,
+  "character": "Aarav",
+  "frames": {
+    "1": "TD",
+    "2": "WQ",
+    "3": "TD",
+    "4": "OPEN",
+    "5": "MBP",
+    "6": "OPEN",
+    "7": "TD",
+    "8": "EI",
+    "9": "TD",
+    "10": "TD",
+    "11": "TD",
+    "12": "EI",
+    "13": "EI",
+    "14": "WQ",
+    "15": "TD",
+    "16": "EI",
+    "17": "TD",
+    "18": "FV",
+    "19": "TD",
+    "20": "EI",
+    "21": "EI",
+    "22": "TD",
+    "23": "MBP"
+  },
+  "blink_frames": [],
+  "text": "Look up! A little bird is flying by.",
+  "emotion": "excited"
+}

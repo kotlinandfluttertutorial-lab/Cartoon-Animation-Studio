@@ -1,0 +1,37 @@
+{
+  "fps": 12,
+  "scenes": [
+    {
+      "title": "Bird Spot",
+      "start_frame": 1,
+      "duration_frames": 120,
+      "mix": "scene_01\\mix.wav",
+      "lines": [
+        {
+          "character": "Aarav",
+          "text": "Look up! A little bird is flying by.",
+          "emotion": "excited",
+          "voice": "en_US-ryan-medium",
+          "speed": 0.95,
+          "audio": "scene_01\\01_aarav.wav",
+          "start_frame": 1,
+          "duration_frames": 24,
+          "duration_seconds": 1.8808163265306121,
+          "lipsync": "scene_01\\01_aarav.lipsync.json"
+        },
+        {
+          "character": "Aanya",
+          "text": "Wow! It is flying over the flowers.",
+          "emotion": "happy",
+          "voice": "en_US-ryan-medium",
+          "speed": 1.12,
+          "audio": "scene_01\\02_aanya.wav",
+          "start_frame": 29,
+          "duration_frames": 19,
+          "duration_seconds": 1.5441269841269842,
+          "lipsync": "scene_01\\02_aanya.lipsync.json"
+        }
+      ]
+    }
+  ]
+}

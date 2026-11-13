@@ -1,0 +1,47 @@
+{
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "engine": "BLENDER_WORKBENCH",
+  "load_seconds": 0.138,
+  "seed": 1205,
+  "source_actions": {
+    "Aarav": 6,
+    "Aanya": 6
+  },
+  "clips": {
+    "aarav_pointing": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 5.688,
+      "render_seconds": 14.141
+    },
+    "aarav_head_shake": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 5.639,
+      "render_seconds": 9.242
+    },
+    "aanya_pointing": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 4.99,
+      "render_seconds": 7.966
+    },
+    "aanya_head_shake": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 7.115,
+      "render_seconds": 11.49
+    }
+  },
+  "max_stance_drift_m_per_frame": 0,
+  "max_ankle_target_error_m": 0,
+  "max_scarf_relative_transform_error": 1.0728836059570312e-06
+}

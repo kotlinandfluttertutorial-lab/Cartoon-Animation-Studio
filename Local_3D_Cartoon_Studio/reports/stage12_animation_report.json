@@ -1,0 +1,271 @@
+{
+  "stage": 12,
+  "human_visual_approval": "pending",
+  "engine": "BLENDER_WORKBENCH",
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "seed": 1205,
+  "source_actions": {
+    "Aarav": 6,
+    "Aanya": 6
+  },
+  "scene_load_seconds": 0.093,
+  "primary_render_process": {
+    "wall_seconds": 479.1645418,
+    "peak_working_set_mib": 330.25,
+    "exit_code": 0,
+    "frames_in_measured_run": 973,
+    "frame_evaluation_seconds": 183.188,
+    "frame_render_seconds": 281.844
+  },
+  "clip_count": 28,
+  "frame_count": 1021.0,
+  "clips": {
+    "aarav_idle": {
+      "render_seconds": 15.558,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/aarav_idle.mp4",
+      "evaluation_seconds": 3.415
+    },
+    "aarav_walking": {
+      "render_seconds": 9.54,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/aarav_walking.mp4",
+      "evaluation_seconds": 4.468
+    },
+    "aarav_waving": {
+      "render_seconds": 6.464,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aarav_waving.mp4",
+      "evaluation_seconds": 3.752
+    },
+    "aarav_nodding": {
+      "render_seconds": 6.765,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aarav_nodding.mp4",
+      "evaluation_seconds": 4.319
+    },
+    "aarav_happy": {
+      "render_seconds": 5.733,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aarav_happy.mp4",
+      "evaluation_seconds": 3.944
+    },
+    "aarav_surprised": {
+      "render_seconds": 7.57,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aarav_surprised.mp4",
+      "evaluation_seconds": 4.773
+    },
+    "aarav_talking": {
+      "render_seconds": 10.412,
+      "duration": 2.5833333333333335,
+      "audio": true,
+      "frames": 31,
+      "file": "final/aarav_talking.mp4",
+      "evaluation_seconds": 7.025
+    },
+    "aarav_dancing": {
+      "render_seconds": 12.829,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/aarav_dancing.mp4",
+      "evaluation_seconds": 7.719
+    },
+    "aarav_expression_study": {
+      "render_seconds": 39.733,
+      "duration": 10.0,
+      "audio": false,
+      "frames": 120,
+      "file": "final/aarav_expression_study.mp4",
+      "evaluation_seconds": 26.815
+    },
+    "aanya_idle": {
+      "render_seconds": 9.064,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/aanya_idle.mp4",
+      "evaluation_seconds": 5.207
+    },
+    "aanya_walking": {
+      "render_seconds": 9.457,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/aanya_walking.mp4",
+      "evaluation_seconds": 5.884
+    },
+    "aanya_waving": {
+      "render_seconds": 6.424,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aanya_waving.mp4",
+      "evaluation_seconds": 4.076
+    },
+    "aanya_nodding": {
+      "render_seconds": 6.254,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aanya_nodding.mp4",
+      "evaluation_seconds": 3.907
+    },
+    "aanya_happy": {
+      "render_seconds": 5.777,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aanya_happy.mp4",
+      "evaluation_seconds": 3.866
+    },
+    "aanya_surprised": {
+      "render_seconds": 5.831,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "final/aanya_surprised.mp4",
+      "evaluation_seconds": 3.695
+    },
+    "aanya_talking": {
+      "render_seconds": 7.231,
+      "duration": 2.5,
+      "audio": true,
+      "frames": 30,
+      "file": "final/aanya_talking.mp4",
+      "evaluation_seconds": 4.71
+    },
+    "aanya_dancing": {
+      "render_seconds": 9.311,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/aanya_dancing.mp4",
+      "evaluation_seconds": 5.341
+    },
+    "aanya_expression_study": {
+      "render_seconds": 32.741,
+      "duration": 10.0,
+      "audio": false,
+      "frames": 120,
+      "file": "final/aanya_expression_study.mp4",
+      "evaluation_seconds": 21.833
+    },
+    "both_greeting": {
+      "render_seconds": 10.574,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/both_greeting.mp4",
+      "evaluation_seconds": 9.594
+    },
+    "both_smiling": {
+      "render_seconds": 10.112,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/both_smiling.mp4",
+      "evaluation_seconds": 8.191
+    },
+    "both_eye_contact": {
+      "render_seconds": 9.962,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/both_eye_contact.mp4",
+      "evaluation_seconds": 8.777
+    },
+    "both_camera_wave": {
+      "render_seconds": 10.914,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/both_camera_wave.mp4",
+      "evaluation_seconds": 9.129
+    },
+    "both_dance": {
+      "render_seconds": 10.112,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/both_dance.mp4",
+      "evaluation_seconds": 8.013
+    },
+    "both_walking": {
+      "render_seconds": 10.182,
+      "duration": 3.0,
+      "audio": false,
+      "frames": 36,
+      "file": "final/both_walking.mp4",
+      "evaluation_seconds": 6.671
+    },
+    "aarav_pointing": {
+      "render_seconds": 12.193,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "pointing/aarav_pointing.mp4",
+      "evaluation_seconds": 4.863
+    },
+    "aanya_pointing": {
+      "render_seconds": 8.126,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "pointing/aanya_pointing.mp4",
+      "evaluation_seconds": 4.973
+    },
+    "aarav_head_shake": {
+      "render_seconds": 9.242,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "gesture_refinement/aarav_head_shake.mp4",
+      "evaluation_seconds": 5.639
+    },
+    "aanya_head_shake": {
+      "render_seconds": 11.49,
+      "duration": 2.0,
+      "audio": false,
+      "frames": 24,
+      "file": "gesture_refinement/aanya_head_shake.mp4",
+      "evaluation_seconds": 7.115
+    }
+  },
+  "max_stance_drift_m_per_frame": 1.0745380149674383E-07,
+  "max_ankle_target_error_m": 7.598131170262075E-08,
+  "max_scarf_relative_transform_error": 1.3709068298339844E-06,
+  "visual_review": "Sampled PNG frames and contact sheets inspected by the assistant",
+  "media_validation": "PNG integrity and full decode checks of the rendered clips passed",
+  "protected_files_checked": 168,
+  "protected_files_changed": 0,
+  "regressions": {
+    "dashboard": "pending",
+    "passed": 174,
+    "pre_push": "pending"
+  },
+  "limitations": [
+    "Rigid joints and hands",
+    "Approximate speech timing",
+    "No running cycle",
+    "Stage 12 pose controller is opt-in",
+    "Walk clips cut mid-cycle"
+  ]
+}

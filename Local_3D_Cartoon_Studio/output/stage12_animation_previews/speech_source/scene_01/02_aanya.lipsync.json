@@ -1,0 +1,28 @@
+{
+  "fps": 12,
+  "total_frames": 19,
+  "character": "Aanya",
+  "frames": {
+    "1": "WQ",
+    "2": "WQ",
+    "3": "EI",
+    "4": "TD",
+    "5": "TD",
+    "6": "FV",
+    "7": "TD",
+    "8": "EI",
+    "9": "TD",
+    "10": "OPEN",
+    "11": "FV",
+    "12": "WQ",
+    "13": "TD",
+    "14": "OPEN",
+    "15": "FV",
+    "16": "WQ",
+    "17": "EI",
+    "18": "WQ"
+  },
+  "blink_frames": [],
+  "text": "Wow! It is flying over the flowers.",
+  "emotion": "happy"
+}

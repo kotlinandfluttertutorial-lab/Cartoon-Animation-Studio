@@ -1,0 +1,46 @@
+{
+  "title": "Garden Bird Spot",
+  "duration_seconds": 10,
+  "characters": [
+    "Aarav",
+    "Aanya"
+  ],
+  "scenes": [
+    {
+      "title": "Bird Spot",
+      "duration_seconds": 10,
+      "camera": "close",
+      "performances": [
+        {
+          "character": "Aarav",
+          "action": "point",
+          "expression": "excited"
+        },
+        {
+          "character": "Aanya",
+          "action": "greeting",
+          "expression": "happy"
+        }
+      ],
+      "narration": "",
+      "dialogue": [
+        {
+          "character": "Aarav",
+          "text": "Look up! A little bird is flying by.",
+          "emotion": "excited"
+        },
+        {
+          "character": "Aanya",
+          "text": "Wow! It is flying over the flowers.",
+          "emotion": "happy"
+        }
+      ],
+      "sound_effects": [
+        {
+          "effect": "bird_chirp",
+          "at_seconds": 5
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "engine": "BLENDER_WORKBENCH",
+  "load_seconds": 0.093,
+  "seed": 1205,
+  "source_actions": {
+    "Aarav": 6,
+    "Aanya": 6
+  },
+  "clips": {
+    "aarav_idle": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 3.415,
+      "render_seconds": 15.558
+    },
+    "aarav_walking": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 4.468,
+      "render_seconds": 9.54
+    },
+    "aarav_waving": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 3.752,
+      "render_seconds": 6.464
+    },
+    "aarav_pointing": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 3.979,
+      "render_seconds": 6.741
+    },
+    "aarav_nodding": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 4.319,
+      "render_seconds": 6.765
+    },
+    "aarav_happy": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 3.944,
+      "render_seconds": 5.733
+    },
+    "aarav_surprised": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 4.773,
+      "render_seconds": 7.57
+    },
+    "aarav_talking": {
+      "frames": 31,
+      "duration": 2.5833333333333335,
+      "audio": true,
+      "evaluation_seconds": 7.025,
+      "render_seconds": 10.412
+    },
+    "aarav_dancing": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 7.719,
+      "render_seconds": 12.829
+    },
+    "aarav_expression_study": {
+      "frames": 120,
+      "duration": 10.0,
+      "audio": false,
+      "evaluation_seconds": 26.815,
+      "render_seconds": 39.733
+    },
+    "aanya_idle": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 5.207,
+      "render_seconds": 9.064
+    },
+    "aanya_walking": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 5.884,
+      "render_seconds": 9.457
+    },
+    "aanya_waving": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 4.076,
+      "render_seconds": 6.424
+    },
+    "aanya_pointing": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 4.085,
+      "render_seconds": 6.553
+    },
+    "aanya_nodding": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 3.907,
+      "render_seconds": 6.254
+    },
+    "aanya_happy": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 3.866,
+      "render_seconds": 5.777
+    },
+    "aanya_surprised": {
+      "frames": 24,
+      "duration": 2.0,
+      "audio": false,
+      "evaluation_seconds": 3.695,
+      "render_seconds": 5.831
+    },
+    "aanya_talking": {
+      "frames": 30,
+      "duration": 2.5,
+      "audio": true,
+      "evaluation_seconds": 4.71,
+      "render_seconds": 7.231
+    },
+    "aanya_dancing": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 5.341,
+      "render_seconds": 9.311
+    },
+    "aanya_expression_study": {
+      "frames": 120,
+      "duration": 10.0,
+      "audio": false,
+      "evaluation_seconds": 21.833,
+      "render_seconds": 32.741
+    },
+    "both_greeting": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 9.594,
+      "render_seconds": 10.574
+    },
+    "both_smiling": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 8.191,
+      "render_seconds": 10.112
+    },
+    "both_eye_contact": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 8.777,
+      "render_seconds": 9.962
+    },
+    "both_camera_wave": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 9.129,
+      "render_seconds": 10.914
+    },
+    "both_dance": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 8.013,
+      "render_seconds": 10.112
+    },
+    "both_walking": {
+      "frames": 36,
+      "duration": 3.0,
+      "audio": false,
+      "evaluation_seconds": 6.671,
+      "render_seconds": 10.182
+    }
+  },
+  "max_stance_drift_m_per_frame": 1.0745380149674383e-07,
+  "max_ankle_target_error_m": 7.598131170262075e-08,
+  "max_scarf_relative_transform_error": 1.3709068298339844e-06
+}

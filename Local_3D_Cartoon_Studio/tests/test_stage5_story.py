@@ -35,7 +35,9 @@ def story_data():
 def test_manual_story_preserves_validated_plan(tmp_path):
     source = tmp_path / "story.json"
     source.write_text(json.dumps(story_data()), encoding="utf-8")
-    assert load_story(source).model_dump() == story_data()
+    expected = story_data()
+    expected["scenes"][0]["props"] = []
+    assert load_story(source).model_dump() == expected
 
 
 @pytest.mark.parametrize("field, value", [("action", "teleport"), ("character", "Other")])
@@ -72,14 +74,25 @@ def test_entrance_requires_walk():
 def test_ollama_request_constrains_short_story_duration(monkeypatch):
     import io
 
+    data = story_data()
+    data["scenes"][0]["props"] = [{
+        "name": "Red drum",
+        "position": "screen_left",
+        "parts": [{"shape": "cylinder", "color": "#C53030", "center": [0, 0, 0.4], "size": [0.6, 0.6, 0.8]}],
+    }]
+
     def respond(request, timeout):
         payload = json.loads(request.data)
         assert payload["format"]["properties"]["duration_seconds"]["enum"] == [10]
         assert payload["format"]["properties"]["scenes"]["maxItems"] == 1
-        return io.StringIO(json.dumps({"message": {"content": json.dumps(story_data())}}))
+        assert "props" in payload["format"]["$defs"]["Scene"]["required"]
+        return io.StringIO(json.dumps({"message": {"content": json.dumps(data)}}))
 
     monkeypatch.setattr("studio.story_planner.urlopen", respond)
-    assert generate_story("Spot a bird.", 10, "http://localhost:11434", "qwen3:4b").duration_seconds == 10
+    story = generate_story("Add a red drum.", 10, "http://localhost:11434", "qwen3:4b")
+    assert story.duration_seconds == 10
+    assert story.scenes[0].props[0].parts[0].shape == "cylinder"
+    assert Story.model_validate_json(story.model_dump_json()) == story
 
 
 def test_silence_closes_mouth_and_partial_frame_is_retained(tmp_path):
