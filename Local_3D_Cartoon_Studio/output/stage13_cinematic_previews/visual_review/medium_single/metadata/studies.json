@@ -1,0 +1,38 @@
+{
+  "engine": "BLENDER_WORKBENCH",
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "initialization_seconds": 0.08130789999268018,
+  "camera_presets": {
+    "medium_single": {
+      "position": [
+        -0.32,
+        3.65,
+        1.62
+      ],
+      "target": [
+        -0.62,
+        0,
+        1.17
+      ],
+      "lens_mm": 49,
+      "subjects": [
+        "Aarav"
+      ],
+      "projected_bounds": {
+        "Aarav_Head": [
+          0.391630619764328,
+          0.45437300205230713,
+          0.628274142742157,
+          0.8579128980636597
+        ]
+      },
+      "render_seconds": 2.0618230999971274
+    }
+  },
+  "lighting_presets": {},
+  "camera_movements": {}
+}

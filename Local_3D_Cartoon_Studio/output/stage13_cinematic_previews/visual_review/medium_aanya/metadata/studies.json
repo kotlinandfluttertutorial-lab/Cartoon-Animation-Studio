@@ -1,0 +1,38 @@
+{
+  "engine": "BLENDER_WORKBENCH",
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "initialization_seconds": 0.08496389997890219,
+  "camera_presets": {
+    "medium_aanya": {
+      "position": [
+        0.32,
+        3.65,
+        1.62
+      ],
+      "target": [
+        0.62,
+        0,
+        1.17
+      ],
+      "lens_mm": 49,
+      "subjects": [
+        "Aanya"
+      ],
+      "projected_bounds": {
+        "Aanya_Head": [
+          0.3822941780090332,
+          0.4704885184764862,
+          0.5990952253341675,
+          0.8415084481239319
+        ]
+      },
+      "render_seconds": 1.9880866000021342
+    }
+  },
+  "lighting_presets": {},
+  "camera_movements": {}
+}

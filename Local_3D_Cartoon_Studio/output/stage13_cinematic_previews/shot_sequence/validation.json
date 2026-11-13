@@ -1,0 +1,17 @@
+{
+  "pngs": 288,
+  "dialogue": {
+    "Aarav": {
+      "frame": 114,
+      "seconds": 9.5,
+      "decoded_offset_samples": 0,
+      "waveform_correlation": 0.9999902844429016
+    },
+    "Aanya": {
+      "frame": 141,
+      "seconds": 11.75,
+      "decoded_offset_samples": 0,
+      "waveform_correlation": 0.9999850392341614
+    }
+  }
+}

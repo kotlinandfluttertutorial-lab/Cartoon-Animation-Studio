@@ -26,7 +26,7 @@ The rigs have rigid joints and simplified hands, so pointing uses the hand silho
 
 For Stage 13, review a short multi-shot edit for eyelines, transition timing and dialogue coverage before a full production render.
 
-Human approval is pending.
+Human approval was confirmed by the user.
 
 ## Verification and performance
 
@@ -49,4 +49,4 @@ Human approval is pending.
 | Hijab | Aanya's scarf stays aligned in the sampled frames. The automated check confirms the scarf-to-head transform. |
 | Previews and performance | All 28 review clips decoded. The main preview run took about eight minutes for 973 frames and peaked at 330.25 MiB sampled Blender working set. These measurements cover offline rendering. |
 
-The visual review used sampled frames and contact sheets. Human approval is pending.
+The visual review used sampled frames and contact sheets. Human approval was confirmed by the user.

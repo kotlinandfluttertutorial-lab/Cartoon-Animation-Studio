@@ -1,10 +1,10 @@
 # Stage 13 cinematic camera and lighting review
 
-**Stage status** `BLOCKED` pending Stage 12 human approval. Independent camera and lighting studies are `VISUAL_REVIEW_PENDING`.
+The user approved Stage 12 animation and the independent Stage 13 camera and lighting studies. The cinematic sequence is implementation-complete and awaits human visual and audio review.
 
 ## Scope and compatibility
 
-Stage 12 passed its full automated suite and pre-push check. Its recorded human approval is pending. This run opens the approved Stage 11 garden and appends the approved Stage 10 cast in Blender memory. Standalone studies use stationary cast poses. Follow, tracking and reveal test the camera path independently. Animated blocking, speaker and listener eyelines, transitions, and dialogue synchronization remain for the 20–30 second sequence after Stage 12 sign-off.
+Stage 12 passed its full automated suite and pre-push check. The user confirmed human approval. This run opens the approved Stage 11 garden and appends the approved Stage 10 cast in Blender memory. Standalone studies use stationary cast poses. Follow, tracking and reveal test the camera path independently. The animated sequence is described below.
 
 Added `blender/scripts/stage13_camera.py`, `blender/scripts/render_stage13_camera_studies.py`, `tests/test_stage13_camera.py`, and these reports and previews. All 168 protected files matched their original SHA-256 hashes, including the approved models, garden, source assets and Stage 8 video.
 
@@ -33,4 +33,15 @@ The 216 movement frames rendered in 49.95 seconds, averaging 0.231 seconds per f
 - [ ] Compare face colors, shadow strength, and grounding across the six looks.
 - [ ] After Stage 12 sign-off, check moving character framing, hijab alignment, eyelines, shot transitions, audio sync, and sequence continuity on the assembled preview.
 
-Human approval is pending.
+Human approval was confirmed by the user.
+
+
+## Seven-shot cinematic sequence
+
+The 24-second preview is in output/stage13_cinematic_previews/shot_sequence, alongside its shot contact sheet, timing metadata and validation. The new entry point is lender/scripts/render_stage13_sequence.py. It reuses Stage 12 performance controls, the Stage 13 cameras and lighting, and two existing Piper dialogue tracks. The seven shots use straight cuts with short colored fades at the outer boundaries. Both voices are encoded once in a single AAC track. The sample uses dialogue only, with silence between lines and during the other shots.
+
+Blender checked framing and face sightlines across all 288 frames. All PNGs passed integrity checks. FFmpeg fully decoded the 640 × 360, 12 fps H.264/AAC MP4 and found zero black frames. The decoded dialogue matched both source WAVs at their planned 9.50 s and 11.75 s start points with zero measured sample offset. The viseme timing remains approximate. The assistant inspected sampled frames across all seven shots. The 28 targeted regressions passed and all 168 protected hashes matched.
+
+The measured run took 110.03 seconds and peaked at 326.11 MiB sampled Blender working set. MP4 encoding took 1.47 seconds. The export is 724190 bytes. Per-shot times are recorded in sequence.json.
+
+Human review of the new sequence is pending. Play the MP4 with sound, checking the conversation at 9 seconds, the point and reaction at 14–20 seconds, and the closing wave and fade.

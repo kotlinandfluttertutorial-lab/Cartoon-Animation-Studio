@@ -14,7 +14,7 @@ spec.loader.exec_module(camera)
 
 def test_presets_cover_the_review_shots():
     assert set(camera.CAMERAS) == {
-        "establishing", "full_body", "medium_two", "medium_single", "close_up",
+        "establishing", "full_body", "medium_two", "medium_single", "medium_aanya", "close_up",
         "extreme_close_up", "over_shoulder", "conversation", "walking_follow",
         "side_tracking",
     }

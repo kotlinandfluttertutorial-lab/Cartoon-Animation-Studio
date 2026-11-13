@@ -1,17 +1,18 @@
 {
   "stage": 13,
-  "status": "BLOCKED",
-  "independent_studies": "VISUAL_REVIEW_PENDING",
+  "status": "IMPLEMENTATION_COMPLETE",
+  "independent_studies": "APPROVED",
   "human_visual_approval": "pending",
   "stage12": {
     "automated_tests": "passed",
-    "human_approval": "pending"
+    "human_approval": "approved"
   },
   "files": {
     "contact_sheet": "output/stage13_cinematic_previews/contact_sheets/camera_and_lighting.png",
     "studies": "output/stage13_cinematic_previews/studies",
-    "sequence": null,
-    "revised_shoulder": "output/stage13_cinematic_previews/shoulder_revision/camera_presets/over_shoulder.png"
+    "sequence": "output/stage13_cinematic_previews/shot_sequence/final_video.mp4",
+    "revised_shoulder": "output/stage13_cinematic_previews/shoulder_revision/camera_presets/over_shoulder.png",
+    "sequence_contact_sheet": "output/stage13_cinematic_previews/shot_sequence/shot_contact_sheet.png"
   },
   "tests": {
     "errors": 0,
@@ -36,8 +37,38 @@
     "checked": 168
   },
   "unresolved": [
-    "Stage 12 human sign-off",
-    "Animated shot sequence, dialogue continuity and transition verification",
-    "Human visual review of camera and lighting studies"
-  ]
+    "Human visual and audio review of the assembled sequence"
+  ],
+  "sequence_status": [
+    "AUTOMATED_TESTS_PASSED",
+    "VISUAL_REVIEW_PENDING"
+  ],
+  "sequence": {
+    "peak_working_set_mib": 326.113,
+    "dialogue": {
+      "Aarav": {
+        "frame": 114,
+        "seconds": 9.5,
+        "decoded_offset_samples": 0,
+        "waveform_correlation": 0.9999902844429016
+      },
+      "Aanya": {
+        "frame": 141,
+        "seconds": 11.75,
+        "decoded_offset_samples": 0,
+        "waveform_correlation": 0.9999850392341614
+      }
+    },
+    "frames": 288,
+    "seconds": 24.0,
+    "render_seconds": 108.69934900000226,
+    "bytes": 724190,
+    "encode_seconds": 1.472758399992017,
+    "fps": 12,
+    "resolution": [
+      640,
+      360
+    ],
+    "targeted_tests_passed": 28
+  }
 }

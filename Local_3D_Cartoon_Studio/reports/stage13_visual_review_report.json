@@ -1,0 +1,51 @@
+{
+  "previews": {
+    "root": "output/stage13_cinematic_previews",
+    "shoulder": "shoulder_revision/camera_presets/over_shoulder.png",
+    "movement_review": "visual_review/movement_review.png",
+    "aanya": "visual_review/medium_aanya/camera_presets/medium_aanya.png",
+    "aarav": "visual_review/medium_single/camera_presets/medium_single.png"
+  },
+  "stage": 13,
+  "proposal": {
+    "frames": 288,
+    "seconds": 24,
+    "implemented": true,
+    "fps": 12
+  },
+  "stage12_human_approval": "approved",
+  "human_approval": "approved",
+  "defects_corrected": [
+    "Aarav medium shot bottom clearance",
+    "Missing Aanya medium shot"
+  ],
+  "review": {
+    "contact_sheets": 2,
+    "frames_decoded": 216,
+    "visually_sampled_video_frames": 54,
+    "verified_pngs": 236,
+    "real_time_playback": false,
+    "native_stills": 19,
+    "clips_decoded": 9
+  },
+  "protected_files": {
+    "changed": 0,
+    "checked": 168
+  },
+  "defaults": {
+    "camera": "medium_two",
+    "lighting": "daylight"
+  },
+  "tests": {
+    "metadata_poses_matched": 216,
+    "failed": 0,
+    "skipped": 0,
+    "passed": 28
+  },
+  "statuses": [
+    "VISUAL_REVIEW_COMPLETE",
+    "DEFECTS_RESOLVED",
+    "APPROVED"
+  ],
+  "animated_sequence": "VISUAL_REVIEW_PENDING"
+}

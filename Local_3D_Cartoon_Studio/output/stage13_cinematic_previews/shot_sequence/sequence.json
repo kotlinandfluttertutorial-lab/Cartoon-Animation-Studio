@@ -1,0 +1,207 @@
+{
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "engine": "BLENDER_WORKBENCH",
+  "initialization_seconds": 0.08412070001941174,
+  "shots": [
+    {
+      "name": "garden",
+      "start_frame": 0,
+      "frames": 36,
+      "camera": "establishing",
+      "movement": "pan",
+      "light": "daylight",
+      "seconds_elapsed": 9.139062600006582
+    },
+    {
+      "name": "aarav_intro",
+      "start_frame": 36,
+      "frames": 36,
+      "camera": "medium_single",
+      "movement": "static",
+      "light": "daylight",
+      "seconds_elapsed": 11.576922900014324
+    },
+    {
+      "name": "aanya_response",
+      "start_frame": 72,
+      "frames": 36,
+      "camera": "medium_aanya",
+      "movement": "static",
+      "light": "daylight",
+      "seconds_elapsed": 11.84575050001149
+    },
+    {
+      "name": "conversation",
+      "start_frame": 108,
+      "frames": 60,
+      "camera": "conversation",
+      "movement": "static",
+      "light": "conversation",
+      "seconds_elapsed": 27.802831500011962
+    },
+    {
+      "name": "gesture",
+      "start_frame": 168,
+      "frames": 36,
+      "camera": "full_body",
+      "movement": "static",
+      "light": "daylight",
+      "seconds_elapsed": 12.045806899986928
+    },
+    {
+      "name": "reaction",
+      "start_frame": 204,
+      "frames": 36,
+      "camera": "close_up",
+      "movement": "static",
+      "light": "close_up",
+      "seconds_elapsed": 11.716405900020618
+    },
+    {
+      "name": "closing",
+      "start_frame": 240,
+      "frames": 48,
+      "camera": "walking_follow",
+      "movement": "pull_back",
+      "light": "daylight",
+      "seconds_elapsed": 22.772835900017526
+    }
+  ],
+  "dialogue": {
+    "Aarav": {
+      "frame": 114,
+      "seconds": 9.5
+    },
+    "Aanya": {
+      "frame": 141,
+      "seconds": 11.75
+    }
+  },
+  "frame_count": 288,
+  "duration_seconds": 24.0,
+  "scarf_transform_error": 1.3709068298339844e-06,
+  "media": {
+    "encode_seconds": 1.472758399992017,
+    "bytes": 724190,
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+        "profile": "High",
+        "codec_type": "video",
+        "codec_tag_string": "avc1",
+        "codec_tag": "0x31637661",
+        "mime_codec_string": "avc1.640016",
+        "width": 640,
+        "height": 360,
+        "coded_width": 640,
+        "coded_height": 360,
+        "has_b_frames": 2,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "16:9",
+        "pix_fmt": "yuv420p",
+        "level": 22,
+        "chroma_location": "left",
+        "field_order": "progressive",
+        "is_avc": "true",
+        "nal_length_size": "4",
+        "id": "0x1",
+        "r_frame_rate": "12/1",
+        "avg_frame_rate": "12/1",
+        "time_base": "1/12288",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 294912,
+        "duration": "24.000000",
+        "bit_rate": "210981",
+        "bits_per_raw_sample": "8",
+        "nb_frames": "288",
+        "extradata_size": 47,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "VideoHandler",
+          "encoder": "Lavc63.1.102 libx264"
+        }
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_long_name": "AAC (Advanced Audio Coding)",
+        "profile": "LC",
+        "codec_type": "audio",
+        "codec_tag_string": "mp4a",
+        "codec_tag": "0x6134706d",
+        "mime_codec_string": "mp4a.40.2",
+        "sample_fmt": "fltp",
+        "sample_rate": "48000",
+        "channels": 1,
+        "channel_layout": "mono",
+        "bits_per_sample": 0,
+        "initial_padding": 1024,
+        "id": "0x2",
+        "r_frame_rate": "0/0",
+        "avg_frame_rate": "0/0",
+        "time_base": "1/48000",
+        "start_pts": 0,
+        "start_time": "0.000000",
+        "duration_ts": 1152000,
+        "duration": "24.000000",
+        "bit_rate": "26304",
+        "nb_frames": "1126",
+        "extradata_size": 5,
+        "disposition": {
+          "default": 1,
+          "dub": 0,
+          "original": 0,
+          "comment": 0,
+          "lyrics": 0,
+          "karaoke": 0,
+          "forced": 0,
+          "hearing_impaired": 0,
+          "visual_impaired": 0,
+          "clean_effects": 0,
+          "attached_pic": 0,
+          "timed_thumbnails": 0,
+          "non_diegetic": 0,
+          "captions": 0,
+          "descriptions": 0,
+          "metadata": 0,
+          "dependent": 0,
+          "still_image": 0,
+          "multilayer": 0
+        },
+        "tags": {
+          "language": "und",
+          "handler_name": "SoundHandler"
+        }
+      }
+    ]
+  },
+  "total_seconds": 108.69934900000226
+}
