@@ -33,4 +33,20 @@ Human approval is pending.
 - 28 review clips and 1021 associated PNGs passed integrity or full-decode checks. The assistant inspected sampled PNGs for both solo performers and the paired shots. Both talking clips have AAC audio.
 - The renderer checked the six inherited actions per character, pose bone references, finite keys, rigid parenting, framing, mouth ray hits, planted-foot drift and the relative transform of Aanya's scarf. The sampled peak drift was below 0.001 mm per frame. All 168 protected file hashes matched, including the source assets, approved blends and the Stage 8 MP4.
 - The main 973-frame run took 479.16 s wall time. Scene and cast loading took 0.093 s. Frame evaluation and rendering took 183.188 s and 281.844 s respectively. Peak sampled Blender working set was 330.25 MiB. GPU memory and a matched legacy performance baseline were outside this measurement.
-- The regression retry recorded 174 passed tests. The Streamlit dashboard test and pre-push result are pending.
+- The isolated full regression suite passed all 182 tests with one existing deprecation warning. The isolated pre-push run exited 0 with 14 checks passed and two warnings for local changes and tracked backup files.
+
+## Review checklist
+
+| Area | Review result |
+| --- | --- |
+| Facial expressions | Both characters have ten reusable presets. Smiles and surprise are clear in the sampled close-ups. Subtle expressions still depend on brow angle and gaze. |
+| Eyes and blinking | Sampled frames show directional gaze, mutual gaze, and both eyes closing together. The blink compresses the eye meshes and uses a closed-eye color. |
+| Mouth | Both talking clips show distinct mouth shapes. The controller reads Stage 5 viseme timing or runs a manual sequence. Speech timing remains approximate. |
+| Walking | Both solo walks and the paired walk show alternating steps and arm swing. The sampled planted-foot drift was below 0.001 mm per frame. |
+| Gestures and head movement | Waves show a raised arm and wrist movement. The revised pointing aligns hand and gaze. Nods and head shakes are previewed. Rigid joints limit how natural the poses look. |
+| Idle and follow-through | Chest, head, and hands move subtly in idle. Gestures ease in and out, with delayed head and wrist motion. |
+| Dance and interactions | The paired samples show shared dance timing, a greeting and response, shared smiles, mutual gaze, and a wave toward the camera. |
+| Hijab | Aanya's scarf stays aligned in the sampled frames. The automated check confirms the scarf-to-head transform. |
+| Previews and performance | All 28 review clips decoded. The main preview run took about eight minutes for 973 frames and peaked at 330.25 MiB sampled Blender working set. These measurements cover offline rendering. |
+
+The visual review used sampled frames and contact sheets. Human approval is pending.

@@ -1,0 +1,43 @@
+{
+  "stage": 13,
+  "status": "BLOCKED",
+  "independent_studies": "VISUAL_REVIEW_PENDING",
+  "human_visual_approval": "pending",
+  "stage12": {
+    "automated_tests": "passed",
+    "human_approval": "pending"
+  },
+  "files": {
+    "contact_sheet": "output/stage13_cinematic_previews/contact_sheets/camera_and_lighting.png",
+    "studies": "output/stage13_cinematic_previews/studies",
+    "sequence": null,
+    "revised_shoulder": "output/stage13_cinematic_previews/shoulder_revision/camera_presets/over_shoulder.png"
+  },
+  "tests": {
+    "errors": 0,
+    "passed": 28,
+    "skipped": 0,
+    "failed": 0
+  },
+  "measurements": {
+    "movement_render_seconds": 49.954,
+    "process": {
+      "wall_seconds": 65.6139932,
+      "peak_working_set_mib": 332.28515625,
+      "exit_code": 0
+    },
+    "movement_bytes": 837918,
+    "movement_frames": 216,
+    "encode_seconds": 2.431,
+    "initialization_seconds": 0.08259780000662431
+  },
+  "protected_files": {
+    "changed": 0,
+    "checked": 168
+  },
+  "unresolved": [
+    "Stage 12 human sign-off",
+    "Animated shot sequence, dialogue continuity and transition verification",
+    "Human visual review of camera and lighting studies"
+  ]
+}

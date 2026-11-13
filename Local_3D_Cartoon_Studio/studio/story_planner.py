@@ -51,7 +51,7 @@ class PropPart(StoryModel):
     center: tuple[
         Annotated[float, Field(ge=-0.65, le=0.65)],
         Annotated[float, Field(ge=-0.65, le=0.65)],
-        Annotated[float, Field(ge=0, le=1.5)],
+        Annotated[float, Field(ge=-1.5, le=1.5)],
     ]
     size: tuple[PartSize, PartSize, PartSize]
     rotation: tuple[PartAngle, PartAngle, PartAngle] = (0, 0, 0)
@@ -75,8 +75,6 @@ class Scene(StoryModel):
 
     @model_validator(mode="after")
     def validate_cast_and_cues(self):
-        if len({prop.position for prop in self.props}) != len(self.props):
-            raise ValueError("Each scene prop needs a different position.")
         cast = {performance.character for performance in self.performances}
         if len(cast) != len(self.performances):
             raise ValueError("A character can have only one performance per scene.")
@@ -134,6 +132,7 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
                     "Scene durations must sum exactly to the requested duration. Include both characters, "
                     "short dialogue (for a story under 15 seconds, exactly one short line per character "
                     "and one scene), and one sound cue. Use an empty narration string if none is needed. "
+                    "Set entrance to false unless the action is walk. "
                     "Build physical objects requested by the user as scene props in the relevant scenes, "
                     "even if characters also mention them in dialogue. Invent a recognizable low-poly "
                     "design for each object using colored geometric parts, with no preset object catalog. "
@@ -155,7 +154,14 @@ def generate_story(idea: str, duration: int, url: str, model: str) -> Story:
     try:
         with urlopen(request, timeout=180) as response:
             content = json.load(response)["message"]["content"]
-        story = Story.model_validate_json(content)
+        # Older and smaller models sometimes request an entrance with an
+        # incompatible action. Preserve the action the model chose.
+        data = json.loads(content)
+        for scene in data["scenes"]:
+            for performance in scene["performances"]:
+                if performance["action"] != "walk" and performance.get("entrance") is True:
+                    performance["entrance"] = False
+        story = Story.model_validate_json(json.dumps(data))
         if story.duration_seconds != duration:
             raise ValueError(f"Expected a {duration}-second story, got {story.duration_seconds}.")
     except (URLError, TimeoutError, KeyError, TypeError, ValidationError, ValueError) as exc:

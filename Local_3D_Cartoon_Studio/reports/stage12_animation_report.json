@@ -257,9 +257,19 @@
   "protected_files_checked": 168,
   "protected_files_changed": 0,
   "regressions": {
-    "dashboard": "pending",
-    "passed": 174,
-    "pre_push": "pending"
+    "dashboard": "passed",
+    "passed": 182,
+    "pre_push": {
+      "exit_code": 0,
+      "warnings": [
+        "Uncommitted changes",
+        "Tracked backup files"
+      ],
+      "skipped": 0,
+      "failed": 0,
+      "passed": 14
+    },
+    "warnings": 1
   },
   "limitations": [
     "Rigid joints and hands",

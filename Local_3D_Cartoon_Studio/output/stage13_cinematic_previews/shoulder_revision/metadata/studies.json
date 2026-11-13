@@ -1,0 +1,39 @@
+{
+  "engine": "BLENDER_WORKBENCH",
+  "resolution": [
+    640,
+    360
+  ],
+  "fps": 12,
+  "initialization_seconds": 0.12260109998169355,
+  "camera_presets": {
+    "over_shoulder": {
+      "position": [
+        -1.53,
+        1.46,
+        1.76
+      ],
+      "target": [
+        0.4,
+        0,
+        1.38
+      ],
+      "lens_mm": 39,
+      "subjects": [
+        "Aarav",
+        "Aanya"
+      ],
+      "projected_bounds": {
+        "Aanya_Head": [
+          0.2854188084602356,
+          0.310569167137146,
+          0.5418599247932434,
+          0.7471494078636169
+        ]
+      },
+      "render_seconds": 3.3273563999973703
+    }
+  },
+  "lighting_presets": {},
+  "camera_movements": {}
+}

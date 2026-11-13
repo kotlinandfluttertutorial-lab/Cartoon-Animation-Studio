@@ -10,9 +10,9 @@ from garden_utils import assign_material, create_material
 
 # The story camera looks from positive Y, so positive X is screen left.
 PROP_SLOTS = {
-    "screen_left": (1.85, 0.9),
-    "center": (0, 1.2),
-    "screen_right": (-1.85, 0.9),
+    "screen_left": (1.65, -0.1),
+    "center": (0, 0.15),
+    "screen_right": (-1.65, -0.1),
 }
 
 
@@ -24,7 +24,12 @@ def add_story_props(props):
         "cone": bpy.ops.mesh.primitive_cone_add,
         "torus": bpy.ops.mesh.primitive_torus_add,
     }
+    available_slots = PROP_SLOTS.copy()
     for prop in props:
+        slot = prop["position"]
+        if slot not in available_slots:
+            slot = next(iter(available_slots))
+        x, y = available_slots.pop(slot)
         meshes = []
         corners = []
         for index, part in enumerate(prop["parts"], 1):
@@ -47,9 +52,9 @@ def add_story_props(props):
         center = (minimum + maximum) / 2
         anchor = Vector((center.x, center.y, minimum.z))
         # Keep props in their own lanes and below the performers' faces.
-        width = 0.65 if prop["position"] == "center" else 0.95
+        width = 0.65 if slot == "center" else 0.95
         scale = min(1, width / span.x, 0.7 / span.y, 0.85 / span.z)
-        placement = Vector((*PROP_SLOTS[prop["position"]], 0.025))
+        placement = Vector((x, y, 0.025))
         for obj in meshes:
             obj.location = placement + scale * (obj.location - anchor)
             obj.scale *= scale
