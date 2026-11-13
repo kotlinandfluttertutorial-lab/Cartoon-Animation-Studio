@@ -1,6 +1,6 @@
 ﻿# Stage 8 manual review
 
-**Human visual and audio approval is pending.**
+**Human visual and audio sign-off recorded.** The user confirmed “I approve Stage 8.”
 
 Review `output/first_cartoon/final_video.mp4` from beginning to end with audio enabled. Turn on subtitles in the player if they are hidden.
 

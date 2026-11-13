@@ -165,6 +165,7 @@ def assemble(output, scenes, timing_fps, profile, settings):
     audio_directory = output / "audio"
     audio_directory.mkdir(exist_ok=True)
     tracks = []
+    audio_tracks = []
     for index, (plan, audio, _) in enumerate(scenes, 1):
         directory = output / "scenes" / f"scene_{index:02}"
         segment = directory / "segment.mp4"
@@ -179,16 +180,30 @@ def assemble(output, scenes, timing_fps, profile, settings):
             "-af", f"apad=whole_dur={plan.duration_seconds},afade=t=in:d=0.1,afade=t=out:st={plan.duration_seconds - 0.15}:d=0.15",
             str(segment),
         ])
-        tracks.append(f"file 'scenes/scene_{index:02}/segment.mp4'")
+        tracks.extend((f"file 'scenes/scene_{index:02}/segment.mp4'", f"duration {plan.duration_seconds}"))
+        # Concatenate PCM before encoding AAC so encoder padding occurs only once.
+        normalized = audio_directory / f"scene_{index:02}_master.wav"
+        invoke(ffmpeg + [
+            "-y", "-i", str(scene_audio), "-t", str(plan.duration_seconds),
+            "-ar", "44100", "-ac", "1",
+            "-af", f"apad=whole_dur={plan.duration_seconds},afade=t=in:d=0.1,afade=t=out:st={plan.duration_seconds - 0.15}:d=0.15",
+            str(normalized),
+        ])
+        audio_tracks.append(f"file 'audio/{normalized.name}'")
     playlist = output / "segments.txt"
     playlist.write_text("\n".join(tracks) + "\n", encoding="ascii")
+    audio_playlist = output / "audio_segments.txt"
+    audio_playlist.write_text("\n".join(audio_tracks) + "\n", encoding="ascii")
     muxed = output / "assembly.partial.mp4"
-    args = ffmpeg + ["-y", "-f", "concat", "-safe", "1", "-i", str(playlist)]
+    args = ffmpeg + [
+        "-y", "-f", "concat", "-safe", "1", "-i", str(playlist),
+        "-f", "concat", "-safe", "1", "-i", str(audio_playlist),
+    ]
     if captions:
-        args += ["-i", str(subtitles_path), "-map", "0:v", "-map", "0:a", "-map", "1:s", "-c:s", "mov_text"]
+        args += ["-i", str(subtitles_path), "-map", "0:v", "-map", "1:a", "-map", "2:s", "-c:s", "mov_text"]
     else:
-        args += ["-map", "0:v", "-map", "0:a"]
-    invoke(args + ["-c:v", "copy", "-c:a", "copy", "-movflags", "+faststart", str(muxed)])
+        args += ["-map", "0:v", "-map", "1:a"]
+    invoke(args + ["-c:v", "copy", "-c:a", "aac", "-movflags", "+faststart", str(muxed)])
     metadata = json.loads(invoke([
         settings.ffprobe_executable, "-v", "error", "-count_frames", "-show_streams",
         "-show_format", "-of", "json", str(muxed),

@@ -15,4 +15,14 @@ A pilot render exposed a closing-shot obstruction and detached arms in the dance
 - `output/first_cartoon/production_report.md`
 - `reports/stage8_manual_review.md`
 
-The render uses Blender Workbench and is intended for local review. Human visual and audio approval remains pending.
+The render uses Blender Workbench. The user approved the Stage 8 export for visual and audio sign-off.
+
+## Final verification
+
+The 45-second export contains 1,080 frames at 1280 × 720 and 24 fps, with H.264 video, AAC audio, and eight selectable subtitle cues. The PNG sequences passed integrity checks and FFmpeg detected zero black frames. Sampled voice segments from all six scenes matched the source mix with no measured offset. The initial assembly accumulated AAC padding at scene boundaries. The final assembly joins the PCM scene mixes and encodes AAC once.
+
+The resume check retained five intact frames and rendered the remaining 1,075. All 164 source asset hashes matched. The resumed render and initial assembly took 495.97 seconds. Peak memory could not be measured.
+
+FFprobe reports that the video stream starts 23 ms after the audio stream. The measured source-to-export audio offsets above concern the audio track itself. Mouth timing remains approximate.
+
+The final regression suite passed 182 tests with zero failures, errors, or skips. `check_before_push.py` exited 0 with 14 checks passed and two warnings for uncommitted changes and tracked backup files.
