@@ -40,6 +40,7 @@ output_dir = args[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import bpy
 from facial_preview import mouth_surface, setup_preview, viseme_pose
+from studio.dialogue.expression_library import apply_expression, restore_expression
 from studio.dialogue.mouth_shapes import BLINK_DURATION_FRAMES
 
 # ---------------------------------------------------------------------------
@@ -66,6 +67,12 @@ if mouth_obj is None:
     print(f"ERROR: mouth object '{mouth_obj_name}' not found in scene")
     sys.exit(1)
 
+# Set up the scene before recording the expression's eye scales.
+scene = setup_preview(char_name)
+scene.render.fps = fps
+emotion = lipsync.get("emotion", "neutral")
+saved_expression = apply_expression(char_name, emotion)
+
 # Eye objects for blink
 # ---------------------------------------------------------------------------
 eye_scales = {
@@ -73,12 +80,6 @@ eye_scales = {
     for suffix in ("Eye_L", "Eye_R", "Iris_L", "Iris_R")
     if (obj := bpy.data.objects.get(f"{char_name}_{suffix}")) is not None
 }
-
-# ---------------------------------------------------------------------------
-# Scene / render setup
-# ---------------------------------------------------------------------------
-scene = setup_preview(char_name)
-scene.render.fps = fps
 
 # Output directory
 os.makedirs(output_dir, exist_ok=True)
@@ -119,11 +120,13 @@ for frame_num in range(1, total_frames + 1):
     # Render
     output_path = os.path.join(output_dir, f"frame_{frame_num:04d}.png")
     scene.render.filepath = output_path
-    with viseme_pose(mouth_obj, viseme), mouth_surface(char_name, viseme):
+    profile = emotion if viseme == "REST" else viseme
+    with viseme_pose(mouth_obj, viseme), mouth_surface(char_name, profile):
         bpy.ops.render.render(write_still=True)
     rendered_count += 1
 
 apply_blink(0.0)
+restore_expression(saved_expression)
 
 print(f"\n=== LIPSYNC RENDER SUMMARY ===")
 print(f"Character  : {char_name}")

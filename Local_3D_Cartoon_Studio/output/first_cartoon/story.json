@@ -1,0 +1,192 @@
+{
+  "title": "Two Friends in the Magical Garden",
+  "duration_seconds": 45,
+  "characters": [
+    "Aarav",
+    "Aanya"
+  ],
+  "scenes": [
+    {
+      "title": "The garden wakes",
+      "duration_seconds": 5,
+      "camera": "approach",
+      "performances": [],
+      "narration": "In the magical garden, two birds danced above the flowers.",
+      "dialogue": [],
+      "sound_effects": [
+        {
+          "effect": "bird_chirp",
+          "at_seconds": 3
+        }
+      ]
+    },
+    {
+      "title": "Aarav follows the song",
+      "duration_seconds": 7,
+      "camera": "wide",
+      "performances": [
+        {
+          "character": "Aarav",
+          "action": "walk",
+          "expression": "thinking",
+          "entrance": true
+        }
+      ],
+      "narration": "",
+      "dialogue": [
+        {
+          "character": "Aarav",
+          "text": "What a lovely sound! Is someone singing in the garden?",
+          "emotion": "thinking"
+        }
+      ],
+      "sound_effects": [
+        {
+          "effect": "bird_chirp",
+          "at_seconds": 4
+        }
+      ]
+    },
+    {
+      "title": "Aanya joins the garden",
+      "duration_seconds": 7,
+      "camera": "medium",
+      "performances": [
+        {
+          "character": "Aarav",
+          "action": "idle",
+          "expression": "happy",
+          "entrance": false
+        },
+        {
+          "character": "Aanya",
+          "action": "walk",
+          "expression": "happy",
+          "entrance": true
+        }
+      ],
+      "narration": "",
+      "dialogue": [
+        {
+          "character": "Aanya",
+          "text": "That is the birds, Aarav! They sing when the garden wakes up.",
+          "emotion": "happy"
+        }
+      ],
+      "sound_effects": []
+    },
+    {
+      "title": "Friends say hello",
+      "duration_seconds": 8,
+      "camera": "close",
+      "performances": [
+        {
+          "character": "Aarav",
+          "action": "wave",
+          "expression": "happy",
+          "entrance": false
+        },
+        {
+          "character": "Aanya",
+          "action": "greeting",
+          "expression": "surprised",
+          "entrance": false
+        }
+      ],
+      "narration": "",
+      "dialogue": [
+        {
+          "character": "Aarav",
+          "text": "Hi, Aanya! Look how they flap their wings.",
+          "emotion": "excited"
+        },
+        {
+          "character": "Aanya",
+          "text": "Let's make up a little dance and join them!",
+          "emotion": "happy"
+        }
+      ],
+      "sound_effects": [
+        {
+          "effect": "bird_chirp",
+          "at_seconds": 5
+        }
+      ]
+    },
+    {
+      "title": "The garden dance",
+      "duration_seconds": 10,
+      "camera": "follow",
+      "performances": [
+        {
+          "character": "Aarav",
+          "action": "dance",
+          "expression": "happy",
+          "entrance": false
+        },
+        {
+          "character": "Aanya",
+          "action": "dance",
+          "expression": "happy",
+          "entrance": false
+        }
+      ],
+      "narration": "",
+      "dialogue": [
+        {
+          "character": "Aanya",
+          "text": "Sway this way, then that way. We are dancing with the birds!",
+          "emotion": "happy"
+        }
+      ],
+      "sound_effects": [
+        {
+          "effect": "chime",
+          "at_seconds": 3
+        },
+        {
+          "effect": "bird_chirp",
+          "at_seconds": 6
+        }
+      ]
+    },
+    {
+      "title": "See you tomorrow",
+      "duration_seconds": 8,
+      "camera": "pullback",
+      "performances": [
+        {
+          "character": "Aarav",
+          "action": "wave",
+          "expression": "happy",
+          "entrance": false
+        },
+        {
+          "character": "Aanya",
+          "action": "wave",
+          "expression": "happy",
+          "entrance": false
+        }
+      ],
+      "narration": "",
+      "dialogue": [
+        {
+          "character": "Aarav",
+          "text": "Goodbye, little birds. See you tomorrow!",
+          "emotion": "happy"
+        },
+        {
+          "character": "Aanya",
+          "text": "And we will bring a new dance!",
+          "emotion": "excited"
+        }
+      ],
+      "sound_effects": [
+        {
+          "effect": "chime",
+          "at_seconds": 6
+        }
+      ]
+    }
+  ]
+}
